@@ -1,19 +1,23 @@
-.content{
+.content {
   display: flex;
   justify-content: space-between;
 }
+
 .logo {
   font-size: 2rem;
   font-weight: bold;
 }
+
 .logo span {
   color: #9c490c;
 }
-.logo img{
+
+.logo img {
   width: 218.951px;
   height: 86.044px;
   flex-shrink: 0;
 }
+
 .btn-connexion {
   width: 136.605px;
   height: 37px;
@@ -26,24 +30,29 @@
   border-radius: 8px;
   background: var(--third, #020202);
 }
+
 .form-container {
   max-width: 400px;
-  margin-left: 13vh;
+  margin: 0 auto;
+}
+.form-control{
+  margin-top: -0.5vh !important;
 }
 .btn-inscription {
   background-color: #9c490c;
   color: #fff;
   border: none;
 }
+
 .right-content {
-  float: right;
-  margin-top: 1vh;
-  position: relative; /* Nécessaire pour positionner l'overlay */
+  position: relative;
+  height: 99.5vh;
 }
 
 .right-content img {
-  width: 600px;
-  height: 800px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .overlay {
@@ -52,7 +61,31 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Ajustez l'opacité ici */
-  z-index: 1; /* Assurez-vous que la superposition est au-dessus de l'image */
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
+@media (max-width: 767px) {
+  .form-container {
+    margin-left: 0;
+    margin-top: -8vh;
+  }
+
+  .logo, .btn-connexion {
+    margin-bottom: 1rem;
+  }
+  .logo img {
+    width: 110.951px;
+    height: 40.044px;
+    flex-shrink: 0;
+  }
+  .content {
+    flex-direction: column;
+  }
+  .btn-connexion {
+  width: 136.605px;
+  height: 33px;
+  padding: 4px 12px;
+  font-weight: bold;
+}
+}
