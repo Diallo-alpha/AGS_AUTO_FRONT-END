@@ -16,12 +16,12 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center horizontally */
+  justify-content: center;
 }
 
 .hero-content {
   width: 100%;
-  text-align: center; /* Center the content */
+  text-align: center;
 }
 
 h1 {
@@ -109,8 +109,8 @@ h1 {
   margin-bottom: 5px;
 }
 .card-text {
-  font-size: 12px;
-  color: #6c757d;
+  font-size: 14px;
+  color: #020202;
 }
 .btn-voir-plus {
   background-color: #8B4513;
@@ -125,10 +125,168 @@ h1 {
 }
 .voir-plus-link {
   text-align: right;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .voir-plus-link a {
   color: #8B4513;
   text-decoration: none;
   font-size: 14px;
+}
+/*services-section
+*/
+.service-card {
+  background-color: white;
+  border: none;
+  border-radius: 0;
+  width: 250px;
+  height: 400px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.service-card img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5;
+  margin-bottom: 0;
+}
+.service-title {
+  margin-top: -1vh !important;
+  color: #9C490C;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 0.5vh;
+}
+.service-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #020202;
+  text-align: center;
+}
+.voir-plus {
+  color: #9C490C;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 0.5vh;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+/* témoignage */
+.testimonial{
+  background-color: #020202 !important;
+}
+.testimonial-card {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.testimonial-text {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+.testimonial-author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.testimonial-author-name {
+  font-weight: bold;
+}
+.carousel-indicators {
+  bottom: -20vh;
+}
+.carousel-indicators .dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFFF;
+  display: inline-block;
+  margin: 0 5px;
+}
+.carousel-indicators .dot.active {
+  background-color: #9C490C;
+}
+/*ARticle*/
+.blog-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.image-orange{
+  text-align: center;
+  margin-top: -1.5vh;
+}
+.blog-description {
+  font-size: 15px;
+  color: #020202;
+  margin-bottom: 30px;
+}
+.card {
+  border: none;
+  background-color: transparent;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #9C490C;
+}
+.card-text {
+  font-size: 14px;
+  color: #020202;
+}
+.btn-link {
+  font-size: 16px;
+  color: #9C490C;
+  padding: 0;
+  text-decoration: none;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+/* Nos partenaire */
+.partner-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.partner-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #ffd700;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.partner-icon i {
+  font-size: 40px;
+  color: white;
+}
+.contact-btn {
+  background-color: #9C490C;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-top: -15vh !important;
+  font-weight: bold;
 }
