@@ -1,0 +1,68 @@
+
+.container-fluid {
+  height: 100%;
+}
+.row {
+  height: 100%;
+}
+.left-side {
+  background: url('/assets/images/auto-connexion.png') no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  color: rgba(0, 0, 0, 2) !important;
+  z-index: -1;
+}
+.right-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+}
+.login-form {
+  width: 100%;
+  max-width: 400px;
+}
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.logo span {
+  color: #9c490c;
+}
+h2 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+p {
+  font-size: 14px;
+  color: #020202;
+  margin-bottom: 20px;
+}
+.form-control {
+  margin-bottom: 15px;
+}
+.btn-primary {
+  background-color: #9c490c;
+  border-color: #9c490c;
+  width: 100%;
+}
+.btn-primary:hover {
+  background-color: #020202;
+}
+.signup {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.signup a {
+  color: #9c490c;
+  text-decoration: none;
+}
+@media (max-width: 767.98px) {
+  .right-side {
+      padding: 20px; /* Réduisez le padding sur les petits écrans */
+  }
+  .left-side {
+    display: none;
+  }
+}
