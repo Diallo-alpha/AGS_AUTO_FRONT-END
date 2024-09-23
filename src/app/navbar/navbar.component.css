@@ -1,40 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-body{
+body {
   font-family: 'Montserrat', sans-serif;
 }
+
+img {
+  max-width: 40%;
+  height: auto;
+}
+
 .navbar {
   background-color: white;
 }
+
 .navbar-brand {
   font-size: 2rem;
   font-weight: bold;
 }
+
 .navbar-brand span:first-child {
   color: black;
 }
+
 .navbar-brand span:last-child {
   color: #9C490C;
 }
+
 .nav-link {
   color: #9C490C !important;
   font-weight: bold;
 }
+
+.nav-link:hover {
+  color: black !important;
+}
+
 .btn-connexion {
   color: #9C490C;
   font-weight: bold;
   margin-right: 10px;
+}
+.btn-connexion:hover{
+  color: white;
+  background-color: black;
 }
 .btn-inscription {
   background-color: #9C490C;
   color: white;
   font-weight: bold;
 }
+
+.btn-inscription:hover {
+  color: white;
+  background-color: #020202;
+}
+
 .cart-icon {
   position: relative;
   font-size: 1.2rem;
   margin-right: 15px;
   color: #9C490C;
 }
+
 .cart-badge {
   position: absolute;
   top: -8px;
@@ -44,4 +70,23 @@ body{
   border-radius: 50%;
   padding: 0.2rem 0.5rem;
   font-size: 0.7rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .navbar-nav {
+    text-align: left;
+  }
+
+  .btn-connexion, .btn-inscription {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .cart-icon {
+    margin: 10px 0;
+  }
 }
