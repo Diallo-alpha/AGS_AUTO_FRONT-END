@@ -173,6 +173,16 @@ h2 {
   font-weight: bold;
   margin-bottom: 20px;
 }
+/* Styles pour mobile */
+@media (max-width: 576px) {
+  .service-card {
+    width: 100%; /* Prend toute la largeur sur mobile */
+  }
+
+  .service-title, .service-text, .voir-plus {
+    font-size: 12px; /* Réduire la taille de la police pour mobile */
+  }
+}
 /* témoignage */
 .testimonial{
   background-color: #020202 !important;
@@ -219,6 +229,12 @@ h2 {
 }
 .carousel-indicators .dot.active {
   background-color: #9C490C;
+}
+/* mobille */
+@media (max-width: 576px) {
+  .testimonial {
+    display: none; /* Cache la section */
+  }
 }
 /*ARticle*/
 .blog-title {
