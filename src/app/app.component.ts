@@ -5,11 +5,13 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { FormationComponent } from './formation/formation.component';
+import { NavConnectComponent } from './nav-connect/nav-connect.component';
+import { CoursComponent } from './cours/cours.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AccueilComponent, InscriptionComponent, ConnexionComponent, FormationComponent, DetailformationComponent],
+  imports: [RouterOutlet, CoursComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
