@@ -1,0 +1,120 @@
+.course-header {
+  position: relative;
+  color: white;
+  padding: 50px 0;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/assets/images/ecuprog 1.svg') no-repeat center center;
+  background-size: cover;
+  height: 37vh;
+}
+.text-header{
+  font-weight: bolder;
+  justify-content: center;
+  align-self: center;
+  color: rgba(255,255,255,0.8);
+}
+.description{
+  font-weight: bold;
+  font-size: 16px;
+}
+.objectives{
+  color: #020202;
+  font-size: 16px;
+}
+h2{
+  font-size: 20px;
+  font-weight: bolder;
+}
+#cours-title{
+  color:#9c490c !important;
+  font-size: 24px !important;
+}
+.coure-content {
+  width: 650px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.content-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #dee2e6;
+}
+.content-item:last-child {
+  border-bottom: none;
+}
+.preview-link {
+  color: #9c490c;
+  font-weight: bold;
+}
+.reviews{
+  margin-top: 23vh;
+  margin-left: -80px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+}
+.review {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.review img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.buy-cart{
+  margin-left: 10vh;
+}
+.btn-buy {
+  margin-top: 10px;
+  background-color: #9c490c;
+  border: none;
+  color: white;
+  font-weight: bold;
+  width: 250px;
+}
+@media (max-width: 768px) {
+  main{
+    overflow-x: hidden;
+  }
+  .course-content, .buy-cart {
+    width: 100%;
+  }
+
+  .reviews {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+
+  .buy-cart {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .course-header {
+    height: auto;
+    padding: 20px 0;
+  }
+
+  h1.display-5 {
+    font-size: 1.5rem;
+  }
+
+  .course-content {
+    padding: 15px;
+  }
+
+  .buy-cart {
+    margin-top: 20px;
+  }
+  .reviews{
+    margin-top: 50px;
+  }
+}

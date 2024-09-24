@@ -1,3 +1,4 @@
+import { DetailformationComponent } from './detailformation/detailformation.component';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AccueilComponent } from './accueil/accueil.component';
@@ -8,7 +9,7 @@ import { FormationComponent } from './formation/formation.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AccueilComponent, InscriptionComponent, ConnexionComponent, FormationComponent],
+  imports: [RouterOutlet, AccueilComponent, InscriptionComponent, ConnexionComponent, FormationComponent, DetailformationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
