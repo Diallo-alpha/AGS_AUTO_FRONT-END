@@ -1,0 +1,95 @@
+<app-navbar />
+<!-- Section Héro -->
+<section class="hero-section">
+  <div class="hero-overlay">
+    <div class="container hero-content">
+      <h1 class="mb-4">ARTICLE TITRE</h1>
+      <div class="search-container">
+        <div class="input-group mb-3">
+          <!-- Input group ici -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contenu -->
+<section class="contenu">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-content">
+        <p>
+          Seamlessly syndicate cutting-edge architectures rather than collaborative collaboration and idea-sharing. Proactively incubate visionary interfaces whereas premium benefits. Seamlessly negotiate ubiquitous leadership skills rather than parallel ideas. Dramatically visualize superior interfaces for best-of-breed alignments. Synergistically formulate performance based users through customized relationships. Interactively deliver cross-platform ROI via granular systems. Intrinsicly enhance effective initiatives vis-a-vis orthogonal outsourcing. Rapidiously monetize market-driven opportunities with multifunctional users. Collaboratively enhance visionary opportunities through revolutionary schemas. Progressively network just in time customer service without real-time scenarios.
+          Synergistically drive e-business leadership with unique synergy. Compellingly seize market positioning ROI and bricks-and-clicks e-markets. Proactively myocardinate timely platforms through distributed ideas. Professionally optimize enabled core competencies for leading-edge sources. Professionally enhance stand-alone leadership with innovative synergy. Rapidiously generate backend experiences vis-a-vis long-term high-impact relationships.
+          Efficiently empower seamless meta-services with impactful opportunities. Distinctively transition virtual outsourcing with focused e-tailers.
+          Compellingly enhance seamless resources through competitive content. Continually actualize 24/365 alignments for resource-leveling platforms. Energistically enhance high standards in models and professional expertise. Intrinsicly iterate extensible metrics for prospective opportunities. Continually develop leading-edge experiences through quality e-services.
+         </p>
+      </div>
+    </div>
+    <!-- Bouton pour ouvrir la modal -->
+    <button type="button" class="btn btn-primary btn-comment" data-bs-toggle="modal" data-bs-target="#commentModal">
+      commentaire
+    </button>
+  </div>
+</section>
+<br>
+<br>
+<hr class="justify-content-center">
+<!-- list commentaire -->
+<div class="container d-flex justify-content-center list-comment">
+  <div class="container-comment list-commentaire">
+    <h3>Nom</h3>
+    <div class="container position-relative">
+      <p>
+        Dag Kim, wat heb je ondertussen reeds gedaan? Heb je reeds een opleiding achter de rug, of een job? Wat tegenwoordig ook mogelijk is, is om in het hoger onderwijs een creditcontract aan te gaan voor de vakken die je wil volgen. Je hoeft dus niet het hele programma te volgen, maar je kan per ingeschreven vak een creditbewijs behalen. Misschien een mooie om eens verder over na te denken?
+      </p>
+      <p class="date">Geschreven op 21 feb 2009 om 18:47</p>
+    </div>
+  </div>
+  <div class="container-comment list-commentaire">
+    <h3>Nom</h3>
+    <div class="container position-relative">
+      <p>
+        Dag Kim, wat heb je ondertussen reeds gedaan? Heb je reeds een opleiding achter de rug, of een job? Wat tegenwoordig ook mogelijk is, is om in het hoger onderwijs een creditcontract aan te gaan voor de vakken die je wil volgen. Je hoeft dus niet het hele programma te volgen, maar je kan per ingeschreven vak een creditbewijs behalen. Misschien een mooie om eens verder over na te denken?
+      </p>
+      <p class="date">Geschreven op 21 feb 2009 om 18:47</p>
+    </div>
+  </div>
+  <div class="container-comment list-commentaire">
+    <h3>Nom</h3>
+    <div class="container position-relative">
+      <p>
+        Dag Kim, wat heb je ondertussen reeds gedaan? Heb je reeds een opleiding achter de rug, of een job? Wat tegenwoordig ook mogelijk is, is om in het hoger onderwijs een creditcontract aan te gaan voor de vakken die je wil volgen. Je hoeft dus niet het hele programma te volgen, maar je kan per ingeschreven vak een creditbewijs behalen. Misschien een mooie om eens verder over na te denken?
+      </p>
+      <p class="date">Geschreven op 21 feb 2009 om 18:47</p>
+    </div>
+  </div>
+</div>
+<!-- Modal pour les commentaires -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentModalLabel">Donnez votre avis sur l'article</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group mb-3">
+            <input type="text" class="form-control" placeholder="Votre nom *" required>
+          </div>
+          <div class="form-group mb-3">
+            <input type="email" class="form-control" placeholder="Email *" required>
+          </div>
+          <div class="form-group mb-3">
+            <textarea class="form-control" rows="4" placeholder="Votre commentaire *" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-comment" id="modal-btn">Envoyer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer/>

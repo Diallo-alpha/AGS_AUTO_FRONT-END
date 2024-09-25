@@ -9,11 +9,12 @@ import { NavConnectComponent } from './nav-connect/nav-connect.component';
 import { CoursComponent } from './cours/cours.component';
 import { DetailServiceComponent } from './detail-service/detail-service.component';
 import { ArticleComponent } from './article/article.component';
+import { DetailArticleComponent } from './detail-article/detail-article.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ArticleComponent],
+  imports: [RouterOutlet, DetailArticleComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
