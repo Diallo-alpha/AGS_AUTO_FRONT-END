@@ -10,11 +10,12 @@ import { CoursComponent } from './cours/cours.component';
 import { DetailServiceComponent } from './detail-service/detail-service.component';
 import { ArticleComponent } from './article/article.component';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
+import { ContactComponent } from './contact/contact.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, DetailArticleComponent],
+  imports: [RouterOutlet, ContactComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
