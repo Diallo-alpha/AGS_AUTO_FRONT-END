@@ -81,6 +81,9 @@ textarea{
   border: 0;
   display: block;
 }
+.right-side img{
+  max-height: 435px !important;
+}
 
 @media (max-width: 768px) {
   h1 {
