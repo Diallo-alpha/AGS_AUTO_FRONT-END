@@ -1,0 +1,142 @@
+<div class="container-fluid">
+  <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-2 d-none d-md-block sidebar">
+          <div class="position-sticky">
+              <div class="mb-4 px-3">
+                  <h3 class="text-white">AGSO</h3>
+              </div>
+              <ul class="nav flex-column">
+                  <li class="nav-item">
+                      <a class="nav-link active" href="#">
+                          <i class="fas fa-th-large"></i>
+                          Dashboard
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <div class="section-title">MÉCANIQUE</div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-graduation-cap"></i>
+                          Formations
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-newspaper"></i>
+                          Articles
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-cogs"></i>
+                          Services
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-video"></i>
+                          Vidéos
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-handshake"></i>
+                          Partenaires
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <div class="section-title">E-COMMERCE</div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-box"></i>
+                          Produits
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-list"></i>
+                          Categories
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-shopping-cart"></i>
+                          Commandes
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-credit-card"></i>
+                          Paiements
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <div class="section-title">UTILISATEURS</div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-user"></i>
+                          Profile
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-user-tag"></i>
+                          Roles
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-key"></i>
+                          Permissions
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">
+                          <i class="fas fa-cog"></i>
+                          Paramètres
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+      <!-- Contenu du main  -->
+      <main class="col-md-10 ms-sm-auto px-md-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">nom admin</a>
+            <div class="d-flex">
+              <div class="position-relative me-3" (click)="openNotificationsModal()">
+                <i class="fas fa-bell"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  1
+                </span>
+              </div>
+              <img alt="Admin profile picture" class="rounded-circle" height="40" src="https://replicate.delivery/yhqm/wRrBp9WdiV7hO5sKdXxE4LzeNmyZdCYNKxcGVdjwgCNTITwJA/out-0.png" width="40"/>
+            </div>
+          </div>
+        </nav>
+      </main>
+  </div>
+</div>
+
+<!-- Modal  -->
+<ng-template #notificationsModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Notifications</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <ul class="list-group">
+      <li class="list-group-item">Nouvelle commande reçue</li>
+      <li class="list-group-item">Mise à jour du système disponible</li>
+      <li class="list-group-item">Nouveau message de support</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
+  </div>
+</ng-template>
