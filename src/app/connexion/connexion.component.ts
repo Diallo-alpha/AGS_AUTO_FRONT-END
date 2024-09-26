@@ -34,9 +34,14 @@ export class ConnexionComponent implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
-        next: () => {
+        next: (response) => {
           console.log('Connexion réussie');
-          this.router.navigate(['']);
+          // Vérifier le rôle de l'utilisateur
+          if (response.user && response.user.role === 'admin') {
+            this.router.navigate(['dashboard/statique']);
+          } else {
+            this.router.navigate(['']); // Redirection par défaut pour les utilisateurs simple
+          }
         },
         error: (error) => {
           console.error('Erreur de connexion', error);

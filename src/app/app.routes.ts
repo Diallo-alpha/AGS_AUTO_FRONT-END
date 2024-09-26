@@ -9,6 +9,8 @@ import { DetailformationComponent } from './detailformation/detailformation.comp
 import { DetailServiceComponent } from './detail-service/detail-service.component';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
 import { AchatComponent } from './achat/achat.component';
+import { StatiqueComponent } from './dashboard/statique/statique.component';
+import { ListFormationComponent } from './dashboard/list-formation/list-formation.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -21,7 +23,8 @@ export const routes: Routes = [
   {path: 'detail-article', component:DetailArticleComponent},
   {path: 'contact', component:ContactComponent},
   {path: 'detail-service', component:DetailServiceComponent},
-  {path: 'boutique', component:AchatComponent}
-
+  {path: 'boutique', component:AchatComponent},
+  {path: 'dashboard/statique', component:StatiqueComponent},
+  {path: 'dashboard/formation', component:ListFormationComponent}
 
 ];
