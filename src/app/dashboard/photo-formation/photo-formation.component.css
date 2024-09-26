@@ -1,0 +1,26 @@
+.navbar{
+  margin-top: -95vh;
+}
+.btn-primary{
+  background-color: #9C490C !important;
+  border: none !important;
+}
+.table th, .table td {
+  border-top: none;
+  border-bottom: 1px solid #b76e00;
+}
+.table th {
+  text-transform: uppercase;
+}
+.table .btn {
+  background-color: #b76e00;
+  color: #fff;
+  margin-right: 3px;
+}
+.table .btn-view {
+  background-color: #000;
+}
+.pagination .page-item.active .page-link {
+  background-color: #9C490C;
+  border-color: #9C490C;
+}

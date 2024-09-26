@@ -12,6 +12,8 @@ import { AchatComponent } from './achat/achat.component';
 import { StatiqueComponent } from './dashboard/statique/statique.component';
 import { ListFormationComponent } from './dashboard/list-formation/list-formation.component';
 import { AjoutFormationComponent } from './dashboard/ajout-formation/ajout-formation.component';
+import { PhotoFormationComponent } from './dashboard/photo-formation/photo-formation.component';
+import { AjoutPhotoComponent } from './dashboard/ajout-photo/ajout-photo.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -27,6 +29,9 @@ export const routes: Routes = [
   {path: 'boutique', component:AchatComponent},
   {path: 'dashboard/statique', component:StatiqueComponent},
   {path: 'dashboard/formation', component:ListFormationComponent},
-  {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent}
+  {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent},
+  //Routes pour les photos de formation
+  {path: 'dashboard/photos/formation', component:PhotoFormationComponent},
+  {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent}
 
 ];

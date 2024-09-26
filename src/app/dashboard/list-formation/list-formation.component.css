@@ -12,6 +12,11 @@ main{
 }
 .btn-primary{
   float: right;
+  margin-right: 10px;
+}
+.btn-primary:hover{
+  background-color: #020202 !important;
+  color: white !important;
 }
 .content {
   background-color: #f4f4f4;

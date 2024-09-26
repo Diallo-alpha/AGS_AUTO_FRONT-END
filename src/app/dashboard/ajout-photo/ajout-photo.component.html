@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <app-sidbar></app-sidbar>
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2"></div>
+    <div class="container">
+      <div class="form-container">
+          <div class="form-title">Ajouter une photo</div>
+          <form>
+              <div class="row mb-3">
+                  <div class="col">
+                      <label for="name" class="form-label">Nom</label>
+                      <input type="text" class="form-control" id="name">
+                  </div>
+                  <div class="col">
+                      <label for="photos" class="form-label">Photos</label>
+                      <input type="file" class="form-control" id="photos">
+                  </div>
+              </div>
+              <div class="mb-3">
+                  <label for="formation" class="form-label">formation</label>
+                  <select class="form-select" id="formation">
+                      <option selected>Choisir une formation</option>
+                      <option value="1">Option 1</option>
+                      <option value="2">Option 2</option>
+                      <option value="3">Option 3</option>
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-custom">Ajouter</button>
+          </form>
+      </div>
+  </div>
+  </div>
