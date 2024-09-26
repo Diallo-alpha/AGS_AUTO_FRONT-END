@@ -8,7 +8,7 @@
 .navbar {
   position: fixed;
   top: 0;
-  width: calc(96% - 200px);
+  width: calc(98.5% - 200px);
   z-index: 1000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -23,13 +23,23 @@
 .main-content {
   background-color: #f4f4f4;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh !important;
 }
 .navbar {
   background-color: white;
-  margin-top: 2vh;
+  margin-left: -2.8vh;
+  margin-top: 0.95vh;
+
 }
 .sidebar .nav-item .nav-link {
   padding-left: 30px;
+
+}
+.rounded-circle{
+  margin-right: 15px !important;
 
 }
 .sidebar .nav-item .nav-link i {
@@ -54,6 +64,17 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 15px; /* 93.75% */
+  line-height: 15px;
   }
+ main i {
+  margin-top: 50% !important;
+ }
+ .nav-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-right: 8vh;
+  font-size: 20px;
+}
 
