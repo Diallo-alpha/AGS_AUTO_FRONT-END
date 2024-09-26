@@ -1,30 +1,39 @@
 <div class="container-fluid">
   <div class="row">
-      <div class="col-md-6 p-0 left-side"></div>
-      <div class="col-md-6 right-side">
-          <div class="login-form">
-              <div class="logo"><span><img src="assets/images/Logo.svg" alt=""></span></div>
-              <h2>Connectez-vous à votre compte</h2>
-              <p>connectez-vous avec vos identifiants</p>
-              <form (ngSubmit)="onSubmit()">
-                  <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email"
-                             [(ngModel)]="email" name="email" required
-                             placeholder="nom@example.com">
-                  </div>
-                  <div class="mb-3">
-                      <label for="password" class="form-label">Mot de passe</label>
-                      <input type="password" class="form-control" id="password"
-                             [(ngModel)]="password" name="password" required
-                             placeholder="••••••••">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Connexion</button>
-              </form>
-              <div class="signup">
-                Vous n'avez pas de compte ? <a routerLink="/inscription">Inscription</a>
-              </div>
+    <div class="col-md-6 p-0 left-side"></div>
+    <div class="col-md-6 right-side">
+      <div class="login-form">
+        <div class="logo"><span><img src="assets/images/Logo.svg" alt="Logo"></span></div>
+        <h2>Connectez-vous à votre compte</h2>
+        <p>Connectez-vous avec vos identifiants</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email"
+                   formControlName="email"
+                   placeholder="nom@example.com">
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+              Veuillez entrer une adresse email valide.
+            </div>
           </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="password"
+                   formControlName="password"
+                   placeholder="••••••••">
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+              Le mot de passe doit contenir au moins 6 caractères.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Connexion</button>
+        </form>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+          {{ errorMessage }}
+        </div>
+        <div class="signup">
+          Vous n'avez pas de compte ? <a routerLink="/inscription">Inscription</a>
+        </div>
       </div>
+    </div>
   </div>
 </div>
