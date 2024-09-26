@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { DetailformationComponent } from './detailformation/detailformation.component';
 import { DetailServiceComponent } from './detail-service/detail-service.component';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
+import { AchatComponent } from './achat/achat.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -19,7 +20,8 @@ export const routes: Routes = [
   {path: 'article', component:ArticleComponent},
   {path: 'detail-article', component:DetailArticleComponent},
   {path: 'contact', component:ContactComponent},
-  {path: 'detail-service', component:DetailServiceComponent}
+  {path: 'detail-service', component:DetailServiceComponent},
+  {path: 'boutique', component:AchatComponent}
 
 
 ];
