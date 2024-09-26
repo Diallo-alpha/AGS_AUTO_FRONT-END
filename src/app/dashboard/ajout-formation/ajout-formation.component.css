@@ -1,0 +1,38 @@
+h2{
+  margin-top: -100vh;
+}
+.form-container {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: -20px;
+}
+.form-container h2 {
+  color: #b5651d;
+  margin-bottom: 20px;
+}
+.form-container .form-group {
+  margin-bottom: 20px;
+}
+.form-container .form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-container .form-group input,
+.form-container .form-group select,
+.form-container .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.form-container .form-group textarea {
+  height: 150px;
+}
+.form-container .btn {
+  background-color: #b5651d;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}

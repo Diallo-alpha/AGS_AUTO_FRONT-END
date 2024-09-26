@@ -11,6 +11,7 @@ import { DetailArticleComponent } from './detail-article/detail-article.componen
 import { AchatComponent } from './achat/achat.component';
 import { StatiqueComponent } from './dashboard/statique/statique.component';
 import { ListFormationComponent } from './dashboard/list-formation/list-formation.component';
+import { AjoutFormationComponent } from './dashboard/ajout-formation/ajout-formation.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path: 'detail-service', component:DetailServiceComponent},
   {path: 'boutique', component:AchatComponent},
   {path: 'dashboard/statique', component:StatiqueComponent},
-  {path: 'dashboard/formation', component:ListFormationComponent}
+  {path: 'dashboard/formation', component:ListFormationComponent},
+  {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent}
 
 ];
