@@ -1,31 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="#"><span><img src="assets/images/Logo.svg" alt=""></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">ACCUEIL</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">FORMATIONS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">BLOG</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CONTACT</a>
+        </li>
+      </ul>
+      <div class="cart-icon" (click)="openCartModal()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge">1</span>
+      </div>
+      <button class="btn btn-connexion">Connexion</button>
+      <button class="btn btn-inscription" routerLink="/inscription">Inscription</button>
+    </div>
+  </div>
+</nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#"><span><img src="assets/images/Logo.svg" alt=""></span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ACCUEIL</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">FORMATIONS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">BLOG</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">CONTACT</a>
-                    </li>
-                </ul>
-                <div class="cart-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge">1</span>
-                </div>
-                <button class="btn btn-connexion">Connexion</button>
-                <button class="btn btn-inscription" routerLink="/inscription">Inscription</button>
+<!-- Modal for Cart -->
+<div class="modal" [class.show]="isCartModalOpen" [class.d-block]="isCartModalOpen" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-arrow-left me-2"></i>Ajouter de nouveaux produits</h5>
+        <button type="button" class="btn-close" (click)="closeCartModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-7 product-list">
+            <div class="product-item" *ngFor="let product of cartItems">
+              <img [src]="product.image" [alt]="'Image of ' + product.name">
+              <div class="product-name">{{ product.name }}</div>
+              <input type="number" class="product-quantity" [(ngModel)]="product.quantity" (change)="updateTotal()">
+              <div class="product-price">{{ product.price }}</div>
+              <i class="fas fa-trash-alt product-remove" (click)="removeProduct(product)"></i>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="payment-methods">
+              <h6>Choisir une méthode de paiement</h6>
+              <div>
+                <img src="assets/images/orange money.png" alt="Orange Money logo" class="img">
+                <img src="assets/images/wave.jpg" alt="Wave logo" class="img">
+                <img src="assets/images/free-money.png" alt="Free Money logo" class="img">
               </div>
+              <div class="qr-code">
+                <img src="assets/images/qr-code.png" alt="QR code for payment">
+              </div>
+              <div class="total-price">
+                {{ totalPrice }} francs
+              </div>
+            </div>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="isCartModalOpen"></div>

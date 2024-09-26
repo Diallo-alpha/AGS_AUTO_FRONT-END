@@ -11,11 +11,12 @@ import { DetailServiceComponent } from './detail-service/detail-service.componen
 import { ArticleComponent } from './article/article.component';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
 import { ContactComponent } from './contact/contact.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ContactComponent],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
