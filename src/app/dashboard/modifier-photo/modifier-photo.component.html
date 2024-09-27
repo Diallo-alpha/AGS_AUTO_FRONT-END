@@ -5,29 +5,30 @@
     <div class="col-md-2"></div>
     <div class="container">
       <div class="form-container">
-          <div class="form-title">Ajouter une photo</div>
-          <form>
-              <div class="row mb-3">
-                  <div class="col">
-                      <label for="name" class="form-label">Nom</label>
-                      <input type="text" class="form-control" id="name">
-                  </div>
-                  <div class="col">
-                      <label for="photos" class="form-label">Photos</label>
-                      <input type="file" class="form-control" id="photos">
-                  </div>
-              </div>
-              <div class="mb-3">
-                  <label for="formation" class="form-label">formation</label>
-                  <select class="form-select" id="formation">
-                      <option selected>Choisir une formation</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
-                  </select>
-              </div>
-              <button type="submit" class="btn btn-custom">Ajouter</button>
-          </form>
+        <div class="form-title">Modifier une photo</div>
+        <form [formGroup]="photoForm" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <div class="col">
+              <label for="nom_photo" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="nom_photo" formControlName="nom_photo">
+            </div>
+            <div class="col">
+              <label for="photo" class="form-label">Photo</label>
+              <input type="file" class="form-control" id="photo" (change)="onFileSelected($event)">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="formation_id" class="form-label">Formation</label>
+            <select class="form-select" id="formation_id" formControlName="formation_id">
+              <option value="">Choisir une formation</option>
+              <option *ngFor="let formation of formations" [value]="formation.id">
+                {{ formation.nom_formation }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-custom" [disabled]="photoForm.invalid">Modifier</button>
+        </form>
       </div>
+    </div>
   </div>
-  </div>
+</div>

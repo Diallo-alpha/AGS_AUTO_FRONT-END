@@ -39,6 +39,9 @@
   line-height: normal;
   transform: rotate(0.143deg);
 }
+.nomFormation{
+  color: #020202;
+}
 .btn-custom:hover {
   background-color: #6b3510;
 }

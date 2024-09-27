@@ -34,6 +34,5 @@ export const routes: Routes = [
   //Routes pour les photos de formation
   {path: 'dashboard/photos/formation', component:PhotoFormationComponent},
   {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent},
-  {path: 'dashboard/modifier/photo', component:ModifierPhotoComponent}
-
+  {path: 'dashboard/modifier/photo/:id', component: ModifierPhotoComponent }
 ];

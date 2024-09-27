@@ -20,8 +20,8 @@
               <div class="mb-3">
                   <label for="formation_id" class="form-label">Formation</label>
                   <select class="form-select" id="formation_id" formControlName="formation_id">
-                      <option *ngFor="let formation of formations" [value]="formation.id">
-                          {{ formation.nom_complet }}
+                      <option *ngFor="let formation of formations" [value]="formation.id" class="nomFormation">
+                          {{formation.nom_formation}}
                       </option>
                   </select>
               </div>
