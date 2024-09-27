@@ -14,6 +14,7 @@ import { ListFormationComponent } from './dashboard/list-formation/list-formatio
 import { AjoutFormationComponent } from './dashboard/ajout-formation/ajout-formation.component';
 import { PhotoFormationComponent } from './dashboard/photo-formation/photo-formation.component';
 import { AjoutPhotoComponent } from './dashboard/ajout-photo/ajout-photo.component';
+import { ModifierPhotoComponent } from './dashboard/modifier-photo/modifier-photo.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -32,6 +33,7 @@ export const routes: Routes = [
   {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent},
   //Routes pour les photos de formation
   {path: 'dashboard/photos/formation', component:PhotoFormationComponent},
-  {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent}
+  {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent},
+  {path: 'dashboard/modifier/photo', component:ModifierPhotoComponent}
 
 ];
