@@ -3,5 +3,4 @@ export interface PhotoFormation {
   nom_photo: string;
   photo: string;
   formation_id: number;
-  
 }

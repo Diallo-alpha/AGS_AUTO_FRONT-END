@@ -33,10 +33,18 @@ main{
   margin-bottom: 20px;
 }
 .card-img-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 1;
+}
+.card-footer {
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
 }
 .card-title {
   color: white;
@@ -44,7 +52,7 @@ main{
   text-align: center;
 }
 .btn-icon {
-  background-color: #b35900;
+  background-color: #9C490C;
   border: none;
   color: white;
   padding: 5px 10px;
