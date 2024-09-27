@@ -8,24 +8,22 @@
     <!-- Formulaire -->
     <div class="col-md-9 form-container mt-4">
       <h2>Ajouter une formation</h2>
-      <form>
+      <form [formGroup]="formationForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-md-6 form-group">
-            <label for="name">Nom</label>
-            <input class="form-control" id="name" type="text"/>
+            <label for="nom_formation">Nom</label>
+            <input class="form-control" id="nom_formation" type="text" formControlName="nom_formation"/>
           </div>
           <div class="col-md-6 form-group">
-            <label for="photos">Photos</label>
-            <select class="form-control" id="photos">
-              <option value="">Sélectionner</option>
-            </select>
+            <label for="prix">Prix</label>
+            <input class="form-control" id="prix" type="number" formControlName="prix"/>
           </div>
         </div>
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea class="form-control" id="description"></textarea>
+          <textarea class="form-control" id="description" formControlName="description"></textarea>
         </div>
-        <button class="btn btn-primary" type="submit">Ajouter</button>
+        <button class="btn btn-primary" type="submit" [disabled]="formationForm.invalid">Ajouter</button>
       </form>
     </div>
   </div>
