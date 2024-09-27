@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-sidbar/>
+    <!-- Sidebar -->
+    <div class="col-md-2">
+    </div>
+
+    <!-- Main content area -->
+    <div class="col-md-10">
+      <div class="content flex-grow-1">
+        <div class="navbar d-flex justify-content-end align-items-center">
+          <a routerLink="/ajouter/video" class="btn btn-primary">AJOUTER UNE VIDEO</a>
+        </div>
+
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th>video_id</th>
+              <th>nom</th>
+              <th>formation nom</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Remplacez cette partie par un contenu statique ou dynamique via backend -->
+            <tr>
+              <td>1</td>
+              <td>Photo 1</td>
+              <td>Formation A</td>
+              <td>
+                <!-- Les boutons ci-dessous sont rendus statiques -->
+                <button class="btn btn-view">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <a href="/dashboard/modifier/photo/1" class="btn">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <button class="btn">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination statique -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item">
+              <a class="page-link" href="#">Précédent</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">Suivant</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+

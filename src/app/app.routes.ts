@@ -16,6 +16,9 @@ import { PhotoFormationComponent } from './dashboard/photo-formation/photo-forma
 import { AjoutPhotoComponent } from './dashboard/ajout-photo/ajout-photo.component';
 import { ModifierPhotoComponent } from './dashboard/modifier-photo/modifier-photo.component';
 import { ModifierFormationComponent } from './dashboard/modifier-formation/modifier-formation.component';
+import { ListVideoComponent } from './dashboard/videos/list-video/list-video.component';
+import { AjouterComponent } from './dashboard/videos/ajouter/ajouter.component';
+import { ModifierComponent } from './dashboard/videos/modifier/modifier.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -34,9 +37,12 @@ export const routes: Routes = [
   {path: 'dashboard/formation/modifier/:id', component:ModifierFormationComponent},
   {path: 'dashboard/formation', component:ListFormationComponent},
   {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent},
-
   //Routes pour les photos de formation
   {path: 'dashboard/photos/formation', component:PhotoFormationComponent},
   {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent},
-  {path: 'dashboard/modifier/photo/:id', component: ModifierPhotoComponent }
+  {path: 'dashboard/modifier/photo/:id', component: ModifierPhotoComponent },
+  //video
+  {path: 'dashboard/video', component:ListVideoComponent},
+  {path: 'ajouter/video', component:AjouterComponent},
+  {path: 'modifier/video/:id', component:ModifierComponent}
 ];
