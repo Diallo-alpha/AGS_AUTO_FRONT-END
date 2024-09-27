@@ -17,7 +17,7 @@
             <tr>
               <th>photo_id</th>
               <th>nom</th>
-              <th>formation_id</th>
+              <th>formation nom</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -25,9 +25,11 @@
             <tr *ngFor="let photo of paginatedPhotos">
               <td>{{ photo.id }}</td>
               <td>{{ photo.nom_photo }}</td>
-              <td>{{ photo.formation_id }}</td>
+              <td>{{ getFormationName(photo.formation_id) }}</td> <!-- Afficher le nom de la formation -->
               <td>
-                <button class="btn btn-view"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-view" (click)="openImageModal(photo, imageModal)">
+                  <i class="fas fa-eye"></i>
+                </button>
                 <button [routerLink]="['/dashboard/modifier/photo', photo.id]" class="btn">
                   <i class="fas fa-edit"></i>
                 </button>
@@ -56,3 +58,14 @@
     </div>
   </div>
 </div>
+
+<!-- Modal pour afficher l'image -->
+<ng-template #imageModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ selectedPhoto?.nom_photo }}</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <img [src]="selectedPhotoUrl" class="img-fluid" alt="Photo de formation">
+  </div>
+</ng-template>

@@ -46,4 +46,9 @@ export class PhotoFormationService {
   getPhotosByFormation(formationId: number): Observable<PhotoFormation[]> {
     return this.http.get<PhotoFormation[]>(`${API_URL}/formations/${formationId}/photos`);
   }
+  //
+
+  getPhotoUrl(id: number): string {
+    return `${API_URL}/photo_formations/${id}/photo`;
+  }
 }

@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SidbarComponent } from './../sidbar/sidbar.component';
 import { PhotoFormationService } from '../../services/photo-formation.service';
 import { PhotoFormation } from '../../models/PhotoFormation';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormationService } from '../../services/formation.service';
+import { Formation } from '../../models/FormationModel';
+
 @Component({
   selector: 'app-photo-formation',
   standalone: true,
@@ -13,14 +17,22 @@ import { PhotoFormation } from '../../models/PhotoFormation';
 })
 export class PhotoFormationComponent implements OnInit {
   photos: PhotoFormation[] = [];
+  formations: Formation[] = [];
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 0;
+  selectedPhoto?: PhotoFormation;
+  selectedPhotoUrl?: string;
 
-  constructor(private photoFormationService: PhotoFormationService) {}
+  constructor(
+    private photoFormationService: PhotoFormationService,
+    private formationService: FormationService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.loadPhotos();
+    this.loadFormations();
   }
 
   loadPhotos() {
@@ -33,6 +45,12 @@ export class PhotoFormationComponent implements OnInit {
         console.error('Erreur lors du chargement des photos:', error);
       }
     );
+  }
+
+  openImageModal(photo: PhotoFormation, content: any) {
+    this.selectedPhoto = photo;
+    this.selectedPhotoUrl = this.photoFormationService.getPhotoUrl(photo.id);
+    this.modalService.open(content, { centered: true });
   }
 
   get paginatedPhotos() {
@@ -60,5 +78,19 @@ export class PhotoFormationComponent implements OnInit {
 
   get totalPages() {
     return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+  loadFormations() {
+    this.formationService.getAllFormations().subscribe(
+      (data) => {
+        this.formations = data;
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des formations:', error);
+      }
+    );
+  }
+  getFormationName(formationId: number): string {
+    const formation = this.formations.find(f => f.id === formationId);
+    return formation ? formation.nom_formation : 'j\'ai pas trouvée';
   }
 }
