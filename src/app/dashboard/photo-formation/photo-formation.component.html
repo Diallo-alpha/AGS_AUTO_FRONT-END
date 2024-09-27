@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <app-sidbar></app-sidbar>
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2">
+    </div>
+
+    <!-- Main content area -->
+    <div class="col-md-10">
+      <div class="content flex-grow-1">
+        <div class="navbar d-flex justify-content-end align-items-center">
+          <button class="btn btn-primary" routerLink="/dashboard/ajouter/photo">AJOUTER UNE PHOTO</button>
+        </div>
+
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th>photo_id</th>
+              <th>nom</th>
+              <th>formation nom</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let photo of paginatedPhotos">
+              <td>{{ photo.id }}</td>
+              <td>{{ photo.nom_photo }}</td>
+              <td>{{ getFormationName(photo.formation_id) }}</td> <!-- Afficher le nom de la formation -->
+              <td>
+                <button class="btn btn-view" (click)="openImageModal(photo, imageModal)">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button [routerLink]="['/dashboard/modifier/photo', photo.id]" class="btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn" (click)="deletePhoto(photo.id)"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="onPageChange(currentPage - 1)" href="javascript:void(0)">Précédent</a>
+            </li>
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="currentPage === i + 1">
+              <a class="page-link" (click)="onPageChange(i + 1)" href="javascript:void(0)">{{ i + 1 }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" (click)="onPageChange(currentPage + 1)" href="javascript:void(0)">Suivant</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour afficher l'image -->
+<ng-template #imageModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ selectedPhoto?.nom_photo }}</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <img [src]="selectedPhotoUrl" class="img-fluid" alt="Photo de formation">
+  </div>
+</ng-template>

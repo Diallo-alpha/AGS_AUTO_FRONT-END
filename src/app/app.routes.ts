@@ -9,6 +9,13 @@ import { DetailformationComponent } from './detailformation/detailformation.comp
 import { DetailServiceComponent } from './detail-service/detail-service.component';
 import { DetailArticleComponent } from './detail-article/detail-article.component';
 import { AchatComponent } from './achat/achat.component';
+import { StatiqueComponent } from './dashboard/statique/statique.component';
+import { ListFormationComponent } from './dashboard/list-formation/list-formation.component';
+import { AjoutFormationComponent } from './dashboard/ajout-formation/ajout-formation.component';
+import { PhotoFormationComponent } from './dashboard/photo-formation/photo-formation.component';
+import { AjoutPhotoComponent } from './dashboard/ajout-photo/ajout-photo.component';
+import { ModifierPhotoComponent } from './dashboard/modifier-photo/modifier-photo.component';
+import { ModifierFormationComponent } from './dashboard/modifier-formation/modifier-formation.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -21,7 +28,15 @@ export const routes: Routes = [
   {path: 'detail-article', component:DetailArticleComponent},
   {path: 'contact', component:ContactComponent},
   {path: 'detail-service', component:DetailServiceComponent},
-  {path: 'boutique', component:AchatComponent}
+  {path: 'boutique', component:AchatComponent},
+  {path: 'dashboard/statique', component:StatiqueComponent},
+  //route pour les formations
+  {path: 'dashboard/formation/modifier/:id', component:ModifierFormationComponent},
+  {path: 'dashboard/formation', component:ListFormationComponent},
+  {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent},
 
-
+  //Routes pour les photos de formation
+  {path: 'dashboard/photos/formation', component:PhotoFormationComponent},
+  {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent},
+  {path: 'dashboard/modifier/photo/:id', component: ModifierPhotoComponent }
 ];

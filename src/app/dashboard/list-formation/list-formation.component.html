@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-sidbar></app-sidbar>
+    <main class="col-md-10 ms-sm-auto px-md-4">
+      <button routerLink="/dashboard/ajouter/formation" class="btn btn-primary me-2" style="background-color: #9C490C; border: none;">
+        AJOUTER UNE FORMATION
+      </button>
+      <button routerLink="/dashboard/photos/formation" class="btn btn-primary" style="background-color: #9C490C; border: none;">
+        AJOUTER UNE PHOTO DE FORMATION
+      </button>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Liste des formations</h1>
+      </div>
+      <div class="row">
+        <div *ngFor="let formation of paginatedFormations" class="col-md-4 mb-4">
+          <div class="card">
+            <img [src]="formation.imageUrl || 'https://placehold.co/400x300'" [alt]="formation.nom_formation" class="card-img"/>
+            <div class="card-img-overlay d-flex flex-column justify-content-center">
+              <h5 class="card-title">{{ formation.nom_formation }}</h5>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+              <button class="btn btn-icon" [routerLink]="['/dashboard/formation/modifier', formation.id]">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-icon" [routerLink]="['/dashboard/formation', formation.id]">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-icon" (click)="deleteFormation(formation.id)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav aria-label="Page navigation" *ngIf="formations.length > itemsPerPage">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(1)">
+              <i class="fas fa-angle-double-left"></i>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(currentPage - 1)">
+              <i class="fas fa-angle-left"></i>
+            </a>
+          </li>
+          <li *ngFor="let page of [].constructor(totalPages); let i = index"
+              class="page-item"
+              [class.active]="currentPage === i + 1">
+            <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(currentPage + 1)">
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(totalPages)">
+              <i class="fas fa-angle-double-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </main>
+  </div>
+</div>

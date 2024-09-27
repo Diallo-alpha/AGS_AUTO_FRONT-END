@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <app-sidbar></app-sidbar>
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2"></div>
+    <div class="container">
+      <div class="form-container">
+          <div class="form-title">Ajouter une photo</div>
+          <form [formGroup]="photoForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-3">
+                  <div class="col">
+                      <label for="nom_photo" class="form-label">Nom</label>
+                      <input type="text" class="form-control" id="nom_photo" formControlName="nom_photo">
+                  </div>
+                  <div class="col">
+                      <label for="photos" class="form-label">Photos</label>
+                      <input type="file" class="form-control" id="photos" (change)="onFileSelected($event)">
+                  </div>
+              </div>
+              <div class="mb-3">
+                  <label for="formation_id" class="form-label">Formation</label>
+                  <select class="form-select" id="formation_id" formControlName="formation_id">
+                      <option *ngFor="let formation of formations" [value]="formation.id" class="nomFormation">
+                          {{formation.nom_formation}}
+                      </option>
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-custom" [disabled]="photoForm.invalid">Ajouter</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
