@@ -28,3 +28,27 @@ table{
   background-color: #9C490C;
   border-color: #9C490C;
 }
+.modal-header {
+  background-color: #fff;
+  color: #020202;
+  display: flex;
+}
+
+.modal-body {
+  background-color: #020202;
+  color: white;
+}
+
+button.close {
+  color: red;
+  margin-left: 78vh;
+  border: none;
+  font-size: 34px;
+  background-color: #fff;
+
+}
+
+video {
+  border: 2px solid #9C490C;
+  border-radius: 5px;
+}
