@@ -1,0 +1,54 @@
+.navbar{
+  margin-top: -95vh;
+}
+.btn-primary{
+  background-color: #9C490C !important;
+  border: none !important;
+}
+table{
+  margin-left: 15px;
+}
+.table th, .table td {
+  border-top: none;
+  border-bottom: 1px solid #b76e00;
+}
+.table th {
+  text-transform: uppercase;
+}
+.table .btn {
+  background-color: #b76e00;
+  color: #fff;
+  margin-right: 3px;
+  margin-left: 10px;
+}
+.table .btn-view {
+  background-color: #000;
+}
+.pagination .page-item.active .page-link {
+  background-color: #9C490C;
+  border-color: #9C490C;
+}
+.modal-header {
+  background-color: #fff;
+  color: #020202;
+  display: flex;
+}
+
+.modal-body {
+  background-color: #020202;
+  color: white;
+}
+
+button.close {
+  color: red;
+  margin-left: 78vh;
+  border: none;
+  font-size: 34px;
+  background-color: #fff;
+
+}
+
+video {
+  border: 2px solid #9C490C;
+  border-radius: 5px;
+}
