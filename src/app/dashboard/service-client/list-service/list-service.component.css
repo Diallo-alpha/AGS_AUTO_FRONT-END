@@ -1,0 +1,85 @@
+main{
+  margin-top: -99.8vh;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+.btn-primary{
+  float: right;
+  margin-right: 10px;
+}
+.btn-primary:hover{
+  background-color: #020202 !important;
+  color: white !important;
+}
+.content {
+  background-color: #f4f4f4;
+}
+.top-bar {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.card-img-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.card-footer {
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
+}
+.card-title {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.btn-icon {
+  background-color: #9C490C;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin: 2px;
+}
+.pagination {
+  justify-content: flex-end;
+}
+.pagination .page-link{
+  color: black;
+}
+main {
+  padding-top: 48px;
+}
+.page-item.active .page-link {
+  color: #fff;
+  background-color: #9c490c;
+  font-weight: bold;
+}
+.page-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus effect */
+}
+
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
+}

@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-sidbar></app-sidbar>
+    <main class="col-md-10 ms-sm-auto px-md-4">
+      <button routerLink="/dashboard/service/ajouter" class="btn btn-primary me-2" style="background-color: #9C490C; border: none;">
+        AJOUTER UN SERVICE
+      </button>
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Liste des services</h1>
+      </div>
+      <div class="row">
+        <div *ngFor="let service of paginatedServices" class="col-md-4 mb-4">
+          <div class="card">
+            <img [src]="service.photo || 'https://placehold.co/400x300'" [alt]="service.titre" class="card-img"/>
+            <div class="card-img-overlay d-flex flex-column justify-content-center">
+              <h5 class="card-title">{{ service.titre }}</h5>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+              <button class="btn btn-icon" [routerLink]="['/dashboard/service/modifier', service.id]">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-icon" [routerLink]="['/dashboard/service', service.id]">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-icon" (click)="deleteService(service.id)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav aria-label="Page navigation" *ngIf="services.length > itemsPerPage">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(1)">
+              <i class="fas fa-angle-double-left"></i>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(currentPage - 1)">
+              <i class="fas fa-angle-left"></i>
+            </a>
+          </li>
+          <li *ngFor="let page of [].constructor(totalPages); let i = index"
+              class="page-item"
+              [class.active]="currentPage === i + 1">
+            <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(currentPage + 1)">
+              <i class="fas fa-angle-right"></i>
+            </a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(totalPages)">
+              <i class="fas fa-angle-double-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </main>
+  </div>
+</div>
