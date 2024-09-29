@@ -51,5 +51,5 @@ export const routes: Routes = [
   //article dashboard
   {path: 'dashboard/article', component:ListArticleComponent},
   {path: 'dashboard/article/ajouter', component:AjouterArticleComponent},
-  {path: 'dashboard/article/modifier:id', component:ModifierArticleComponent}
+  { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent }
 ];
