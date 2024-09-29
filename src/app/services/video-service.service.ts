@@ -41,7 +41,7 @@ export class VideoService {
     return this.http.get(`${apiUrl}/formations/${formationId}/videos`);
   }
 
-  // Cette méthode n'est plus nécessaire car nous utilisons directement l'URL S3
+
   // getVideoUrl(filename: string): string {
   //   return `${apiUrl}/video/${filename}`;
   // }

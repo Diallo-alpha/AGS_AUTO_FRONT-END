@@ -1,1 +1,44 @@
-<p>modifier works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <app-sidbar></app-sidbar>
+    <!-- Sidebar -->
+    <div class="col-md-2"></div>
+    <!-- Formulaire -->
+    <div class="col-md-10">
+      <form class="form-container" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" [(ngModel)]="videoTitle" name="videoTitle" required>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="formation">Formation</label>
+            <select class="form-control" id="formation" [(ngModel)]="selectedFormation" name="selectedFormation" required>
+              <option value="">Sélectionner</option>
+              <option *ngFor="let formation of formations" [value]="formation.id">
+                {{ formation.nom_formation }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="video">Vidéo (laissez vide pour conserver la vidéo actuelle)</label>
+          <input type="file" class="form-control" id="video" (change)="onFileSelected($event)" accept="video/*">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!videoTitle || !selectedFormation">Mettre à jour</button>
+      </form>
+
+      <!-- Barre de progression -->
+      <div class="progress mt-3" *ngIf="uploadProgress > 0">
+        <div class="progress-bar" role="progressbar" [style.width.%]="uploadProgress" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100">
+          {{uploadProgress}}%
+        </div>
+      </div>
+
+      <!-- Message d'upload -->
+      <div class="alert" [ngClass]="{'alert-success': !uploadMessage.includes('Erreur'), 'alert-danger': uploadMessage.includes('Erreur')}" *ngIf="uploadMessage">
+        {{uploadMessage}}
+      </div>
+    </div>
+  </div>
+</div>
