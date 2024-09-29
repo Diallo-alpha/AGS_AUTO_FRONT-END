@@ -19,6 +19,9 @@ import { ModifierFormationComponent } from './dashboard/modifier-formation/modif
 import { ListVideoComponent } from './dashboard/videos/list-video/list-video.component';
 import { AjouterComponent } from './dashboard/videos/ajouter/ajouter.component';
 import { ModifierComponent } from './dashboard/videos/modifier/modifier.component';
+import { ListArticleComponent } from './dashboard/article/list-article/list-article.component';
+import { AjouterArticleComponent } from './dashboard/article/ajouter-article/ajouter-article.component';
+import { ModifierArticleComponent } from './dashboard/article/modifier-article/modifier-article.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -44,5 +47,9 @@ export const routes: Routes = [
   //video
   {path: 'dashboard/video', component:ListVideoComponent},
   {path: 'ajouter/video', component:AjouterComponent},
-  {path: 'modifier/video/:id', component:ModifierComponent}
+  {path: 'modifier/video/:id', component:ModifierComponent},
+  //article dashboard
+  {path: 'dashboard/article', component:ListArticleComponent},
+  {path: 'dashboard/article/ajouter', component:AjouterArticleComponent},
+  {path: 'dashboard/article/modifier:id', component:ModifierArticleComponent}
 ];
