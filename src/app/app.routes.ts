@@ -22,6 +22,9 @@ import { ModifierComponent } from './dashboard/videos/modifier/modifier.componen
 import { ListArticleComponent } from './dashboard/article/list-article/list-article.component';
 import { AjouterArticleComponent } from './dashboard/article/ajouter-article/ajouter-article.component';
 import { ModifierArticleComponent } from './dashboard/article/modifier-article/modifier-article.component';
+import { ListPartenaireComponent } from './dashboard/partenaire/list-partenaire/list-partenaire.component';
+import { AjouterPartenaireComponent } from './dashboard/partenaire/ajouter-partenaire/ajouter-partenaire.component';
+import { ModifierPartenaireComponent } from './dashboard/partenaire/modifier-partenaire/modifier-partenaire.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -51,5 +54,9 @@ export const routes: Routes = [
   //article dashboard
   {path: 'dashboard/article', component:ListArticleComponent},
   {path: 'dashboard/article/ajouter', component:AjouterArticleComponent},
-  { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent }
+  { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent },
+  //partenaire
+  {path: 'dashboard/partenaire', component:ListPartenaireComponent},
+  {path: 'dashboard/partenaire/ajouter', component:AjouterPartenaireComponent},
+  {path: 'dashboard/partenaire/modifier/:id', component:ModifierPartenaireComponent},
 ];

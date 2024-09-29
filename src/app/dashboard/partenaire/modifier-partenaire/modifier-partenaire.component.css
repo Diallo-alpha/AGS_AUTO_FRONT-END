@@ -1,0 +1,36 @@
+.content{
+  margin-top: -96vh;
+  margin-left: 35vh;
+}
+.category {
+  font-size: 12px;
+  color: #b35900;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.top-bar {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.form-container {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 20px;
+  width: 970px;
+}
+
+.btn-primary {
+  background-color: #9C490C;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #8c4600;
+}

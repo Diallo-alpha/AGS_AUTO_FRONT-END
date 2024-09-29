@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <app-sidbar></app-sidbar>
+
+    <!-- Formulaire -->
+    <div class="col-md-9">
+      <div class="content">
+        <h2 class="text-brown">Modifier un partenaire</h2>
+        <div class="form-container col-md-8">
+          <form (ngSubmit)="modifierPartenaire()">
+            <!-- Nom du partenaire -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="nom_partenaire">Nom du partenaire</label>
+                <input class="form-control" id="nom_partenaire" name="nom_partenaire" type="text" [(ngModel)]="partenaire.nom_partenaire" required />
+              </div>
+
+              <!-- Logo -->
+              <div class="col-md-6">
+                <label class="form-label" for="logo">Logo</label>
+                <div class="input-group">
+                  <input class="form-control" id="logo" name="logo" type="file" (change)="onFileSelected($event)" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" id="email" name="email" type="email" [(ngModel)]="partenaire.email" required />
+              </div>
+
+              <!-- Téléphone -->
+              <div class="col-md-6">
+                <label class="form-label" for="telephone">Téléphone</label>
+                <input class="form-control" id="telephone" name="telephone" type="tel" [(ngModel)]="partenaire.telephone" required />
+              </div>
+            </div>
+
+            <!-- Bouton Modifier -->
+            <button class="btn btn-primary" type="submit">Modifier</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

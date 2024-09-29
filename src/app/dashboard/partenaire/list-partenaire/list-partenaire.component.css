@@ -1,0 +1,41 @@
+.content {
+  padding: 20px;
+  overflow-x: hidden;
+  margin-top: -95vh;
+  margin-left: -10vh;
+}
+
+.partner-card {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+.partner-logo {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.btn-custom {
+  background-color: #b35900;
+  color: #ffffff;
+}
+
+.btn-custom:hover {
+  background-color: #8c4600;
+}
+
+.section-title {
+  color: #b35900;
+  margin-bottom: 20px;
+}
+
+.category-header {
+  font-size: 14px;
+  color: #ff8c00;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
