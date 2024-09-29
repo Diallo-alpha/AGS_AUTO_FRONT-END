@@ -76,9 +76,11 @@ export class ListVideoComponent implements OnInit {
       );
     }
   }
+
   openVideoModal(video: VideoWithFormation) {
     this.selectedVideo = video;
-    this.selectedVideoUrl = this.videoService.getVideoUrl(video.video);
+    this.selectedVideoUrl = video.video; // Utilisez directement l'URL S3
+    console.log("URL de la vidéo :", this.selectedVideoUrl);
     this.modalService.open(this.videoModal, { size: 'lg' });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video } from '../models/VideoModel';
 import { apiUrl } from './apiUrl';
@@ -20,11 +20,13 @@ export class VideoService {
     return this.http.get<Video>(`${this.apiEndpoint}/${id}`);
   }
 
-  createVideo(videoData: FormData): Observable<any> {
-    return this.http.post(`${apiUrl}/video/ajouter`, videoData, {
+  createVideo(videoData: FormData): Observable<HttpEvent<any>> {
+    const req = new HttpRequest('POST', `${apiUrl}/video/ajouter`, videoData, {
       reportProgress: true,
-      observe: 'events'
+      responseType: 'json'
     });
+
+    return this.http.request(req);
   }
 
   updateVideo(id: number, videoData: FormData): Observable<any> {
@@ -36,11 +38,11 @@ export class VideoService {
   }
 
   getVideoRessources(formationId: number): Observable<any> {
-    return this.http.get(`${apiUrl}/formations/${formationId}/video-ressources`);
+    return this.http.get(`${apiUrl}/formations/${formationId}/videos`);
   }
 
-  //lurl de la vidéo
-  getVideoUrl(videoPath: string): string {
-    return `${apiUrl}/storage/video/${videoPath}`;
-  }
+  // Cette méthode n'est plus nécessaire car nous utilisons directement l'URL S3
+  // getVideoUrl(filename: string): string {
+  //   return `${apiUrl}/video/${filename}`;
+  // }
 }
