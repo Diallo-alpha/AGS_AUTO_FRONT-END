@@ -38,7 +38,10 @@ export class PhotoFormationComponent implements OnInit {
   loadPhotos() {
     this.photoFormationService.getAllPhotoFormations().subscribe(
       (data) => {
-        this.photos = data;
+        this.photos = data.map(photo => ({
+          ...photo,
+          photoUrl: this.photoFormationService.getPhotoUrl(photo.photo)
+        }));
         this.totalItems = data.length;
       },
       (error) => {
@@ -49,9 +52,15 @@ export class PhotoFormationComponent implements OnInit {
 
   openImageModal(photo: PhotoFormation, content: any) {
     this.selectedPhoto = photo;
-    this.selectedPhotoUrl = this.photoFormationService.getPhotoUrl(photo.id);
+    this.selectedPhotoUrl = photo.photo;
     this.modalService.open(content, { centered: true });
   }
+
+  // openImageModal(photo: PhotoFormation, content: any) {
+  //   this.selectedPhoto = photo;
+  //   this.selectedPhotoUrl = this.photoFormationService.getPhotoUrl(photo.id);
+  //   this.modalService.open(content, { centered: true });
+  // }
 
   get paginatedPhotos() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;

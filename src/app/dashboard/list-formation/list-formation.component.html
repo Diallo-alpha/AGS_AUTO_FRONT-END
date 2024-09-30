@@ -14,8 +14,8 @@
       <div class="row">
         <div *ngFor="let formation of paginatedFormations" class="col-md-4 mb-4">
           <div class="card">
-            <img [src]="formation.imageUrl || 'https://placehold.co/400x300'" [alt]="formation.nom_formation" class="card-img"/>
-            <div class="card-img-overlay d-flex flex-column justify-content-center">
+            <img [src]="formation.image || 'https://placehold.co/400x300'" [alt]="formation.nom_formation" class="card-img"/>
+              <div class="card-img-overlay d-flex flex-column justify-content-center">
               <h5 class="card-title">{{ formation.nom_formation }}</h5>
             </div>
             <div class="card-footer bg-white border-top-0 d-flex justify-content-between">

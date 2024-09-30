@@ -11,7 +11,7 @@
       <div class="row">
         <div *ngFor="let article of paginatedArticles" class="col-md-4 mb-4">
           <div class="card">
-            <img [src]="article.photo || 'https://placehold.co/400x300'" [alt]="article.titre" class="card-img"/>
+            <img [src]="article.photo || 'https://placehold.co/400x300'" [alt]="article.titre" class="card-img-top"/>
             <div class="card-img-overlay d-flex flex-column justify-content-center">
               <h5 class="card-title">{{ article.titre }}</h5>
             </div>
@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-      </div>
+        </div>
       <nav aria-label="Page navigation" *ngIf="articles.length > itemsPerPage">
         <ul class="pagination">
           <li class="page-item" [class.disabled]="currentPage === 1">

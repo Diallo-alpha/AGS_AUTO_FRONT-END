@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Formation } from '../models/FormationModel';
+import { apiUrl } from './apiUrl';
 
-const API_URL = 'https://certif.alphaloppecity.simplonfabriques.com/api';
+const API_URL = apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class FormationService {
   }
 
   updateFormation(id: number, formation: Formation): Observable<{ message: string; formation: Formation }> {
-    return this.http.put<{ message: string; formation: Formation }>(`${API_URL}/formations/${id}`, formation, { headers: this.getAuthHeaders() });
+    return this.http.post<{ message: string; formation: Formation }>(`${API_URL}/formations/${id}`, formation, { headers: this.getAuthHeaders() });
   }
 
   deleteFormation(id: number): Observable<{ message: string }> {

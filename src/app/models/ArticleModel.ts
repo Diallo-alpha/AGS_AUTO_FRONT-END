@@ -4,3 +4,4 @@ export interface Article{
   titre: string;
   description: string;
 }
+ 

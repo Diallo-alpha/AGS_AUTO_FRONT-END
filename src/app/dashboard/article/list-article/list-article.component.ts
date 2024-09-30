@@ -18,7 +18,7 @@ export class ListArticleComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 9;
   totalPages = 1;
-  selectedFile: File | null = null; // Add this line
+  selectedFile: File | null = null;
 
   constructor(private articleService: ArticleService) {}
 
@@ -29,6 +29,7 @@ export class ListArticleComponent implements OnInit {
   loadArticles() {
     this.articleService.getArticles().subscribe(
       articles => {
+        console.log('Articles reçus:', articles);
         this.articles = articles;
         this.totalPages = Math.ceil(this.articles.length / this.itemsPerPage);
         this.updatePaginatedArticles();

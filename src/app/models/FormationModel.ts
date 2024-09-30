@@ -3,5 +3,5 @@ export interface Formation {
   nom_formation: string;
   prix: number;
   description: string;
-  imageUrl: string;
+  image: string | null;
 }

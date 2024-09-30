@@ -1,1 +1,1 @@
-export const apiUrl = "https://certif.alphaloppecity.simplonfabriques.com/storage";
+export const apiUrlStorage = "https://certif.alphaloppecity.simplonfabriques.com/storage";
