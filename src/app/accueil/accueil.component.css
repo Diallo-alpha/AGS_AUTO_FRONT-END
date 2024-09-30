@@ -93,6 +93,7 @@ h1 {
   margin: 30px 0;
   font-weight: bold;
 }
+
 .card {
   border: none;
   background-color: transparent;
@@ -282,7 +283,7 @@ h2 {
   margin-bottom: 20px;
   text-align: center;
 }
-.partner-icon {
+.partner-logo {
   width: 100px;
   height: 100px;
   background-color: #ffd700;
