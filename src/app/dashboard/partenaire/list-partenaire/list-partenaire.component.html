@@ -14,14 +14,14 @@
         <button class="btn btn-custom" (click)="ajouterPartenaire()">
           AJOUTER UN PARTENAIRE
         </button>
-      </div> 
+      </div>
 
       <!-- Cartes des partenaires -->
       <div class="row partenaire">
         <!-- Répétition des cartes partenaires -->
         <div class="col-md-4" *ngFor="let partenaire of partenaires">
           <div class="partner-card">
-            <img class="partner-logo" [src]="partenaire.logo" width="150" height="150" alt="Logo partenaire">
+            <img class="partner-logo" [src]="partenaire.logo" alt="Logo partenaire">
             <p><i class="fas fa-map-marker-alt text-warning"></i> Nom : {{partenaire.nom_partenaire}}</p>
             <p><i class="fas fa-envelope text-warning"></i> Email : {{partenaire.email}}</p>
             <p><i class="fas fa-phone text-warning"></i> Téléphone : {{partenaire.telephone}}</p>

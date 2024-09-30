@@ -42,7 +42,7 @@ export class ListPartenaireComponent implements OnInit {
 
   editerPartenaire(id: number) {
     // Naviguer vers la page d'édition de partenaire
-    this.router.navigate(['/dashboard/partenaire/modifier', id]);
+    this.router.navigate(['/dashboard/partenaire/modifier', id]); 
   }
 
   supprimerPartenaire(id: number) {

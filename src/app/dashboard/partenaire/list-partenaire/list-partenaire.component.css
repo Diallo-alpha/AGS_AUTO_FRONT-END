@@ -10,12 +10,18 @@
   border-radius: 5px;
   padding: 15px;
   margin-bottom: 20px;
-  width: 300px;
+  width: 100%; /* Ajuste pour que toutes les cartes aient la même largeur */
+  max-width: 310px; /* Limite la largeur maximale */
+  height: 100%; /* Fixe la hauteur des cartes pour être uniforme */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .partner-logo {
   width: 100%;
-  height: auto;
+  height: 150px; /* Taille fixe pour les images */
+  object-fit: cover; /* Maintient l'image dans un cadre fixe sans la déformer */
   margin-bottom: 15px;
 }
 
