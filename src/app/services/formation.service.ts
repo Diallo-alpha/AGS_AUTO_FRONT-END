@@ -26,7 +26,7 @@ export class FormationService {
     return this.http.get<Formation>(`${API_URL}/formations/${id}`);
   }
 
-  createFormation(formation: Formation): Observable<{ message: string; formation: Formation }> {
+  createFormation(formation: FormData): Observable<{ message: string; formation: Formation }> {
     return this.http.post<{ message: string; formation: Formation }>(`${API_URL}/formations`, formation, { headers: this.getAuthHeaders() });
   }
 

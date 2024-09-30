@@ -1,7 +1,9 @@
+/* Section Hero */
 .hero-section {
   position: relative;
   width: 100%;
   overflow: hidden;
+  margin-bottom: 30px;
 }
 
 .hero-overlay {
@@ -30,6 +32,7 @@
   max-width: 800px;
 }
 
+/* Grid et Cards */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -46,15 +49,15 @@
 .card {
   border: none;
   background-color: transparent;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .card-img-top {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: 250px; /* Ajustement de la hauteur de l'image */
+  object-fit: cover; /* Assure que l'image garde le bon ratio */
   border-radius: 0;
 }
 
@@ -69,14 +72,17 @@
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+  text-align: center; /* Centrer le titre pour une meilleure présentation */
 }
 
 .card-text {
   font-size: 1.3rem;
   color: #020202;
+  text-align: justify; /* Justifier le texte pour une lecture fluide */
   flex-grow: 1;
 }
 
+/* Bouton */
 .btn-primary {
   background-color: #9c490c;
   border: none;
@@ -84,18 +90,23 @@
   border-radius: 0.5rem;
   font-size: 0.85rem;
   padding: 0.95rem 0.75rem;
-  width: 98px;
+  width: 100%; /* Prend toute la largeur de la carte */
   height: 48px;
-  align-self: flex-start;
+  text-align: center;
+  align-self: center;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
   background-color: #020202;
 }
+
+/* Container */
 .container {
   margin-bottom: 5vh;
   padding: 0 15px;
 }
 
+/* Responsive Adjustments */
 @media (min-width: 768px) {
   .col {
     width: calc(50% - 30px);
