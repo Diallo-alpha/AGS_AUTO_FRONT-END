@@ -1,17 +1,18 @@
 <app-navbar/>
 <section class="hero-section">
   <div class="hero-overlay">
-      <div class="container hero-content">
-          <h1 class="mb-4">FORMEZ-VOUS AUX NOUVELLES<br>TECHNOLOGIES AUTOMOBILES<br>ET RESTEZ À JOUR</h1>
-          <div class="search-container">
-              <div class="input-group mb-3">
-                  <input type="text" class="form-control search-input" placeholder="Rechercher des formations..." aria-label="Search" aria-describedby="button-addon2">
-                  <button class="btn btn-primary search-button" type="button" id="button-addon2">RECHERCHER</button>
-              </div>
-          </div>
+    <div class="container hero-content">
+      <h1 class="mb-4">FORMEZ-VOUS AUX NOUVELLES<br>TECHNOLOGIES AUTOMOBILES<br>ET RESTEZ À JOUR</h1>
+      <div class="search-container">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control search-input" placeholder="Rechercher des formations..." aria-label="Search" aria-describedby="button-addon2">
+          <button class="btn search-button" type="button" id="button-addon2">RECHERCHER</button>
+        </div>
       </div>
+    </div>
   </div>
 </section>
+
 <div class="container">
   <h2 class="formations-title">FORMATIONS</h2>
   <div class="row">
@@ -30,7 +31,8 @@
     <a routerLink="/formation">Voir plus</a>
   </div>
 </div>
-<!-- SERVICES  -->
+
+<!-- SERVICES -->
 <section class="container">
   <h2 class="formations-title">SERVICES</h2>
   <div class="row">
@@ -46,42 +48,41 @@
     </div>
   </div>
 </section>
+
 <!-- TÉMOIGNAGE -->
- <section class="">
-<h2 class="text-center mt-5">
-  TÉMOIGNAGE
- </h2>
- <div class="container-fluid vh-100 position-relative testimonial">
-  <img alt="Futuristic car repair scene with a technician wearing VR headset working on a holographic car model" class="w-100 h-100 object-fit-cover" src="assets/images/testemonial.svg" width="1200" height="500"/>
-  <div class="testimonial-card">
+<section class="">
+  <h2 class="text-center mt-5">TÉMOIGNAGE</h2>
+  <div class="container-fluid vh-100 position-relative testimonial">
+    <img alt="Futuristic car repair scene with a technician wearing VR headset working on a holographic car model" class="w-100 h-100 object-fit-cover" src="assets/images/testemonial.svg" width="1200" height="500"/>
+    <div class="testimonial-card">
       <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-              <div class="carousel-item active">
-                  <p class="testimonial-text">
-                      Grâce à AutoService Global, j'ai pu améliorer mes compétences en programmation automobile. Les formations sont claires et adaptées, et j'ai immédiatement pu appliquer les connaissances acquises dans mon garage. Merci à toute l'équipe pour leur professionnalisme et leur expertise !
-                  </p>
-                  <div class="testimonial-author">
-                      <img src="https://replicate.delivery/yhqm/vy55MgMZpVa1I1u2hm003SZa6xyNFeqmqC65lOQcQU4X45vJA/out-0.png" alt="Photo de profil de William Diop" width="40" height="40"/>
-                      <span class="testimonial-author-name">William Diop</span>
-                  </div>
-              </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <p class="testimonial-text">
+              Grâce à AutoService Global, j'ai pu améliorer mes compétences en programmation automobile. Les formations sont claires et adaptées, et j'ai immédiatement pu appliquer les connaissances acquises dans mon garage. Merci à toute l'équipe pour leur professionnalisme et leur expertise !
+            </p>
+            <div class="testimonial-author">
+              <img src="https://replicate.delivery/yhqm/vy55MgMZpVa1I1u2hm003SZa6xyNFeqmqC65lOQcQU4X45vJA/out-0.png" alt="Photo de profil de William Diop" width="40" height="40"/>
+              <span class="testimonial-author-name">William Diop</span>
+            </div>
           </div>
+        </div>
       </div>
       <div class="carousel-indicators">
         <span class="dot active"></span>
         <span class="dot"></span>
         <span class="dot"></span>
+      </div>
     </div>
   </div>
-</div>
 </section>
-<!-- Article section  -->
+
+<!-- Article section -->
 <div class="container mt-5">
-  <h2 class="text-center blog-title">
-    NOS DERNIERS BLOGS
-   </h2>
-   <div class="image-orange"> <img src="assets/images/ligne-article.png" alt="ligne image">
-   </div>
+  <h2 class="text-center blog-title">NOS DERNIERS BLOGS</h2>
+  <div class="image-orange">
+    <img src="assets/images/ligne-article.png" alt="ligne image">
+  </div>
   <div class="row">
     <div class="col-md-3" *ngFor="let article of articles">
       <div class="card">
@@ -95,13 +96,13 @@
     </div>
   </div>
 </div>
- <!-- nos partenaire -->
- <div class="container mt-5">
+
+<!-- nos partenaire -->
+<div class="container mt-5">
   <h2 class="text-center mb-4">NOS PARTENAIRES</h2>
   <div class="row">
     <div class="col-md-3" *ngFor="let partenaire of partenaires">
       <div class="partner-card">
-        <!-- Afficher le logo du partenaire -->
         <div class="partner-logo">
           <img [src]="partenaire.logo" [alt]="partenaire.nom_partenaire" class="img-fluid">
         </div>

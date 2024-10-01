@@ -12,6 +12,9 @@ export class VideoService {
 
   constructor(private http: HttpClient) {}
 
+  getVideoRessources(formationId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/formations/${formationId}/videos`);
+  }
   getAllVideos(): Observable<Video[]> {
     return this.http.get<Video[]>(this.apiEndpoint);
   }
@@ -37,12 +40,4 @@ export class VideoService {
     return this.http.delete(`${this.apiEndpoint}/${id}`);
   }
 
-  getVideoRessources(formationId: number): Observable<any> {
-    return this.http.get(`${apiUrl}/formations/${formationId}/videos`);
-  }
-
-
-  // getVideoUrl(filename: string): string {
-  //   return `${apiUrl}/video/${filename}`;
-  // }
 }

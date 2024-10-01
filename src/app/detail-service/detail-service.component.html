@@ -1,51 +1,28 @@
-<app-navbar />
+<app-navbar></app-navbar>
 
-<!-- Section Héro -->
-<section class="hero-section">
+<div class="hero-section" *ngIf="service">
   <div class="hero-overlay">
-    <div class="container hero-content">
-      <h1 class="mb-4">DÉTAIL SERVICE<br>DIAGNOSTIQUE AUTOMOBILES<br>ET BÉNEFICIER D'UN CONSEIL</h1>
-      <div class="search-container">
-        <div class="input-group mb-3">
-          <!-- Input group ici -->
-        </div>
-      </div>
+    <div class="hero-content">
+      <h1>{{ service.titre }}</h1>
     </div>
   </div>
-</section>
+</div>
 
-<!-- Section Contenu -->
-<div class="content container">
+<div class="content" *ngIf="service">
   <div class="row">
     <div class="col-md-8">
-      <p>
-        Notre service de diagnostic automobile vous permet d'identifier rapidement et précisément les problèmes de votre véhicule. Grâce à des outils de diagnostic avancés, nous analysons les systèmes électroniques et mécaniques pour détecter les pannes et dysfonctionnements. Vous repartez avec un rapport détaillé et des solutions adaptées à vos besoins.
-      </p>
-      <p>
-        Le garage EMA est reconnu pour son expertise et son professionnalisme dans le domaine de la mécanique automobile. Spécialisé dans le diagnostic de véhicules modernes, il vous garantit un service de qualité, assuré par une équipe de techniciens qualifiés et formés aux dernières technologies automobiles.
-      </p>
+      <p>{{ service.description }}</p>
     </div>
     <div class="col-md-4">
-  <strong>Contacter le garage partenaire</strong>
-    <div class="contact-card">
-        <img
-          src="https://replicate.delivery/yhqm/II1neT2jcXWrdidwfzDTNj2f8qHMrbv6gYLkw1OzF5k9JbAnA/out-0.png"
-          alt="Car diagnostic icon"
-          width="200"
-          height="200"
-        />
-        <p>
-          <i class="fas fa-phone"></i> +221 78 104 13 21
-        </p>
-        <p>
-          <i class="fas fa-envelope"></i> ema.auto&#64;exemple.com
-        </p>
-        <p>
-          <i class="fas fa-map-marker-alt"></i> Mariste parc han
-        </p>
-        <button class="btn">CONTACTER</button>
+      <div class="contact-card" *ngIf="partenaire">
+        <img *ngIf="logoUrl" class="partner-logo" [src]="logoUrl" alt="Logo partenaire" (error)="handleImageError($event)">
+        <strong>{{ partenaire.nom_partenaire }}</strong>
+        <p><i class="fas fa-envelope"></i> {{ partenaire.email }}</p>
+        <p><i class="fas fa-phone"></i> {{ partenaire.telephone }}</p>
+        <button class="btn">Contacter</button>
       </div>
     </div>
   </div>
 </div>
-<app-footer/>
+
+<app-footer></app-footer>

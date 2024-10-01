@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { FormationService } from '../services/formation.service';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-formation',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule, RouterModule],
   templateUrl: './formation.component.html',
   styleUrl: './formation.component.css'
 })

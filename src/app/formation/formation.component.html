@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ formation.title }}</h5>
                     <p class="card-text">{{ formation.description }}</p>
-                    <a class="btn btn-primary" [href]="'/formation/' + formation.id">VOIR PLUS</a>
+                    <a class="btn btn-primary"[routerLink]="['/detail-formation', formation.id]">VOIR PLUS</a>
                 </div>
             </div>
         </div>
