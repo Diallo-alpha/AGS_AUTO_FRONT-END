@@ -10,7 +10,7 @@ export interface CartItem {
   quantity: number;
 }
 
-interface PaymentResponse {
+export interface PaymentResponse {
   success: number;
   redirect_url: string;
 }
@@ -29,26 +29,36 @@ export class PaymentService {
       item_price: totalPrice,
       currency: 'XOF'
     };
-    return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
-      map(this.parseResponse),
+
+    console.log('Sending payment request:', paymentData);
+
+    return this.http.post(`${this.apiUrl}/payment/initiate`, paymentData, { responseType: 'text' }).pipe(
+      map(response => {
+        console.log('Raw response:', response);
+        try {
+          const parsedResponse = JSON.parse(response) as PaymentResponse;
+          console.log('Parsed response:', parsedResponse);
+          return parsedResponse;
+        } catch (error) {
+          console.error('Error parsing response:', error);
+          throw new Error('Invalid response format');
+        }
+      }),
       catchError(this.handleError)
     );
   }
 
-  private parseResponse(response: PaymentResponse): PaymentResponse {
-    console.log('Payment initiation response:', response);
-    if (response.success !== 1 || !response.redirect_url) {
-      throw new Error('Invalid payment response');
-    }
-    return response;
-  }
-
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse | Error) {
     let errorMessage = 'Une erreur inconnue est survenue';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Erreur: ${error.error.message}`;
+    if (error instanceof HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        errorMessage = `Erreur: ${error.error.message}`;
+      } else {
+        errorMessage = `Code d'erreur ${error.status}, message: ${error.message}`;
+        console.error('Error details:', error.error);
+      }
     } else {
-      errorMessage = `Code d'erreur ${error.status}, message: ${error.message}`;
+      errorMessage = error.message;
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));

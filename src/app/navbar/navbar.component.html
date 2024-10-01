@@ -44,7 +44,7 @@
         <div class="row">
           <div class="col-md-7 product-list">
             <div class="product-item" *ngFor="let product of cartItems">
-              <img [src]="product.image" [alt]="'Image of ' + product.name">
+              <!-- <img [src]="product.image" [alt]="'Image of ' + product.name"> -->
               <div class="product-name">{{ product.name }}</div>
               <input type="number" class="product-quantity" [(ngModel)]="product.quantity" (change)="updateTotal()">
               <div class="product-price">{{ product.price }}</div>
