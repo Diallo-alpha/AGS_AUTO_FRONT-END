@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaymentService } from '../services/paytech.service';
-// import { PaymentService } from './payment.service';
 
 interface CartItem {
   name: string;
@@ -17,16 +16,17 @@ interface CartItem {
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   isCartModalOpen = false;
   cartItems: CartItem[] = [
-    { name: 'Multimetre', image: 'https://placehold.co/60x60?text=Multimetre', price: 100000, quantity: 1 },
-    { name: 'Multimetre', image: 'https://placehold.co/60x60?text=Multimetre', price: 100000, quantity: 1 },
-    { name: 'Multimetre', image: 'https://placehold.co/60x60?text=Multimetre', price: 5000, quantity: 1 }
+    { name: 'Multimètre', image: 'https://placehold.co/60x60?text=Multimetre', price: 100000, quantity: 1 },
+    { name: 'Multimètre', image: 'https://placehold.co/60x60?text=Multimetre', price: 100000, quantity: 1 },
+    { name: 'Multimètre', image: 'https://placehold.co/60x60?text=Multimetre', price: 5000, quantity: 1 }
   ];
   totalPrice = 0;
+  errorMessage = '';
 
   constructor(private paymentService: PaymentService) {}
 
@@ -47,28 +47,28 @@ export class NavbarComponent implements OnInit {
   }
 
   removeProduct(product: CartItem) {
-    const index = this.cartItems.indexOf(product);
-    if (index > -1) {
-      this.cartItems.splice(index, 1);
-    }
+    this.cartItems = this.cartItems.filter(item => item !== product);
     this.updateTotal();
   }
 
+
   initiatePayment() {
-    this.paymentService.initiatePaymentForCart(this.cartItems, this.totalPrice).subscribe(
-      response => {
-        if (response.success) {
-          // Rediriger vers l'URL de paiement
+    this.errorMessage = '';
+    this.paymentService.initiatePaymentForCart(this.cartItems, this.totalPrice).subscribe({
+      next: (response: any) => {
+        console.log('Payment initiation response:', response);
+        if (response && response.success === 1 && response.redirect_url) {
+          console.log('Redirecting to:', response.redirect_url);
           window.location.href = response.redirect_url;
         } else {
-          console.error('Erreur lors de l\'initiation du paiement', response.errors);
-          // Gérer l'erreur (afficher un message à l'utilisateur, etc.)
+          this.errorMessage = 'Une erreur est survenue lors de l\'initiation du paiement. Veuillez réessayer.';
+          console.error('Erreur lors de l\'initiation du paiement', response);
         }
       },
-      error => {
+      error: (error) => {
+        this.errorMessage = 'Une erreur est survenue lors de la requête de paiement. Veuillez réessayer plus tard.';
         console.error('Erreur lors de la requête de paiement', error);
-        // Gérer l'erreur (afficher un message à l'utilisateur, etc.)
       }
-    );
+    });
   }
 }

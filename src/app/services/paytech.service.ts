@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { apiUrl } from './apiUrl';
 
-interface CartItem {
+export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+}
+
+interface PaymentResponse {
+  success: number;
+  redirect_url: string;
 }
 
 @Injectable({
@@ -25,15 +31,36 @@ export class PaymentService {
     });
   }
 
-  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<any> {
+  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<PaymentResponse> {
     const paymentData = {
-      item_name: 'Cart Purchase',
+      item_name: 'Achat du panier',
       item_price: totalPrice,
       currency: 'XOF'
     };
-    return this.http.post(`${this.apiUrl}/payment/initiate`, paymentData, { headers: this.getHeaders() });
+    return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData, {
+      headers: this.getHeaders()
+    }).pipe(
+      map(this.parseResponse),
+      catchError(this.handleError)
+    );
   }
-  getPaymentStatus(paymentId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/payment/status/${paymentId}`, { headers: this.getHeaders() });
+
+  private parseResponse(response: PaymentResponse): PaymentResponse {
+    console.log('Payment initiation response:', response);
+    if (response.success !== 1 || !response.redirect_url) {
+      throw new Error('Invalid payment response');
+    }
+    return response;
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Une erreur inconnue est survenue';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Erreur: ${error.error.message}`;
+    } else {
+      errorMessage = `Code d'erreur ${error.status}, message: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

@@ -63,9 +63,12 @@
                 <img src="assets/images/qr-code.png" alt="QR code for payment">
               </div>
               <div class="total-price">
-                {{ totalPrice }} francs
+                {{ totalPrice | currency:'XOF':'symbol':'1.0-0' }} francs
               </div>
               <button class="btn btn-primary mt-3" (click)="initiatePayment()">Payer maintenant</button>
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
             </div>
           </div>
         </div>
