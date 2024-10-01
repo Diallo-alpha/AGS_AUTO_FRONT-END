@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PaymentService } from '../services/paytech.service';
+// import { PaymentService } from './payment.service';
 
 interface CartItem {
   name: string;
@@ -26,6 +28,8 @@ export class NavbarComponent implements OnInit {
   ];
   totalPrice = 0;
 
+  constructor(private paymentService: PaymentService) {}
+
   ngOnInit() {
     this.updateTotal();
   }
@@ -48,5 +52,23 @@ export class NavbarComponent implements OnInit {
       this.cartItems.splice(index, 1);
     }
     this.updateTotal();
+  }
+
+  initiatePayment() {
+    this.paymentService.initiatePaymentForCart(this.cartItems, this.totalPrice).subscribe(
+      response => {
+        if (response.success) {
+          // Rediriger vers l'URL de paiement
+          window.location.href = response.redirect_url;
+        } else {
+          console.error('Erreur lors de l\'initiation du paiement', response.errors);
+          // Gérer l'erreur (afficher un message à l'utilisateur, etc.)
+        }
+      },
+      error => {
+        console.error('Erreur lors de la requête de paiement', error);
+        // Gérer l'erreur (afficher un message à l'utilisateur, etc.)
+      }
+    );
   }
 }
