@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-4">
       <div class="contact-card" *ngIf="partenaire">
-        <img *ngIf="logoUrl" class="partner-logo" [src]="logoUrl" alt="Logo partenaire" (error)="handleImageError($event)">
+        <img *ngIf="logoUrl" class="partner-logo" [src]="logoUrl" alt="Logo partenaire">
         <strong>{{ partenaire.nom_partenaire }}</strong>
         <p><i class="fas fa-envelope"></i> {{ partenaire.email }}</p>
         <p><i class="fas fa-phone"></i> {{ partenaire.telephone }}</p>
