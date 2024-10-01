@@ -5,7 +5,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { FormationService } from '../services/formation.service';
 import { CommonModule } from '@angular/common';
 
-@Component({
+@Component({ 
   selector: 'app-formation',
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule, RouterModule],
