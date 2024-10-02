@@ -11,9 +11,12 @@ export interface CartItem {
 }
 
 export interface PaymentResponse {
-  success: number;
-  redirect_url: string;
+  success?: number;
+  redirect_url?: string;
+  redirectUrl?: string;
 }
+
+export type PaymentResult = PaymentResponse | { redirectUrl: string };
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +26,7 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<PaymentResponse> {
+  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<PaymentResult> {
     const paymentData = {
       item_name: 'Achat du panier',
       item_price: totalPrice,
@@ -32,23 +35,26 @@ export class PaymentService {
 
     console.log('Sending payment request:', paymentData);
 
-    return this.http.post(`${this.apiUrl}/payment/initiate`, paymentData, { responseType: 'text' }).pipe(
+    return this.http.post(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
       map(response => {
-        console.log('Raw response:', response);
-        try {
-          const parsedResponse = JSON.parse(response) as PaymentResponse;
-          console.log('Parsed response:', parsedResponse);
-          return parsedResponse;
-        } catch (error) {
-          console.error('Error parsing response:', error);
-          throw new Error('Invalid response format');
+        console.log('Server response:', response);
+        if (typeof response === 'string') {
+          try {
+            return JSON.parse(response) as PaymentResponse;
+          } catch {
+            if (response.startsWith('https')) {
+              return { redirectUrl: response };
+            }
+            throw new Error('Invalid response format');
+          }
         }
+        return response as PaymentResponse;
       }),
       catchError(this.handleError)
     );
   }
 
-  private handleError(error: HttpErrorResponse | Error) {
+  private handleError(error: HttpErrorResponse | Error): Observable<PaymentResult> {
     let errorMessage = 'Une erreur inconnue est survenue';
     if (error instanceof HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
@@ -56,6 +62,13 @@ export class PaymentService {
       } else {
         errorMessage = `Code d'erreur ${error.status}, message: ${error.message}`;
         console.error('Error details:', error.error);
+
+        if (error.status === 200 && typeof error.error === 'string' && error.error.startsWith('https')) {
+          return new Observable(observer => {
+            observer.next({ redirectUrl: error.error });
+            observer.complete();
+          });
+        }
       }
     } else {
       errorMessage = error.message;

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PaymentService, CartItem, PaymentResponse } from '../services/paytech.service';
-// import { PaymentService, CartItem, PaymentResponse } from '../services/payment.service';
+import { PaymentService, CartItem, PaymentResponse, PaymentResult } from '../services/paytech.service';
 
 @Component({
   selector: 'app-navbar',
@@ -48,11 +47,14 @@ export class NavbarComponent implements OnInit {
   initiatePayment() {
     this.errorMessage = '';
     this.paymentService.initiatePaymentForCart(this.cartItems, this.totalPrice).subscribe({
-      next: (response: PaymentResponse) => {
+      next: (response: PaymentResult) => {
         console.log('Payment initiation response:', response);
-        if (response && response.success === 1 && response.redirect_url) {
+        if ('success' in response && response.success === 1 && response.redirect_url) {
           console.log('Redirecting to:', response.redirect_url);
           window.location.href = response.redirect_url;
+        } else if ('redirectUrl' in response) {
+          console.log('Redirecting to:', response.redirectUrl);
+          window.location.href = response.redirectUrl ?? '';;
         } else {
           this.errorMessage = 'Une erreur est survenue lors de l\'initiation du paiement. Veuillez réessayer.';
           console.error('Réponse de paiement invalide', response);
