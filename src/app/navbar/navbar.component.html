@@ -24,7 +24,7 @@
       </ul>
       <div class="cart-icon" (click)="openCartModal()">
         <i class="fas fa-shopping-cart"></i>
-        <span class="cart-badge">1</span>
+        <span class="cart-badge">{{ cartItems.length || 0 }}</span>
       </div>
       <button class="btn btn-connexion" routerLink="/login">Connexion</button>
       <button class="btn btn-inscription" routerLink="/inscription">Inscription</button>
@@ -43,12 +43,17 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-7 product-list">
-            <div class="product-item" *ngFor="let product of cartItems">
-              <!-- <img [src]="product.image" [alt]="'Image of ' + product.name"> -->
-              <div class="product-name">{{ product.name }}</div>
-              <input type="number" class="product-quantity" [(ngModel)]="product.quantity" (change)="updateTotal()">
-              <div class="product-price">{{ product.price }}</div>
-              <i class="fas fa-trash-alt product-remove" (click)="removeProduct(product)"></i>
+            <div *ngIf="isLoading">Chargement du panier...</div>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+            <div *ngIf="!isLoading && !errorMessage">
+              <div *ngIf="cartItems.length === 0">Le panier est vide.</div>
+              <div>Nombre d'articles dans le panier: {{ cartItems.length }}</div>
+              <div class="product-item" *ngFor="let product of cartItems">
+                <div class="product-name">{{ product.nom }}</div>
+                <input type="number" class="product-quantity" [(ngModel)]="product.quantite" (change)="updateQuantity(product)">
+                <div class="product-price">{{ product.prix | currency:'XOF':'symbol':'1.0-0' }}</div>
+                <i class="fas fa-trash-alt product-remove" (click)="removeProduct(product)"></i>
+              </div>
             </div>
           </div>
           <div class="col-md-5">
@@ -62,13 +67,10 @@
               <div class="qr-code">
                 <img src="assets/images/qr-code.png" alt="QR code for payment">
               </div>
-              <div class="total-price">
-                {{ totalPrice | currency:'XOF':'symbol':'1.0-0' }} francs
+              <div class="total-price" (click)="initiatePayment()">
+                {{ totalPrice | currency:'XOF':'symbol':'1.0-0' }}
               </div>
-              <button class="btn btn-primary mt-3" (click)="initiatePayment()">Payer maintenant</button>
-            </div>
-            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-              {{ errorMessage }}
+              <!-- <button class="btn btn-primary mt-3" (click)="initiatePayment()" [disabled]="isLoading || cartItems.length === 0">Payer maintenant</button> -->
             </div>
           </div>
         </div>
