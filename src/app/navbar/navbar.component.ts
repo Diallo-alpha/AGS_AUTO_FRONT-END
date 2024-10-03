@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartItem } from '../models/CartItemModel';
 import { CartService } from '../services/cart-item.service';
-import { PaymentService, PaymentResult } from '../services/paytech.service';
+import { PaymentService, PaymentResponse } from '../services/paytech.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public cartService: CartService,
     private paymentService: PaymentService
   ) {}
-
 
   ngOnInit() {
     this.isLoading = true;
@@ -111,18 +110,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     );
   }
-
   initiatePayment() {
     this.errorMessage = '';
     this.paymentService.initiatePaymentForCart(this.cartItems, this.totalPrice).subscribe({
-      next: (response: PaymentResult) => {
+      next: (response: PaymentResponse) => {
         console.log('Payment initiation response:', response);
-        if ('success' in response && response.success === 1 && response.redirect_url) {
+        if (response.success && response.redirect_url) {
           console.log('Redirecting to:', response.redirect_url);
           window.location.href = response.redirect_url;
-        } else if ('redirectUrl' in response) {
-          console.log('Redirecting to:', response.redirectUrl);
-          window.location.href = response.redirectUrl ?? '';
         } else {
           this.errorMessage = 'Une erreur est survenue lors de l\'initiation du paiement. Veuillez réessayer.';
           console.error('Réponse de paiement invalide', response);
