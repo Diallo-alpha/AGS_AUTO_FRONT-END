@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { apiUrl } from './apiUrl';
 import { CartItem } from '../models/CartItemModel';
 
@@ -9,6 +9,12 @@ export interface PaymentResponse {
   success: boolean;
   redirect_url?: string;
   errors?: string[];
+}
+
+export interface PaymentVerificationResponse {
+  status: string;
+  amount: number;
+  date: string;
 }
 
 @Injectable({
@@ -27,7 +33,7 @@ export class PaymentService {
       formation_id: formationId
     };
 
-    console.log('Sending payment request:', paymentData);
+    console.log('Sending payment request for formation:', paymentData);
 
     return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
       map(this.handleResponse),
@@ -44,7 +50,7 @@ export class PaymentService {
       formation_id: firstItem.id
     };
 
-    console.log('Sending payment request:', paymentData);
+    console.log('Sending payment request for cart:', paymentData);
 
     return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
       map(this.handleResponse),
@@ -52,28 +58,31 @@ export class PaymentService {
     );
   }
 
-  // Nouvelles méthodes pour les routes supplémentaires
+  handlePaytechNotification(notificationData: any): Observable<any> {
+    console.log('Sending notification data to server:', notificationData);
+    return this.http.post(`${this.apiUrl}/paytech/notification`, notificationData).pipe(
+      tap(response => console.log('Server response:', response)),
+      catchError(this.handleError)
+    );
 
-  handleIPN(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/paytech-ipn`, {}).pipe(
+  }
+
+  verifyPayment(refCommand: string): Observable<PaymentVerificationResponse> {
+    const params = new HttpParams().set('ref_command', refCommand);
+    return this.http.get<PaymentVerificationResponse>(`${this.apiUrl}/verify-payment`, { params }).pipe(
       catchError(this.handleError)
     );
   }
 
-  paymentCancel(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/paiements/cancel/${id}`).pipe(
+  cancelPayment(refCommand: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/paiements/cancel/${refCommand}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  handleNotification(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/paytech/notification`, data).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  paymentSuccess(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/paytech/success`).pipe(
+  handlePaymentSuccess(formationId: number): Observable<any> {
+    const params = new HttpParams().set('formation_id', formationId.toString());
+    return this.http.get(`${this.apiUrl}/paytech/success`, { params }).pipe(
       catchError(this.handleError)
     );
   }
@@ -88,7 +97,11 @@ export class PaymentService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Erreur: ${error.error.message}`;
     } else {
-      errorMessage = `Code d'erreur ${error.status}, message: ${error.error.message || error.message}`;
+      if (error.status === 0) {
+        errorMessage = 'Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
+      } else {
+        errorMessage = `Code d'erreur ${error.status}, message: ${error.error.message || error.message}`;
+      }
       console.error('Error details:', error.error);
     }
     console.error(errorMessage);

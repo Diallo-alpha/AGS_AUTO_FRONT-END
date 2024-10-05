@@ -11,11 +11,13 @@ import { Article } from '../models/ArticleModel';
 import { service } from '../models/serviceModel';
 import { partenaire } from '../models/partenaireModel';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/authservice.service';
+import { NavConnectComponent } from '../nav-connect/nav-connect.component';
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [RouterModule, NavbarComponent, FooterComponent, CommonModule],
+  imports: [RouterModule, NavbarComponent, FooterComponent, CommonModule, NavConnectComponent],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })
@@ -29,7 +31,8 @@ export class AccueilComponent {
     private formationService: FormationService,
     private serviceService: ServiceService,
     private articleService: ArticleService,
-    private partenaireService: PartenaireService
+    private partenaireService: PartenaireService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +47,10 @@ export class AccueilComponent {
     this.formationService.getAllFormations().subscribe((data: Formation[]) => {
       this.formations = data.slice(0, 4); //4 premiere
     });
+  }
+
+  isEtudiant(): boolean {
+    return this.authService.isEtudiant();
   }
 
   //les services

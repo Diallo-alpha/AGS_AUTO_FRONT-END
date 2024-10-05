@@ -36,11 +36,16 @@ export class ConnexionComponent implements OnInit {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           console.log('Connexion réussie');
-          // Vérifier le rôle de l'utilisateur
-          if (response.user && response.user.role === 'admin') {
+
+          // Affiche le rôle de l'utilisateur dans la console
+          const userRole = response.user.role;
+          console.log(`Rôle de l'utilisateur connecté : ${userRole}`);
+
+          // Redirection basée sur le rôle
+          if (userRole === 'admin') {
             this.router.navigate(['dashboard/statique']);
           } else {
-            this.router.navigate(['']); // Redirection par défaut pour les utilisateurs simple
+            this.router.navigate(['']); // Redirection par défaut pour les utilisateurs simples
           }
         },
         error: (error) => {

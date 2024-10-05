@@ -55,6 +55,12 @@ export class AuthService {
     );
   }
 
+  public clearUserData(): void {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
+
   refreshToken(): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${apiUrl}/refresh`, {}).pipe(
       tap(response => this.setUserData(response)),
@@ -89,14 +95,18 @@ export class AuthService {
     this.currentUserSubject.next(response.user);
   }
 
-  private clearUserData(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-  }
+  // private clearUserData(): void {
+  //   localStorage.removeItem('access_token');
+  //   localStorage.removeItem('currentUser');
+  //   this.currentUserSubject.next(null);
+  // }
 
   private handleError(error: any) {
     console.error('An error occurred:', error);
     return throwError(() => new Error(error.error?.message || 'Server error'));
+  }
+  isEtudiant(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser?.role === 'etudiant';
   }
 }

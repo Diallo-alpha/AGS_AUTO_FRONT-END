@@ -42,7 +42,7 @@ export class PhotoFormationService {
     if (file) {
       formData.append('photo', file);
     }
-
+  
     return this.http.post<PhotoFormation>(`${API_URL}/photo_formations/${id}`, formData, { headers: this.getHeaders() });
   }
 

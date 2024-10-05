@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartItem } from '../models/CartItemModel';
 import { CartService } from '../services/cart-item.service';
 import { PaymentService, PaymentResponse } from '../services/paytech.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../services/authservice.service';
 
 @Component({
   selector: 'app-navbar',
@@ -20,11 +21,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   totalPrice = 0;
   errorMessage = '';
   isLoading = true;
+  isLoggedIn = false;
   private cartSubscription!: Subscription;
+  private authSubscription!: Subscription;
 
   constructor(
     public cartService: CartService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,12 +50,44 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
+
+    this.authSubscription = this.authService.currentUser.subscribe(
+      user => {
+        this.isLoggedIn = !!user;
+      }
+    );
   }
 
   ngOnDestroy() {
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
     }
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+  }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        // Handle successful logout
+        console.log('Logout successful');
+        this.isLoggedIn = false;
+        this.router.navigate(['/']); // Redirect to home page
+      },
+      error: (error) => {
+        console.error('Logout error:', error);
+        if (error.message === 'Unauthenticated.') {
+          // User is already logged out, just update UI and redirect
+          console.log('User was already logged out');
+          this.isLoggedIn = false;
+          this.authService.clearUserData(); // Make sure local storage is cleared
+          this.router.navigate(['/']);
+        } else {
+          this.errorMessage = 'Une erreur est survenue lors de la déconnexion. Veuillez réessayer.';
+        }
+      }
+    });
   }
 
   addDefaultItems() {
