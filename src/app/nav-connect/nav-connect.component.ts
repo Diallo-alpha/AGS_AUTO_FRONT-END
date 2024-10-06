@@ -9,7 +9,7 @@ import { AuthService } from '../services/authservice.service';
 import { UserModel } from '../models/userModel';
 import { Subscription } from 'rxjs';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { EtudiantService } from '../services/etudiant.service';
 
 @Component({
   selector: 'app-nav-connect',
@@ -25,6 +25,8 @@ export class NavConnectComponent implements OnInit, OnDestroy {
   errorMessage = '';
   isLoading = true;
   currentUser: UserModel | null = null;
+  formationsAchetees: any[] = [];
+  isCoursDropdownOpen = false;
   private cartSubscription!: Subscription;
   private userSubscription!: Subscription;
 
@@ -32,12 +34,14 @@ export class NavConnectComponent implements OnInit, OnDestroy {
     public cartService: CartService,
     private paymentService: PaymentService,
     private authService: AuthService,
+    private etudiantService: EtudiantService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.userSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
+      this.loadFormationsAchetees();
     });
 
     this.cartSubscription = this.cartService.getCart().subscribe(
@@ -138,5 +142,28 @@ export class NavConnectComponent implements OnInit, OnDestroy {
 
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
+  }
+
+  //afficher les formation acheter
+  loadFormationsAchetees() {
+    if (this.isEtudiant()) {
+      this.etudiantService.getFormationsAchetees().subscribe(
+        formations => {
+          this.formationsAchetees = formations;
+        },
+        error => {
+          console.error('Erreur lors du chargement des formations achetées:', error);
+          // Gérer l'erreur si nécessaire
+        }
+      );
+    }
+  }
+
+  toggleCoursDropdown() {
+    this.isCoursDropdownOpen = !this.isCoursDropdownOpen;
+  }
+  navigateToCours(coursId: number) {
+    // Naviguer vers le cours spécifique
+    this.router.navigate(['/cours', coursId]);
   }
 }

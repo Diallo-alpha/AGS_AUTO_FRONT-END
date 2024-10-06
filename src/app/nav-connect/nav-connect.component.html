@@ -46,13 +46,23 @@
           <img src="..." alt="Profile picture" class="profile-pic rounded-circle" width="40" height="40">
         </button>
         <ul ngbDropdownMenu aria-labelledby="profileDropdown">
-          <li><a ngbDropdownItem (click)="navigateToMesCours()">Mes Cours</a></li>
+          <li>
+            <a ngbDropdownItem (click)="toggleCoursDropdown()">Mes cours</a>
+            <ul *ngIf="isCoursDropdownOpen" class="dropdown-submenu">
+              <li *ngFor="let formation of formationsAchetees">
+                <a class="dropdown-item" (click)="navigateToCours(formation.id)">{{ formation.nom_formation }}</a>
+              </li>
+              <li *ngIf="formationsAchetees.length === 0">
+                <span class="dropdown-item-text">Aucun cours pour le moment</span>
+              </li>
+            </ul>
+          </li>
           <li><a ngbDropdownItem (click)="navigateToProfile()">Profil</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a ngbDropdownItem (click)="logout()">Déconnexion</a></li>
         </ul>
       </div>
-    </div>
+  </div>
   </div>
 </nav>
 
