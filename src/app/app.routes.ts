@@ -63,7 +63,7 @@ export const routes: Routes = [
   {path: 'dashboard/article/ajouter', component:AjouterArticleComponent},
   { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent },
   //courrs
-  {path: 'cours', component:CoursComponent},
+  {path: 'cours/:id', component:CoursComponent},
   //partenaire
   {path: 'dashboard/partenaire', component:ListPartenaireComponent},
   {path: 'dashboard/partenaire/ajouter', component:AjouterPartenaireComponent},
