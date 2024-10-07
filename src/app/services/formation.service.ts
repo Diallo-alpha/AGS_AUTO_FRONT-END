@@ -34,8 +34,12 @@ export class FormationService {
       observe: 'response'
     });
   }
-  updateFormation(id: number, formation: Formation): Observable<{ message: string; formation: Formation }> {
-    return this.http.post<{ message: string; formation: Formation }>(`${this.API_URL}/formations/${id}`, formation, { headers: this.getAuthHeaders() });
+  updateFormation(id: number, formData: FormData): Observable<{ message: string; formation: Formation }> {
+    return this.http.post<{ message: string; formation: Formation }>(
+      `${this.API_URL}/formations/${id}`,
+      formData,
+      { headers: this.getAuthHeaders() }
+    );
   }
 
   deleteFormation(id: number): Observable<{ message: string }> {

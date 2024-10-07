@@ -69,7 +69,8 @@ export class CoursComponent implements OnInit {
 
   selectVideo(video: Video) {
     this.currentVideo = video;
-    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(video.video);
+    const videoUrl = `${video}`; 
+    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
     console.log('Vidéo sélectionnée:', video.titre);
     this.loadResourcesForVideo(video.id);
   }
