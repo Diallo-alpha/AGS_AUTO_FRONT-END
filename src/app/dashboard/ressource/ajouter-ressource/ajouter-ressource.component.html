@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <app-sidbar></app-sidbar>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="container">
+      <div class="form-container">
+        <div class="form-title">Ajouter une ressource</div>
+        <form [formGroup]="ressourceForm" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <div class="col">
+              <label for="titre" class="form-label">Titre</label>
+              <input type="text" class="form-control" id="titre" formControlName="titre">
+            </div>
+            <div class="col">
+              <label for="documents" class="form-label">Documents</label>
+              <input type="file" class="form-control" id="documents" (change)="onFileSelected($event)">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="video_id" class="form-label">Vidéo associée</label>
+            <select class="form-select" id="video_id" formControlName="video_id">
+              <option value="">Sélectionnez une vidéo</option>
+              <option *ngFor="let video of videos" [value]="video.id">
+                {{ video.titre }}
+              </option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-custom" [disabled]="ressourceForm.invalid || isSubmitting">
+            {{ isSubmitting ? 'Ajout en cours...' : 'Ajouter' }}
+          </button>
+        </form>
+
+        <!-- Affichage des erreurs -->
+        <div *ngIf="errorMessages.length > 0" class="alert alert-danger mt-3">
+          <ul>
+            <li *ngFor="let error of errorMessages">{{ error }}</li>
+          </ul>
+        </div>
+
+        <!-- Affichage du message de succès -->
+        <div *ngIf="successMessage" class="alert alert-success mt-3">
+          {{ successMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

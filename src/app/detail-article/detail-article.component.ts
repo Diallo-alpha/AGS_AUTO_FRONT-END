@@ -5,11 +5,13 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Article } from '../models/ArticleModel';
 import { ArticleService } from '../services/articleservice.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/authservice.service';
+import { NavConnectComponent } from '../nav-connect/nav-connect.component';
 
 @Component({
   selector: 'app-detail-article',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, RouterModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, RouterModule, NavConnectComponent],
   templateUrl: './detail-article.component.html',
   styleUrl: './detail-article.component.css'
 })
@@ -18,7 +20,8 @@ article: Article | null = null;
 
 constructor(
   private route: ActivatedRoute,
-  private articleService: ArticleService
+  private articleService: ArticleService,
+  private authService: AuthService,
 ){}
 
   ngOnInit(): void {
@@ -37,5 +40,8 @@ constructor(
         console.error('Error fetching article details', error);
       }
     );
+  }
+  isEtudiant(): boolean {
+    return this.authService.isEtudiant();
   }
 }

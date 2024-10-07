@@ -72,8 +72,14 @@ export class ModifierFormationComponent implements OnInit {
       if (this.selectedFile) {
         formData.append('image', this.selectedFile, this.selectedFile.name);
       } else if (this.currentImageUrl) {
+        // Si pas de nouvelle image sélectionnée, on envoie l'URL de l'image existante
         formData.append('image', this.currentImageUrl);
       }
+
+      console.log('FormData avant envoi:', formData);
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
 
       this.formationService.updateFormation(this.formationId, formData).subscribe(
         response => {
@@ -82,8 +88,13 @@ export class ModifierFormationComponent implements OnInit {
         },
         error => {
           console.error('Erreur lors de la modification de la formation', error);
+          if (error.error && error.error.message) {
+            console.error('Message d\'erreur du serveur:', error.error.message);
+          }
         }
       );
+    } else {
+      console.log('Formulaire invalide', this.formationForm.errors);
     }
   }
 }

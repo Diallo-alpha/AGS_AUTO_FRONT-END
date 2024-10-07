@@ -28,6 +28,10 @@ import { ModifierPartenaireComponent } from './dashboard/partenaire/modifier-par
 import { ListServiceComponent } from './dashboard/service-client/list-service/list-service.component';
 import { AjouterServiceComponent } from './dashboard/service-client/ajouter-service/ajouter-service.component';
 import { ModifierServiceComponent } from './dashboard/service-client/modifier-service/modifier-service.component';
+import { CoursComponent } from './cours/cours.component';
+import { RessourceComponent } from './dashboard/ressource/ressource.component';
+import { AjouterRessourceComponent } from './dashboard/ressource/ajouter-ressource/ajouter-ressource.component';
+import { ModifierRessourceComponent } from './dashboard/ressource/modifier-ressource/modifier-ressource.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -58,6 +62,8 @@ export const routes: Routes = [
   {path: 'dashboard/article', component:ListArticleComponent},
   {path: 'dashboard/article/ajouter', component:AjouterArticleComponent},
   { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent },
+  //courrs
+  {path: 'cours/:id', component:CoursComponent},
   //partenaire
   {path: 'dashboard/partenaire', component:ListPartenaireComponent},
   {path: 'dashboard/partenaire/ajouter', component:AjouterPartenaireComponent},
@@ -66,4 +72,8 @@ export const routes: Routes = [
   {path: 'dashboard/service', component:ListServiceComponent},
   {path: 'dashboard/service/ajouter', component:AjouterServiceComponent},
   {path: 'dashboard/service/modifier/:id', component:ModifierServiceComponent},
+  //ressource
+  {path: 'dashboard/ressource', component:RessourceComponent},
+  {path: 'dashboard/ressource/ajouter', component:AjouterRessourceComponent},
+  {path: 'dashboard/ressource/modifier/:id', component:ModifierRessourceComponent},
 ];

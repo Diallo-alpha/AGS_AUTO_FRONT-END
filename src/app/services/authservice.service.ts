@@ -34,16 +34,16 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  register(user: UserModel): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${apiUrl}/register`, user).pipe(
-      tap(response => this.setUserData(response)),
+  register(user: UserModel): Observable<any> {
+    return this.http.post(`${apiUrl}/register`, user).pipe(
+      tap(response => this.setUserData(response as LoginResponse)),
       catchError(this.handleError)
     );
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${apiUrl}/login`, { email, password }).pipe(
-      tap(response => this.setUserData(response)),
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${apiUrl}/login`, { email, password }).pipe(
+      tap(response => this.setUserData(response as LoginResponse)),
       catchError(this.handleError)
     );
   }
@@ -55,15 +55,21 @@ export class AuthService {
     );
   }
 
-  refreshToken(): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${apiUrl}/refresh`, {}).pipe(
-      tap(response => this.setUserData(response)),
+  public clearUserData(): void {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
+
+  refreshToken(): Observable<any> {
+    return this.http.post(`${apiUrl}/refresh`, {}).pipe(
+      tap(response => this.setUserData(response as LoginResponse)),
       catchError(this.handleError)
     );
   }
 
-  updateProfile(userData: Partial<UserModel>): Observable<UserModel> {
-    return this.http.patch<UserModel>(`${apiUrl}/update`, userData).pipe(
+  updateProfile(userData: Partial<UserModel>): Observable<any> {
+    return this.http.patch(`${apiUrl}/update`, userData).pipe(
       tap(updatedUser => {
         const currentUser = this.currentUserValue;
         if (currentUser) {
@@ -89,14 +95,13 @@ export class AuthService {
     this.currentUserSubject.next(response.user);
   }
 
-  private clearUserData(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-  }
-
   private handleError(error: any) {
     console.error('An error occurred:', error);
     return throwError(() => new Error(error.error?.message || 'Server error'));
+  }
+
+  isEtudiant(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser?.role === 'etudiant';
   }
 }

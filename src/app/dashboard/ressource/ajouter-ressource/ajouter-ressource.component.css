@@ -1,0 +1,47 @@
+.container {
+  margin-top: -95vh;
+  width: 1000px;
+}
+.form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.form-title {
+  color: #9C490C;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 7px;
+}
+.form-label{
+  color: var(--third, #020202);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.btn-custom {
+  background-color: #9C490C;
+  border: none;
+  width: 150px;
+  height: 50px;
+  color: #FFF;
+  font-weight: bold;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+  transform: rotate(0.143deg);
+}
+.nomFormation{
+  color: #020202;
+}
+.btn-custom:hover {
+  background-color: #6b3510;
+}

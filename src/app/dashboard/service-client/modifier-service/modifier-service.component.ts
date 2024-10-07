@@ -91,7 +91,7 @@ export class ModifierServiceComponent implements OnInit {
       this.serviceService.updateService(this.currentService.id, formData).subscribe(
         (response) => {
           console.log('Service mis à jour avec succès', response);
-          this.router.navigate(['/services']); // Rediriger vers la liste des services
+          this.router.navigate(['/dashboard/service']);
         },
         (error) => {
           console.error('Erreur lors de la mise à jour du service', error);

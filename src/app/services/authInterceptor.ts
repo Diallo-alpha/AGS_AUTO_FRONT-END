@@ -7,17 +7,22 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('access_token');
 
   if (token) {
-    const clonedRequest = req.clone({
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }),
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
+
+    // Ne pas ajouter Content-Type pour FormData
+    if (!(req.body instanceof FormData)) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+
+    const clonedRequest = req.clone({ headers });
 
     // Handle preflight OPTIONS requests
     if (req.method === 'OPTIONS') {
       return next(clonedRequest.clone({
-        headers: clonedRequest.headers.set('Access-Control-Allow-Origin', '*')
+        headers: clonedRequest.headers
+          .set('Access-Control-Allow-Origin', '*')
           .set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
           .set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
       }));

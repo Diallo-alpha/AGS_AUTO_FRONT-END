@@ -3,6 +3,13 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video } from '../models/VideoModel';
 import { apiUrl } from './apiUrl';
+import { Ressource } from '../models/ressourceModel';
+
+
+interface VideoResourceResponse {
+  videos: Video[];
+  resources: Ressource[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +19,8 @@ export class VideoService {
 
   constructor(private http: HttpClient) {}
 
-  getVideoRessources(formationId: number): Observable<any> {
-    return this.http.get(`${apiUrl}/formations/${formationId}/videos`);
+  getVideoRessources(formationId: number): Observable<VideoResourceResponse> {
+    return this.http.get<VideoResourceResponse>(`${apiUrl}/formations/${formationId}/videos`);
   }
   getAllVideos(): Observable<Video[]> {
     return this.http.get<Video[]>(this.apiEndpoint);
