@@ -4,6 +4,7 @@ import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Ressource } from '../models/ressourceModel';
 import { apiUrl } from './apiUrl';
+import { VideoService } from './video-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,20 @@ import { apiUrl } from './apiUrl';
 export class RessourceService {
   private apiUrl = apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private videoService: VideoService) { }
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+  }
+
+
+  getRessourcesForVideo(formationId: number): Observable<Ressource[]> {
+    return this.videoService.getVideoRessources(formationId).pipe(
+      map(response => response.resources)
+    );
   }
 
   // Get all resources (admin only)

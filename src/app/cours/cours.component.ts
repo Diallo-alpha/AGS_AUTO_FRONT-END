@@ -53,9 +53,11 @@ export class CoursComponent implements OnInit {
         console.log('Formation chargée:', this.formation);
       }),
       switchMap(formation => this.videoService.getVideoRessources(formation.id)),
-      tap(videos => {
-        this.videos = videos;
+      tap(response => {
+        this.videos = response.videos;
+        this.currentResources = response.resources;
         console.log('Vidéos chargées:', this.videos);
+        console.log('Ressources chargées:', this.currentResources);
         if (this.videos.length > 0) {
           this.selectVideo(this.videos[0]);
         }
@@ -69,23 +71,9 @@ export class CoursComponent implements OnInit {
 
   selectVideo(video: Video) {
     this.currentVideo = video;
-    const videoUrl = `${video}`; 
-    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+    this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(video.video);
     console.log('Vidéo sélectionnée:', video.titre);
-    this.loadResourcesForVideo(video.id);
-  }
-
-  loadResourcesForVideo(videoId: number) {
-    this.videoService.getVideoRessources(videoId).pipe(
-      tap(resources => {
-        this.currentResources = resources;
-        console.log('Ressources chargées:', this.currentResources);
-      }),
-      catchError(error => {
-        console.error('Erreur lors du chargement des ressources', error);
-        throw error;
-      })
-    ).subscribe();
+    // Nous n'avons plus besoin de charger les ressources séparément ici
   }
 
   isEtudiant(): boolean {
