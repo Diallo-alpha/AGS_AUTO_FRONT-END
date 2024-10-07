@@ -24,6 +24,9 @@
             {{ resource.titre }} <i class="fas fa-download download-icon"></i>
           </a>
         </div>
+        <div *ngIf="currentResources.length === 0">
+          Aucune ressource disponible pour cette vidéo.
+        </div>
       </div>
     </div>
     <div class="container">

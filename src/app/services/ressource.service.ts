@@ -6,6 +6,13 @@ import { Ressource } from '../models/ressourceModel';
 import { apiUrl } from './apiUrl';
 import { VideoService } from './video-service.service';
 
+
+interface ResourceResponse {
+  message: string;
+  video: string;
+  resources: Ressource[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -79,4 +86,9 @@ export class RessourceService {
       }
     }
   }
+  getResourcesByVideoId(videoId: number): Observable<ResourceResponse> {
+    return this.http.get<ResourceResponse>(`${this.apiUrl}/videos/${videoId}/resources`, { headers: this.getHeaders() });
+  }
+
+
 }

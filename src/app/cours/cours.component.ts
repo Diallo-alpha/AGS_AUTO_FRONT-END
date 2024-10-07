@@ -10,9 +10,20 @@ import { Formation } from '../models/FormationModel';
 import { Video } from '../models/VideoModel';
 import { Ressource } from '../models/ressourceModel';
 import { CommonModule } from '@angular/common';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap, catchError, switchMap, map } from 'rxjs/operators';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+interface VideoResourceResponse {
+  videos: Video[];
+  resources: Ressource[];
+}
+
+interface ResourceResponse {
+  message: string;
+  video: string;
+  resources: Ressource[];
+}
 
 @Component({
   selector: 'app-cours',
@@ -53,11 +64,9 @@ export class CoursComponent implements OnInit {
         console.log('Formation chargée:', this.formation);
       }),
       switchMap(formation => this.videoService.getVideoRessources(formation.id)),
-      tap(response => {
+      tap((response: VideoResourceResponse) => {
         this.videos = response.videos;
-        this.currentResources = response.resources;
         console.log('Vidéos chargées:', this.videos);
-        console.log('Ressources chargées:', this.currentResources);
         if (this.videos.length > 0) {
           this.selectVideo(this.videos[0]);
         }
@@ -72,8 +81,20 @@ export class CoursComponent implements OnInit {
   selectVideo(video: Video) {
     this.currentVideo = video;
     this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(video.video);
+    this.loadResourcesForVideo(video.id);
     console.log('Vidéo sélectionnée:', video.titre);
-    // Nous n'avons plus besoin de charger les ressources séparément ici
+  }
+
+  loadResourcesForVideo(videoId: number) {
+    this.ressourceService.getResourcesByVideoId(videoId).subscribe(
+      (response: ResourceResponse) => {
+        this.currentResources = response.resources;
+        console.log('Ressources chargées pour la vidéo:', this.currentResources);
+      },
+      error => {
+        console.error('Erreur lors du chargement des ressources', error);
+      }
+    );
   }
 
   isEtudiant(): boolean {
