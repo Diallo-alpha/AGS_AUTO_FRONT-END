@@ -7,7 +7,7 @@
 
     <!-- Formulaire -->
     <div class="col-md-9 form-container mt-4">
-      <h2>Ajouter une formation</h2>
+      <h2>Modifier une formation</h2>
       <form [formGroup]="formationForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-md-6 form-group">
@@ -18,6 +18,11 @@
             <label for="prix">Prix</label>
             <input class="form-control" id="prix" type="number" formControlName="prix"/>
           </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="image">Image</label>
+          <input class="form-control" id="image" type="file" (change)="onFileSelected($event)"/>
+          <img *ngIf="currentImageUrl && !selectedFile" [src]="currentImageUrl" alt="Image actuelle" style="max-width: 200px; margin-top: 10px;">
         </div>
         <div class="form-group">
           <label for="description">Description</label>
