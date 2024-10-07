@@ -123,7 +123,7 @@ export class NavConnectComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout().subscribe(
       () => {
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
       },
       error => {
         console.error('Erreur lors de la déconnexion', error);
