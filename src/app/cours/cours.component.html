@@ -12,15 +12,17 @@
     <div class="row">
       <div class="col-md-8">
         <div class="video-container mb-3">
-          <video *ngIf="currentVideo" [src]="getVideoUrl(currentVideo)" controls width="100%"></video>
-          <i *ngIf="!currentVideo" class="fas fa-play-circle play-button"></i>
+          <video *ngIf="safeVideoUrl" [src]="safeVideoUrl" controls width="100%"></video>
+          <i *ngIf="!safeVideoUrl" class="fas fa-play-circle play-button"></i>
         </div>
         <p>{{ currentVideo?.titre }}</p>
       </div>
       <div class="col-md-4">
         <h6 class="resource-title">RESSOURCES DE LA VIDÉO</h6>
-        <div *ngFor="let resource of resources" class="mb-2">
-          <a class="download-link" [href]="resource.documents">{{ resource.titre }} <i class="fas fa-download download-icon"></i></a>
+        <div *ngFor="let resource of currentResources" class="mb-2">
+          <a class="download-link" [href]="resource.documents" target="_blank">
+            {{ resource.titre }} <i class="fas fa-download download-icon"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -35,9 +37,11 @@
         <div class="card-body">
           <div class="card-header">{{ formation?.nom_formation }}</div>
           <ul class="list-group list-group-flush">
-            <li *ngFor="let video of videos" class="list-group-item" [class.active]="video === currentVideo" (click)="selectVideo(video)">
-              <i class="fas fa-play-circle" [style.color]="video === currentVideo ? '' : '#b5651d'"></i> {{ video.titre }}
-              <!-- Ajoutez la durée si disponible dans votre modèle Video -->
+            <li *ngFor="let video of videos" class="list-group-item"
+                [class.active]="video === currentVideo"
+                (click)="selectVideo(video)">
+              <i class="fas fa-play-circle" [style.color]="video === currentVideo ? '' : '#b5651d'"></i>
+              {{ video.titre || 'Titre non disponible' }}
             </li>
           </ul>
         </div>
