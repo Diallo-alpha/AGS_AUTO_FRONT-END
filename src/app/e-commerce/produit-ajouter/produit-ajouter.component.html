@@ -1,0 +1,61 @@
+<div class="container-fluid">
+<app-sidbar></app-sidbar>
+<div class="content col-md-10">
+  <h2 class="section-title">
+   Ajouter produit
+  </h2>
+  <div class="card">
+   <div class="card-body">
+    <form>
+     <div class="row mb-3">
+      <div class="col-md-6">
+       <label class="form-label" for="nom">
+        Nom
+       </label>
+       <input class="form-control" id="nom" type="text"/>
+      </div>
+      <div class="col-md-6">
+       <label class="form-label" for="image">
+        image
+       </label>
+       <div class="input-group">
+        <input class="form-control" id="image" type="text"/>
+        <span class="input-group-text">
+         <i class="fas fa-file-alt">
+         </i>
+        </span>
+       </div>
+      </div>
+     </div>
+     <div class="row mb-3">
+      <div class="col-md-6">
+       <label class="form-label" for="stock">
+        stock
+       </label>
+       <input class="form-control" id="stock" type="text"/>
+      </div>
+      <div class="col-md-6">
+       <label class="form-label" for="prix">
+        prix
+       </label>
+       <input class="form-control" id="prix" type="text"/>
+      </div>
+     </div>
+     <div class="mb-3">
+      <label class="form-label" for="categories">
+       categories
+      </label>
+      <select class="form-select" id="categories">
+       <option selected="">
+        Sélectionner une catégorie
+       </option>
+      </select>
+     </div>
+     <button class="btn btn-primary" type="submit">
+      Ajouter
+     </button>
+    </form>
+   </div>
+  </div>
+  </div>
+</div>

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { Formation } from '../models/FormationModel';
-import { Video } from '../models/VideoModel';
 import { FormationService } from '../services/formation.service';
 import { VideoService } from '../services/video-service.service';
-import { PaymentService, PaymentResponse, PaymentVerificationResponse } from '../services/paytech.service';
-import { NavbarComponent } from './../navbar/navbar.component';
-import { FooterComponent } from './../footer/footer.component';
+import { Video } from '../models/VideoModel';
+import { PaymentService, PaymentResponse } from '../services/paytech.service';
 import { AuthService } from '../services/authservice.service';
+import { catchError, finalize } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonModule } from '@angular/common';
 import { NavConnectComponent } from '../nav-connect/nav-connect.component';
-import { switchMap, mergeMap, takeWhile, catchError } from 'rxjs/operators';
-import { Observable, of, timer, throwError, map } from 'rxjs';
 
 
 @Component({
@@ -88,86 +88,94 @@ export class DetailformationComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.paymentService.initiatePaymentForFormation(this.formation.id, this.formation.prix)
+    this.initiatePaymentRequest(this.formation.id, this.formation.prix)
       .pipe(
-        switchMap((response: PaymentResponse) => {
-          if (response.success && response.redirect_url) {
-            window.open(response.redirect_url, '_blank');
-            return this.waitForPaymentCompletion(this.formation!.id);
-          } else {
-            return throwError(() => new Error('Erreur lors de l\'initiation du paiement.'));
-          }
-        }),
-        catchError(error => {
-          this.isLoading = false;
-          this.errorMessage = 'Erreur lors du processus de paiement. Veuillez réessayer plus tard.';
+        catchError((error) => {
           console.error('Erreur lors du processus de paiement', error);
-          return throwError(() => error);
-        })
+          this.errorMessage = 'Erreur lors du processus de paiement. Veuillez réessayer plus tard.';
+          return throwError(() => new Error(this.errorMessage));
+        }),
+        finalize(() => this.isLoading = false)
       )
-      .subscribe({
-        next: (result) => {
-          this.isLoading = false;
-          if (result) {
-            console.log('Paiement réussi et traité');
-            // Gérer le paiement réussi (par exemple, afficher un message de succès, mettre à jour l'interface utilisateur)
+      .subscribe(async (paymentResponse) => {
+        console.log('Payment response received:', paymentResponse);
+        if (paymentResponse && paymentResponse.success && paymentResponse.redirect_url) {
+          console.log('Attempting to open payment window');
+          try {
+            await this.openPaymentWindow(paymentResponse.redirect_url);
+            console.log('Payment window opened, checking status');
+            const paymentStatus = await this.checkPaymentStatus(this.formation!.id);
+            console.log('Payment status:', paymentStatus);
+            // ...
+          } catch (error) {
+            console.error('Error in payment process:', error);
+            // ...
           }
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.errorMessage = 'Une erreur est survenue lors du traitement du paiement.';
-          console.error('Erreur finale lors du traitement du paiement', error);
+        } else {
+          console.error('Invalid payment response:', paymentResponse);
+          // ...
         }
       });
   }
 
-  waitForPaymentCompletion(formationId: number): Observable<any> {
-    // Attendre 30 secondes avant de commencer à vérifier
-    const initialDelay = 30000;
-    const checkInterval = 10000; // Vérifier toutes les 10 secondes ensuite
+  private initiatePaymentRequest(formationId: number, price: number): Observable<PaymentResponse> {
+    return this.paymentService.initiatePaymentForFormation(formationId, price);
+  }
 
-    return timer(initialDelay, checkInterval).pipe(
-      mergeMap(() => this.checkPaymentStatus(formationId)),
-      takeWhile((status) => status === 'en attente', true),
-      switchMap((finalStatus) => {
-        if (finalStatus === 'payé') {
-          return this.paymentService.handlePaymentSuccess(formationId);
-        } else if (finalStatus !== 'en attente') {
-          return throwError(() => new Error('Le paiement a échoué ou a expiré.'));
+  private openPaymentWindow(url: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const popup = window.open(url, '_blank');
+      if (!popup) {
+        reject(new Error("Impossible d'ouvrir la fenêtre de paiement."));
+        return;
+      }
+
+      const checkInterval = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(checkInterval);
+          resolve();
         }
-        return of(null);
-      }),
-      takeWhile((result) => result === null, true)
-    );
+      }, 1000);
+
+      setTimeout(() => {
+        if (!popup.closed) {
+          clearInterval(checkInterval);
+          popup.close();
+          reject(new Error('Le paiement a expiré ou a été annulé.'));
+        }
+      }, 300000); // 5 minutes timeout
+    });
   }
 
-  checkPaymentStatus(formationId: number): Observable<string> {
-    return this.paymentService.verifyPayment(formationId.toString()).pipe(
-      map((response: PaymentVerificationResponse) => response.status),
-      catchError(error => {
+  private async checkPaymentStatus(formationId: number): Promise<string> {
+    const maxAttempts = 10;
+    const delayBetweenAttempts = 5000; // 5 seconds
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const response = await this.paymentService.verifyPayment(formationId.toString()).toPromise();
+        if (response && response.status !== 'en attente') {
+          return response.status;
+        }
+      } catch (error) {
         console.error('Erreur lors de la vérification du paiement', error);
-        return of('erreur');
-      })
-    );
+      }
+
+      await new Promise(resolve => setTimeout(resolve, delayBetweenAttempts));
+    }
+
+    throw new Error('Timeout lors de la vérification du statut du paiement.');
   }
 
-  // checkPaymentStatus(formationId: number): Observable<any> {
-  //   return timer(0, 5000).pipe(
-  //     mergeMap(() => this.paymentService.verifyPayment(formationId.toString())),
-  //     takeWhile((response: PaymentVerificationResponse) => response.status === 'en attente', true),
-  //     mergeMap((response: PaymentVerificationResponse) => {
-  //       if (response.status === 'payé') {
-  //         return this.paymentService.handlePaymentSuccess(formationId);
-  //       }
-  //       return of(null);
-  //     }),
-  //     catchError(error => {
-  //       console.error('Erreur lors de la vérification du paiement', error);
-  //       return of(null);
-  //     })
-  //   );
-  // }
-
+  private async finalizePayment(formationId: number): Promise<void> {
+    try {
+      await this.paymentService.handlePaymentSuccess(formationId).toPromise();
+      console.log('Paiement finalisé avec succès');
+    } catch (error) {
+      console.error('Erreur lors de la finalisation du paiement', error);
+      throw new Error('Erreur lors de la finalisation du paiement');
+    }
+  }
 
   getCurrentUserId(): number | null {
     const currentUser = this.authService.currentUserValue;

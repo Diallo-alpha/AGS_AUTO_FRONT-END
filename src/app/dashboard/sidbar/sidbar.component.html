@@ -51,25 +51,25 @@
                       <div class="section-title">E-COMMERCE</div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" routerLink="/e-commerce/produits">
                           <i class="fas fa-box"></i>
                           Produits
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" routerLink="/boutique/categorie">
                           <i class="fas fa-list"></i>
                           Categories
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" routerLink="/boutique/commande">
                           <i class="fas fa-shopping-cart"></i>
                           Commandes
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" routerLink="/boutique/paiement">
                           <i class="fas fa-credit-card"></i>
                           Paiements
                       </a>
@@ -87,7 +87,7 @@
           </div>
       </nav>
       <!-- Contenu du main  -->
-      <main class="col-md-10 ms-sm-auto px-md-4">
+       <main class="col-md-10 ms-sm-auto px-md-4">
         <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">nom admin</a>
@@ -110,7 +110,7 @@
 </div>
 
 <!-- Modal  -->
-<ng-template #notificationsModal let-modal>
+ <ng-template #notificationsModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Notifications</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>

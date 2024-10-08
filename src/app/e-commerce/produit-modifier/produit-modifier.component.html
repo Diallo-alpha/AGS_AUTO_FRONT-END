@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <app-sidbar></app-sidbar>
+  <div class="content col-md-10">
+    <h2 class="mb-4">Modifier produits</h2>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-container">
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="nom">Nom</label>
+              <input class="form-control" id="nom" type="text"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="stock">Stock</label>
+              <input class="form-control" id="stock" type="number"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="categories">Catégories</label>
+              <select class="form-select" id="categories">
+                <option selected="">Choisir une catégorie</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="image">Image</label>
+              <input class="form-control" id="image" type="file"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="prix">Prix</label>
+              <input class="form-control" id="prix" type="number"/>
+            </div>
+            <button class="btn btn-modifier" type="submit">Modifier</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <img class="card-img-top" src="https://replicate.delivery/yhqm/f5ye242VT4pefQ1gJpbj4HRvaHYeQNd2lMdZdduNlFIOP9kcC/out-0.png" alt="Image of a multimeter device with a smartphone displaying diagnostic information" width="400" height="300"/>
+
+          <div class="card-body">
+            <h5 class="card-title">Multimètre</h5>
+            <p class="card-text">Price: 80000</p>
+            <p class="card-text">Categories: Diagnostique</p>
+            <p class="card-text">Stock: 25</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

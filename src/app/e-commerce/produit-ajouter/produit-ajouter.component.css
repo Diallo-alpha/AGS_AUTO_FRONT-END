@@ -1,0 +1,32 @@
+.content {
+  padding: 20px;
+  margin-left: 29vh;
+  margin-top: -95vh;
+}
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+.navbar-brand {
+  font-weight: bold;
+  font-size: 24px;
+}
+.navbar-brand span {
+  color: #c66a10;
+}
+.btn-primary {
+  background-color: #b35900;
+  border-color: #b35900;
+}
+.btn-primary:hover {
+  background-color: #994d00;
+  border-color: #994d00;
+}
+.card {
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.section-title {
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
