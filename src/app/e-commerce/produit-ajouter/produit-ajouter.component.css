@@ -1,7 +1,9 @@
 .content {
   padding: 20px;
-  margin-left: 29vh;
+  margin-left: 31vh;
   margin-top: -95vh;
+  justify-content: center;
+  align-items: center;
 }
 .navbar {
   background-color: #ffffff;

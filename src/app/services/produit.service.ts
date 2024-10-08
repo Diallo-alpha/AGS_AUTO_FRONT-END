@@ -33,6 +33,10 @@ export class ProduitService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
+  getProductsByCategory(categoryId: number, page: number = 1): Observable<PaginatedResponse<Produit>> {
+    return this.http.get<PaginatedResponse<Produit>>(`${this.apiUrl}/produit/categorie/${categoryId}?page=${page}`);
+  }
+
   getProduits(page: number = 1): Observable<PaginatedResponse<Produit>> {
     return this.http.get<PaginatedResponse<Produit>>(`${this.apiUrl}/produits?page=${page}`);
   }
@@ -59,4 +63,5 @@ export class ProduitService {
   deleteProduit(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete${id}`, { headers: this.getAuthHeaders() });
   }
+
 }
