@@ -1,52 +1,54 @@
 <div class="container-fluid">
   <app-sidbar></app-sidbar>
   <div class="content col-md-10">
-    <h2 class="mb-4">Modifier produits</h2>
+    <h2 class="mb-4">Modifier produit</h2>
 
-    <div class="row">
+    <div class="row" *ngIf="produit">
       <div class="col-md-6">
         <div class="form-container">
-          <form>
+          <form [formGroup]="produitForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label class="form-label" for="nom">Nom</label>
-              <input class="form-control" id="nom" type="text"/>
+              <input class="form-control" id="nom" type="text" formControlName="nom_produit"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">Description</label>
+              <input class="form-control" id="description" type="text" formControlName="description"/>
             </div>
             <div class="mb-3">
               <label class="form-label" for="stock">Stock</label>
-              <input class="form-control" id="stock" type="number"/>
+              <input class="form-control" id="stock" type="number" formControlName="quantite"/>
             </div>
             <div class="mb-3">
               <label class="form-label" for="categories">Catégories</label>
-              <select class="form-select" id="categories">
-                <option selected="">Choisir une catégorie</option>
+              <select class="form-select" id="categories" formControlName="categorie_id">
+                <option value="">Choisir une catégorie</option>
+                <option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.nom_categorie }}</option>
               </select>
             </div>
             <div class="mb-3">
               <label class="form-label" for="image">Image</label>
-              <input class="form-control" id="image" type="file"/>
+              <input class="form-control" id="image" type="file" (change)="onFileSelected($event)"/>
             </div>
             <div class="mb-3">
               <label class="form-label" for="prix">Prix</label>
-              <input class="form-control" id="prix" type="number"/>
+              <input class="form-control" id="prix" type="number" formControlName="prix"/>
             </div>
-            <button class="btn btn-modifier" type="submit">Modifier</button>
+            <button class="btn btn-modifier" type="submit" [disabled]="!produitForm.valid">Modifier</button>
           </form>
         </div>
       </div>
-
       <div class="col-md-6">
         <div class="card">
-          <img class="card-img-top" src="https://replicate.delivery/yhqm/f5ye242VT4pefQ1gJpbj4HRvaHYeQNd2lMdZdduNlFIOP9kcC/out-0.png" alt="Image of a multimeter device with a smartphone displaying diagnostic information" width="400" height="300"/>
-
+          <img [src]="produit.image" alt="Image du produit" width="300" height="300"/>
           <div class="card-body">
-            <h5 class="card-title">Multimètre</h5>
-            <p class="card-text">Price: 80000</p>
-            <p class="card-text">Categories: Diagnostique</p>
-            <p class="card-text">Stock: 25</p>
+            <h5 class="card-title">{{ produit.nom_produit }}</h5>
+            <p class="card-text">Prix: {{ produit.prix }}</p>
+            <p class="card-text">Catégorie: {{ produit.categorie_id }}</p>
+            <p class="card-text">Stock: {{ produit.quantite }}</p>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

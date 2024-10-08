@@ -1,1 +1,3 @@
-export const apiUrlStorage = "https://certif.alphaloppecity.simplonfabriques.com/storage";
+export const apiUrlStorage = {
+  url : "http://127.0.0.1:8000/storage/",
+};

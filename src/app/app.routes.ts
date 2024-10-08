@@ -87,12 +87,12 @@ export const routes: Routes = [
   //e-commerce produit
   {path: 'e-commerce/produits', component:ProduitComponent},
   {path: 'e-commerce/produits/ajouter', component:ProduitAjouterComponent},
-  {path: 'e-commerce/produits/modifier', component:ProduitModifierComponent},
+  {path: 'e-commerce/produits/modifier/:id', component:ProduitModifierComponent},
 
   //e-commerce categorie
   {path: 'boutique/categorie', component:CategorieComponent},
   {path: 'boutique/ajouter/categorie', component:CategorieAjouterComponent},
-  {path: 'boutique/categorie/modifier', component:CategorieModifierComponent},
+  {path: 'boutique/categorie/modifier/:id', component:CategorieModifierComponent},
   //
   {path: 'boutique/commande', component:CommandeComponent},
   //
