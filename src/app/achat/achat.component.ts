@@ -8,12 +8,29 @@ import { ProduitService } from '../services/produit.service';
 import { CategorieService } from '../services/categorie.service';
 import { Produit } from '../models/produitModel';
 import { Categorie } from '../models/categorieModel';
-import { apiUrl } from '../services/apiUrl';
+import { RouterModule } from '@angular/router';
+import { ReduirePipe } from '../pipe/reduire';
+
+interface PaginatedResponse<T> {
+  current_page: number;
+  data: T[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: any[];
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
+  total: number;
+}
 
 @Component({
   selector: 'app-achat',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule],
+  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe],
   templateUrl: './achat.component.html',
   styleUrl: './achat.component.css'
 })
@@ -22,7 +39,6 @@ export class AchatComponent implements OnInit {
   category1Products: Produit[] = [];
   category2Products: Produit[] = [];
   category3Products: Produit[] = [];
-  baseUrl: string = apiUrl;
 
   constructor(
     private authService: AuthService,
@@ -37,7 +53,7 @@ export class AchatComponent implements OnInit {
   loadCategories() {
     this.categorieService.getCategories().subscribe(
       (categories) => {
-        this.categories = categories.slice(0, 3); 
+        this.categories = categories.slice(0, 3);
         this.categories.forEach((category, index) => {
           this.loadProductsByCategory(category.id, index + 1);
         });
@@ -50,20 +66,17 @@ export class AchatComponent implements OnInit {
 
   loadProductsByCategory(categoryId: number, categoryIndex: number) {
     this.produitService.getProductsByCategory(categoryId).subscribe(
-      (response) => {
-        const produit = response.data.slice(0, 4).map(produit => ({
-          ...produit,
-          image: produit.image ? this.getFullImageUrl(produit.image) : 'default-image-url'
-           }));
+      (response: PaginatedResponse<Produit>) => {
+        const productsToDisplay = response.data.slice(0, 4);
         switch (categoryIndex) {
           case 1:
-            this.category1Products = produit;
+            this.category1Products = productsToDisplay;
             break;
           case 2:
-            this.category2Products = produit;
+            this.category2Products = productsToDisplay;
             break;
           case 3:
-            this.category3Products = produit;
+            this.category3Products = productsToDisplay;
             break;
         }
       },
@@ -71,13 +84,6 @@ export class AchatComponent implements OnInit {
         console.error(`Error loading products for category ${categoryId}:`, error);
       }
     );
-  }
-
-  getFullImageUrl(imagePath: string): string {
-    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
-      return imagePath;
-    }
-    return `${this.baseUrl}/storage/${imagePath}`;
   }
 
   isEtudiant(): boolean {

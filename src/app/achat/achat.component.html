@@ -4,6 +4,7 @@
 <ng-template #clientNavbar>
   <app-navbar></app-navbar>
 </ng-template>
+
 <!-- Hero Navbar -->
 <div class="container mt-4">
   <div class="row main-banner align-items-center">
@@ -19,7 +20,7 @@
   </div>
 </div>
 
-<!-- Section produit d'une categorie -->
+<!-- Section produit de la première catégorie -->
 <div class="container mt-4" *ngIf="categories[0]">
   <div class="row">
     <div class="col-md-3 category">
@@ -29,9 +30,9 @@
       <div class="row">
         <div *ngFor="let product of category1Products" class="col-md-3 col-sm-6">
           <div class="product-card">
-            <img [alt]="product.nom_produit" [src]="product.image" />
-             <h5>{{ product.nom_produit }}</h5>
-            <p>{{ product.description }}</p>
+            <img [src]="product.image" [alt]="product.nom_produit" />
+            <h5>{{ product.nom_produit }}</h5>
+            <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
               <p class="price">{{ product.prix }}</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
@@ -49,7 +50,7 @@
   </div>
 </div>
 
-<!-- categorie 2 -->
+<!-- Section produit de la deuxième catégorie -->
 <div class="container mt-4" *ngIf="categories[1]">
   <div class="row">
     <div class="col-md-3 category">
@@ -59,9 +60,9 @@
       <div class="row">
         <div *ngFor="let product of category2Products" class="col-md-3 col-sm-6">
           <div class="product-card">
-            <img [alt]="product.nom_produit" [src]="product.image" />
+            <img [src]="product.image" [alt]="product.nom_produit" />
             <h5>{{ product.nom_produit }}</h5>
-            <p>{{ product.description }}</p>
+            <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
               <p class="price">{{ product.prix }}</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
@@ -79,8 +80,7 @@
   </div>
 </div>
 
-
-<!-- categorie 3 -->
+<!-- Section produit de la troisième catégorie -->
 <div class="container mt-4" *ngIf="categories[2]">
   <div class="row">
     <div class="col-md-3 category">
@@ -90,9 +90,9 @@
       <div class="row">
         <div *ngFor="let product of category3Products" class="col-md-3 col-sm-6">
           <div class="product-card">
-            <img [alt]="product.nom_produit" [src]="product.image" />
+            <img [src]="product.image" [alt]="product.nom_produit" />
             <h5>{{ product.nom_produit }}</h5>
-            <p>{{ product.description }}</p>
+            <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
               <p class="price">{{ product.prix }}</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
@@ -109,5 +109,4 @@
     </div>
   </div>
 </div>
-
-<app-footer/>
+<app-footer></app-footer>
