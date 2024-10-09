@@ -10,6 +10,8 @@ import { Produit } from '../models/produitModel';
 import { Categorie } from '../models/categorieModel';
 import { RouterModule } from '@angular/router';
 import { ReduirePipe } from '../pipe/reduire';
+import { CartService } from '../services/cart-item.service';
+import { CartItem } from '../models/CartItemModel';
 
 interface PaginatedResponse<T> {
   current_page: number;
@@ -43,7 +45,8 @@ export class AchatComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private produitService: ProduitService,
-    private categorieService: CategorieService
+    private categorieService: CategorieService,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -82,6 +85,23 @@ export class AchatComponent implements OnInit {
       },
       (error) => {
         console.error(`Error loading products for category ${categoryId}:`, error);
+      }
+    );
+  }
+
+  addToCart(product: Produit) {
+    const cartItem: Omit<CartItem, 'quantite'> = {
+      id: product.id,
+      type: 'produit',
+      nom: product.nom_produit,
+      prix: product.prix
+    };
+    this.cartService.addToCart(cartItem, 1).subscribe(
+      () => {
+        console.log('Product added to cart:', product.nom_produit);
+      },
+      error => {
+        console.error('Error adding product to cart:', error);
       }
     );
   }

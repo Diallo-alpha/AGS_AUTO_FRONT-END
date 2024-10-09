@@ -35,7 +35,7 @@
             <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
               <p class="price">{{ product.prix }}</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
+              <i class="fas fa-shopping-cart cart-icon" (click)="addToCart(product)"></i>
             </div>
           </div>
         </div>
