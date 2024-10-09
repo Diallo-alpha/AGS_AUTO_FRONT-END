@@ -1,4 +1,9 @@
-<app-navbar></app-navbar>
+<div *ngIf="isEtudiant(); else clientNavbar">
+  <app-nav-connect></app-nav-connect>
+</div>
+<ng-template #clientNavbar>
+  <app-navbar></app-navbar>
+</ng-template>
 
 <!-- Hero Navbar -->
 <div class="container mt-4">
@@ -15,58 +20,51 @@
   </div>
 </div>
 
-<!-- Section produit d'une categorie -->
-<div class="container mt-4">
+<!-- Section produit de la première catégorie -->
+<div class="container mt-4" *ngIf="categories[0]">
   <div class="row">
     <div class="col-md-3 category">
-      <strong>Accésoires intérieurs pour votre voiture</strong>
+      <strong>{{ categories[0].nom_categorie }}</strong>
     </div>
     <div class="col-md-9">
       <div class="row">
-        <!-- Produit 1 -->
-        <div class="col-md-3 col-sm-6">
+        <div *ngFor="let product of category1Products" class="col-md-3 col-sm-6">
           <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
+            <img [src]="product.image" [alt]="product.nom_produit" />
+            <h5>{{ product.nom_produit }}</h5>
+            <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
+              <p class="price">{{ product.prix }}</p>
+              <i class="fas fa-shopping-cart cart-icon" (click)="addToCart(product)"></i>
             </div>
           </div>
         </div>
+      </div>
+      <div class="text-end mt-3">
+        <span class="navigation-arrows">
+          <i class="fas fa-chevron-left me-3"></i>
+          <i class="fas fa-chevron-right"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="col-md-3 col-sm-6">
+<!-- Section produit de la deuxième catégorie -->
+<div class="container mt-4" *ngIf="categories[1]">
+  <div class="row">
+    <div class="col-md-3 category">
+      <strong>{{ categories[1].nom_categorie }}</strong>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div *ngFor="let product of category2Products" class="col-md-3 col-sm-6">
           <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
+            <img [src]="product.image" [alt]="product.nom_produit" />
+            <h5>{{ product.nom_produit }}</h5>
+            <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-        <!-- produit 2 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-        <!-- Product 4 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
+              <p class="price">{{ product.prix }}</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
             </div>
           </div>
@@ -82,58 +80,21 @@
   </div>
 </div>
 
-<!-- categorie 2 -->
-<div class="container mt-4">
+<!-- Section produit de la troisième catégorie -->
+<div class="container mt-4" *ngIf="categories[2]">
   <div class="row">
     <div class="col-md-3 category">
-      <strong>Accésoires intérieurs pour votre voiture</strong>
+      <strong>{{ categories[2].nom_categorie }}</strong>
     </div>
     <div class="col-md-9">
       <div class="row">
-        <!-- Produit 1 -->
-        <div class="col-md-3 col-sm-6">
+        <div *ngFor="let product of category3Products" class="col-md-3 col-sm-6">
           <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
+            <img [src]="product.image" [alt]="product.nom_produit" />
+            <h5>{{ product.nom_produit }}</h5>
+            <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-        <!-- produit 2 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-        <!-- Product 4 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
+              <p class="price">{{ product.prix }}</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
             </div>
           </div>
@@ -148,72 +109,4 @@
     </div>
   </div>
 </div>
-
-<!-- categorie 3 -->
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-3 category">
-      <strong>Accésoires intérieurs pour votre voiture</strong>
-    </div>
-    <div class="col-md-9">
-      <div class="row">
-        <!-- Produit 1 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-        <!-- produit 2 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-        <!-- Product 4 -->
-        <div class="col-md-3 col-sm-6">
-          <div class="product-card">
-            <img alt="Image of a turbo diesel distribution belt" src="https://replicate.delivery/yhqm/ln5i4sYQoAKjOF1NUgsHQjFgVgGyipcwXKuQeK3NgjCBGPwJA/out-0.png" />
-            <h5>POMP</h5>
-            <p>Courroie de distribution turbo diesel</p>
-            <div class="price-cart">
-              <p class="price">5000</p>
-              <i class="fas fa-shopping-cart cart-icon"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="text-end mt-3">
-        <span class="navigation-arrows">
-          <i class="fas fa-chevron-left me-3"></i>
-          <i class="fas fa-chevron-right"></i>
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<app-footer/>
+<app-footer></app-footer>

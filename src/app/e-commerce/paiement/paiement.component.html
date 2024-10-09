@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <app-sidbar></app-sidbar>
+  <div class="col-md-9 content">
+      <section class="d-flex justify-content-between align-items-center mb-3">
+          <h3>Produits</h3>
+          <button class="add-btn">
+              <i class="fas fa-plus" routerLink="/e-commerce/produits/ajouter"></i>
+          </button>
+      </section>
+
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>Nom et image</th>
+                  <th>Prix</th>
+                  <th>Catégories</th>
+                  <th>Stock</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Repeatable Product Row Start -->
+              <tr>
+                  <td>
+                      <img
+                          alt="T-shirt noir"
+                          class="me-2"
+                          height="30"
+                          src="https://replicate.delivery/yhqm/uf330KSgAL3QS646rfYecCfT3MtwwANeGOGoTlNUPhUk38kcC/out-0.png"
+                          width="30"
+                      />
+                      nom produit
+                  </td>
+                  <td>185,000 francs</td>
+                  <td>Électronique</td>
+                  <td>20</td>
+                  <td>
+                      <button class="action-btn view-btn">
+                          <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="action-btn edit-btn">
+                          <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="action-btn delete-btn">
+                          <i class="fas fa-trash"></i>
+                      </button>
+                  </td>
+              </tr>
+              <!-- Repeatable Product Row End -->
+              <!-- Add more product rows as needed -->
+          </tbody>
+      </table>
+
+      <nav>
+          <ul class="pagination justify-content-end">
+              <li class="page-item">
+                  <a class="page-link" href="#">Précédent</a>
+              </li>
+              <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+              </li>
+              <li class="page-item">
+                  <a class="page-link" href="#">Suivant</a>
+              </li>
+          </ul>
+      </nav>
+  </div>
+</div>

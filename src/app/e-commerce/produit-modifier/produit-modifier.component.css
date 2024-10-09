@@ -1,0 +1,22 @@
+.content {
+  padding: 20px;
+  margin-left: 30vh;
+  margin-top: -95vh;
+}
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+.navbar-brand span {
+  color: #b35900;
+}
+.form-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+.btn-modifier {
+  background-color: #b35900;
+  color: #fff;
+}

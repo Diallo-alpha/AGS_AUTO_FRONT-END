@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { apiUrl } from './apiUrl';
-
-export interface CartItem {
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { CartItem } from '../models/CartItemModel';
 
 export interface PaymentResponse {
-  success?: number;
+  success: boolean;
   redirect_url?: string;
-  redirectUrl?: string;
+  errors?: string[];
 }
 
-export type PaymentResult = PaymentResponse | { redirectUrl: string };
+export interface PaymentVerificationResponse {
+  status: string;
+  amount: number;
+  date: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -26,52 +25,84 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<PaymentResult> {
+  initiatePaymentForFormation(formationId: number, totalPrice: number): Observable<PaymentResponse> {
     const paymentData = {
-      item_name: 'Achat du panier',
+      item_name: `Formation #${formationId}`,
       item_price: totalPrice,
-      currency: 'XOF'
+      currency: 'XOF',
+      formation_id: formationId
     };
 
-    console.log('Sending payment request:', paymentData);
+    console.log('Sending payment request for formation:', paymentData);
 
-    return this.http.post(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
-      map(response => {
-        console.log('Server response:', response);
-        if (typeof response === 'string') {
-          try {
-            return JSON.parse(response) as PaymentResponse;
-          } catch {
-            if (response.startsWith('https')) {
-              return { redirectUrl: response };
-            }
-            throw new Error('Invalid response format');
-          }
-        }
-        return response as PaymentResponse;
-      }),
+    return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
+      map(this.handleResponse),
       catchError(this.handleError)
     );
   }
 
-  private handleError(error: HttpErrorResponse | Error): Observable<PaymentResult> {
-    let errorMessage = 'Une erreur inconnue est survenue';
-    if (error instanceof HttpErrorResponse) {
-      if (error.error instanceof ErrorEvent) {
-        errorMessage = `Erreur: ${error.error.message}`;
-      } else {
-        errorMessage = `Code d'erreur ${error.status}, message: ${error.message}`;
-        console.error('Error details:', error.error);
+  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<PaymentResponse> {
+    const firstItem = cartItems[0];
+    const paymentData = {
+      item_name: `Cart Purchase - ${firstItem.nom}`,
+      item_price: totalPrice,
+      currency: 'XOF',
+      formation_id: firstItem.id
+    };
 
-        if (error.status === 200 && typeof error.error === 'string' && error.error.startsWith('https')) {
-          return new Observable(observer => {
-            observer.next({ redirectUrl: error.error });
-            observer.complete();
-          });
-        }
-      }
+    console.log('Sending payment request for cart:', paymentData);
+
+    return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
+      map(this.handleResponse),
+      catchError(this.handleError)
+    );
+  }
+
+  handlePaytechNotification(notificationData: any): Observable<any> {
+    console.log('Sending notification data to server:', notificationData);
+    return this.http.post(`${this.apiUrl}/paytech/notification`, notificationData).pipe(
+      tap(response => console.log('Server response:', response)),
+      catchError(this.handleError)
+    );
+
+  }
+
+  verifyPayment(refCommand: string): Observable<PaymentVerificationResponse> {
+    const params = new HttpParams().set('ref_command', refCommand);
+    return this.http.get<PaymentVerificationResponse>(`${this.apiUrl}/verify-payment`, { params }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  cancelPayment(refCommand: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/paiements/cancel/${refCommand}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  handlePaymentSuccess(formationId: number): Observable<any> {
+    const params = new HttpParams().set('formation_id', formationId.toString());
+    return this.http.get(`${this.apiUrl}/paytech/success`, { params }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleResponse(response: PaymentResponse): PaymentResponse {
+    console.log('Server response:', response);
+    return response;
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'Une erreur inconnue est survenue';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Erreur: ${error.error.message}`;
     } else {
-      errorMessage = error.message;
+      if (error.status === 0) {
+        errorMessage = 'Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
+      } else {
+        errorMessage = `Code d'erreur ${error.status}, message: ${error.error.message || error.message}`;
+      }
+      console.error('Error details:', error.error);
     }
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));

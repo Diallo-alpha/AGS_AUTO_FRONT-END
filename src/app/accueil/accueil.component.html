@@ -1,4 +1,9 @@
-<app-navbar/>
+<div *ngIf="isEtudiant(); else clientNavbar">
+  <app-nav-connect></app-nav-connect>
+</div>
+<ng-template #clientNavbar>
+  <app-navbar></app-navbar>
+</ng-template>
 <section class="hero-section">
   <div class="hero-overlay">
     <div class="container hero-content">

@@ -8,11 +8,13 @@ import { partenaire } from '../models/partenaireModel';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NavConnectComponent } from '../nav-connect/nav-connect.component';
+import { AuthService } from '../services/authservice.service';
 
 @Component({
   selector: 'app-detail-service',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, RouterModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, RouterModule, NavConnectComponent],
   templateUrl: './detail-service.component.html',
   styleUrls: ['./detail-service.component.css']
 })
@@ -25,7 +27,8 @@ export class DetailServiceComponent implements OnInit {
     private route: ActivatedRoute,
     private serviceService: ServiceService,
     private partenaireService: PartenaireService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -68,4 +71,8 @@ export class DetailServiceComponent implements OnInit {
   //   console.error('Erreur de chargement de l\'image:', event);
   //   event.target.src = 'assets/images/default-logo.png'; // Assurez-vous d'avoir une image par défaut
   // }
+  isEtudiant(): boolean {
+    return this.authService.isEtudiant();
+  }
+
 }

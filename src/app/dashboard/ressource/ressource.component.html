@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-sidbar/>
+    <!-- Sidebar -->
+    <div class="col-md-2">
+    </div>
+<div class="col-md-10">
+  <div class="content flex-grow-1">
+    <div class="navbar d-flex justify-content-end align-items-center">
+      <a routerLink="/dashboard/ressource/ajouter" class="btn btn-primary ressource">AJOUTER RESSOURCES</a>
+    </div>
+
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>Nom de la vidéo</th>
+          <th>Titre</th>
+          <th>Document</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ressource of ressources">
+          <td>{{ ressource.video?.titre || 'N/A' }}</td>
+          <td>{{ ressource.titre }}</td>
+          <td>{{ ressource.documents }}</td>
+          <td>
+            <button class="btn btn-view" (click)="viewRessource(ressource)">
+              <i class="fas fa-eye"></i>
+            </button>
+            <a [routerLink]="['/modifier/ressource', ressource.id]" class="btn">
+              <i class="fas fa-edit"></i>
+            </a>
+            <button class="btn" (click)="deleteRessource(ressource.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination statique -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-end">
+        <li class="page-item">
+          <a class="page-link" href="#">Précédent</a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Suivant</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+</div>
+</div>

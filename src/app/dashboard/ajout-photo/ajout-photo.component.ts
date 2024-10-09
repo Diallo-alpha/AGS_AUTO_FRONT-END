@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [RouterModule, SidbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './ajout-photo.component.html',
   styleUrls: ['./ajout-photo.component.css']
-})
+}) 
 export class AjoutPhotoComponent implements OnInit {
   photoForm: FormGroup;
   formations: any[] = [];

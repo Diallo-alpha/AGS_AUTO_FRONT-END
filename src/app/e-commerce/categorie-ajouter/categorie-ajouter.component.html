@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row">
+    <app-sidbar></app-sidbar>
+    <div class="col-md-10">
+      <form [formGroup]="categorieForm" (ngSubmit)="onSubmit()" class="form-container">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label for="nom">Nom Catégorie</label>
+            <input type="text" class="form-control" id="nom" formControlName="nom_categorie" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!categorieForm.valid">Ajouter</button>
+      </form>
+    </div>
+  </div>
+</div>

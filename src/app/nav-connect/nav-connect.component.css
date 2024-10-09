@@ -63,7 +63,104 @@
   border-radius: 50%;
   object-fit: cover;
 }
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
 
+.modal-header {
+  border-bottom: none;
+  padding: 1rem 1rem 0.5rem;
+}
+
+.modal-body {
+  padding: 0.5rem 1rem;
+}
+
+.product-list {
+  padding: 10px;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.product-item img {
+  width: 60px;
+  height: auto;
+  margin-right: 15px;
+}
+
+.product-item .product-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: auto;
+}
+
+.product-item .product-quantity {
+  width: 40px;
+  text-align: center;
+  margin-right: 15px;
+  border: 1px solid #ced4da;
+}
+
+.product-item .product-price {
+  margin-right: 15px;
+}
+
+.product-item .product-remove {
+  color: red;
+  cursor: pointer;
+}
+
+.payment-methods {
+  background-color: #a0522d;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.payment-methods .img {
+  width: 60px;
+  height: auto;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.payment-methods .qr-code {
+  margin: 15px 0;
+  border-radius: 0 !important;
+  background-color: #f8f9fa;
+}
+
+.payment-methods .qr-code img {
+  width: 150px;
+  height: 150px;
+}
+
+.payment-methods .total-price {
+  background-color: #020202;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: inline-block;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+.payment-methods .total-price:hover {
+  background-color: #f0ad4e; /* Changer la couleur de fond sur le hover */
+  color: white; /* Changer la couleur du texte sur le hover */
+  transform: scale(1.05); /* Légère augmentation de taille au survol */
+}
+
+.payment-methods .total-price:active {
+  background-color: #d9534f; /* Couleur de fond différente au clic */
+  transform: scale(0.95); /* Légère réduction de taille lors du clic */
+}
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
   .profil {
