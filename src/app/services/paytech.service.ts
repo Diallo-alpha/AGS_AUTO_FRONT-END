@@ -82,7 +82,7 @@ export class PaymentService {
 
   handlePaymentSuccess(formationId: number): Observable<any> {
     const params = new HttpParams().set('formation_id', formationId.toString());
-    return this.http.post(`${this.apiUrl}/paytech/successful-payment`, { params }).pipe(
+    return this.http.get(`${this.apiUrl}/paytech/successful-payment`, { params }).pipe(
       catchError(this.handleError)
     );
   }
