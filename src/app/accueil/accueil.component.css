@@ -142,33 +142,48 @@ h1 {
 }
 /*services-section
 */
-.service-card {
-  background-color: white;
+.card {
   border: none;
-  border-radius: 0;
-  width: 274px;
-  height: 400px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%; /* Prend toute la hauteur disponible pour uniformiser les cartes */
+  display: flex;
+  flex-direction: column; /* Permet de bien aligner les éléments à l'intérieur */
 }
-.service-card img {
-  height: 100%;
-  width: 100%;
-  border-radius: 0.5;
-  margin-bottom: 0;
+
+.card-img-top {
+  height: 200px; /* Fixe une hauteur pour toutes les images */
+  object-fit: cover; /* Permet de garder le ratio d'aspect des images tout en remplissant la zone */
+  width: 100%; /* S'assure que l'image prend toute la largeur de la carte */
 }
-.service-title {
-  margin-top: -1vh !important;
-  color: #9C490C;
-  font-size: 14px;
+
+.card-title {
+  color: #8B4513;
   font-weight: bold;
-  margin-left: 0.5vh;
+  margin-top: 10px;
 }
-.service-text {
-  font-size: 14px;
-  font-weight: bold;
-  color: #020202;
-  text-align: center;
+
+.card-text {
+  font-size: 0.9rem;
+  flex-grow: 1; /* Permet au texte de remplir l'espace restant dans la carte */
 }
+
+.btn-link, .btn-voir-plus {
+  background-color: #9C490C;
+  color: #fff;
+  text-decoration: none;
+  padding: 0;
+}
+
+.fa-wrench {
+  color: #8B4513;
+  margin-left: 3vh;
+}
+
+/* Uniformiser la taille des cartes */
+.service-card {
+  min-height: 350px; /* Définir une hauteur minimale pour toutes les cartes */
+}
+
 /* .btn-voir-plus {
   color: #9C490C;
   font-size: 14px;
@@ -253,6 +268,7 @@ h2 {
 .image-orange{
   text-align: center;
   margin-top: -1.5vh;
+  margin-bottom: 1.70vh;
 }
 .blog-description {
   font-size: 15px;
@@ -274,9 +290,10 @@ h2 {
 }
 .btn-link {
   font-size: 16px;
-  color: #9C490C;
+  color: #fff;
   padding: 0;
   text-decoration: none;
+  margin-left: 1.75vh;
 }
 .btn-link:hover {
   text-decoration: underline;

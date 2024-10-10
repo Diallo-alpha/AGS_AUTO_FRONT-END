@@ -6,11 +6,12 @@ import { FormationService } from '../services/formation.service';
 import { CommonModule } from '@angular/common';
 import { NavConnectComponent } from '../nav-connect/nav-connect.component';
 import { AuthService } from '../services/authservice.service';
+import { ReduirePipe } from '../pipe/reduire';
 
 @Component({
   selector: 'app-formation',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule, RouterModule, NavConnectComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule, RouterModule, NavConnectComponent, ReduirePipe],
   templateUrl: './formation.component.html',
   styleUrl: './formation.component.css'
 })

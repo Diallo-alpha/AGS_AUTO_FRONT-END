@@ -13,11 +13,12 @@ import { partenaire } from '../models/partenaireModel';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/authservice.service';
 import { NavConnectComponent } from '../nav-connect/nav-connect.component';
+import { ReduirePipe } from '../pipe/reduire';
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [RouterModule, NavbarComponent, FooterComponent, CommonModule, NavConnectComponent],
+  imports: [RouterModule, NavbarComponent, FooterComponent, CommonModule, NavConnectComponent, ReduirePipe],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })

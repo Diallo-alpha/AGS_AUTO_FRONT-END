@@ -19,7 +19,7 @@
                 <img [src]="formation.image" class="card-img-top" [alt]="formation.title" height="300" />
                 <div class="card-body">
                     <h5 class="card-title">{{ formation.title }}</h5>
-                    <p class="card-text">{{ formation.description }}</p>
+                    <p class="card-text">{{ formation.description | reduire:150}}</p>
                     <a class="btn btn-primary"[routerLink]="['/detail-formation', formation.id]">VOIR PLUS</a>
                 </div>
             </div>
