@@ -52,16 +52,20 @@
     <div class="col-md-6">
       <div class="form-container">
         <h3 class="text-white mb-3">Entrer en contact</h3>
-        <form>
-          <input class="form-control" placeholder="Votre nom" type="text" />
-          <input class="form-control" placeholder="Email" type="email" />
-          <input class="form-control" placeholder="Sujet" type="text" />
-          <textarea class="form-control" placeholder="Message" rows="4"></textarea>
-          <button class="btn btn-submit" type="submit">Envoyer</button>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <input class="form-control" placeholder="Votre nom" type="text" formControlName="name" />
+          <input class="form-control" placeholder="Email" type="email" formControlName="email" />
+          <input class="form-control" placeholder="Sujet" type="text" formControlName="subject" />
+          <textarea class="form-control" placeholder="Message" rows="4" formControlName="message"></textarea>
+          <button class="btn btn-submit" type="submit" [disabled]="!contactForm.valid || isSubmitting">
+            {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer' }}
+          </button>
         </form>
+        <p *ngIf="submitMessage" [ngClass]="{'text-success': submitMessage.includes('succès'), 'text-danger': submitMessage.includes('erreur')}">
+          {{ submitMessage }}
+        </p>
       </div>
     </div>
-  </div>
 
   <div class="row mt-4">
     <div class="col-12 fram-maps">
