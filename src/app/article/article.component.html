@@ -27,7 +27,7 @@
         <img [src]="article.photo" class="card-img-top" [alt]="article.titre" width="400" height="200">
         <div class="card-body">
           <h5 class="card-title">{{ article.titre }}</h5>
-          <p class="card-text">{{ article.description }}</p>
+          <p class="card-text">{{ article.description | reduire:150 }}</p>
           <a [routerLink]="['/detail-article', article.id]" class="btn btn-primary">Voir plus</a>
         </div>
       </div>

@@ -41,15 +41,14 @@
 <hr class="justify-content-center">
 
 <!-- Liste des commentaires -->
-<!-- <div class="container d-flex justify-content-center list-comment">
-  <div *ngFor="let comment of article?.comments" class="container-comment list-commentaire">
-    <h3>{{ comment.name }}</h3>
+<div class="container d-flex justify-content-center list-comment">
+  <div *ngFor="let commentaire of commentaires" class="container-comment list-commentaire">
+    <h3>{{ commentaire.nom_complet }}</h3>
     <div class="container position-relative">
-      <p>{{ comment.content }}</p>
-      <p class="date">{{ comment.date }}</p>
+      <p>{{ commentaire.contenu }}</p>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- Modal pour les commentaires -->
 <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
@@ -60,15 +59,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)="createCommentaire()">
           <div class="form-group mb-3">
-            <input type="text" class="form-control" placeholder="Votre nom *" required>
+            <input type="text" class="form-control" [(ngModel)]="newCommentaire.nom_complet" name="nom_complet" placeholder="Votre nom *" required>
           </div>
           <div class="form-group mb-3">
-            <input type="email" class="form-control" placeholder="Email *" required>
-          </div>
-          <div class="form-group mb-3">
-            <textarea class="form-control" rows="4" placeholder="Votre commentaire *" required></textarea>
+            <textarea class="form-control" rows="4" [(ngModel)]="newCommentaire.contenu" name="contenu" placeholder="Votre commentaire *" required></textarea>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary btn-comment" id="modal-btn">Envoyer</button>

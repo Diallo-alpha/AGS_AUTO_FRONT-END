@@ -31,7 +31,17 @@ main{
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
+  height: 100%; /* Assure que toutes les cartes remplissent l'espace disponible */
+  display: flex; /* Utilise flexbox pour structurer la carte */
+  flex-direction: column; /* Aligne les éléments verticalement */
 }
+
+.card-img {
+  height: 200px; /* Fixe une hauteur pour toutes les images */
+  object-fit: cover; /* Garde le ratio d'aspect sans déformation */
+  width: 100%; /* S'assure que l'image prend toute la largeur de la carte */
+}
+
 .card-img-overlay {
   position: absolute;
   top: 0;
@@ -41,15 +51,35 @@ main{
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
-.card-footer {
-  position: relative;
-  z-index: 2;
-  background-color: transparent;
+
+.card-body {
+  flex-grow: 1; /* Permet à la carte d'utiliser tout l'espace restant */
+  display: flex; /* Utilise flexbox pour aligner le contenu */
+  flex-direction: column; /* Aligne le contenu verticalement */
+  justify-content: center; /* Centre verticalement le contenu */
 }
+
 .card-title {
   color: white;
   font-weight: bold;
   text-align: center;
+  margin-top: 10px; /* Ajoute un peu d'espace au-dessus du titre */
+}
+
+.card-footer {
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
+  display: flex; /* Utilise flexbox pour le footer */
+  justify-content: space-between; /* Espace entre les boutons */
+}
+
+.btn-icon {
+  background-color: #9C490C;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin: 2px;
 }
 .btn-icon {
   background-color: #9C490C;

@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/authservice.service';
 import { NavConnectComponent } from '../nav-connect/nav-connect.component';
+import { ReduirePipe } from '../pipe/reduire';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, RouterModule, CommonModule, NavConnectComponent],
+  imports: [NavbarComponent, FooterComponent, RouterModule, CommonModule, NavConnectComponent, ReduirePipe],
   templateUrl: './article.component.html',
   styleUrl: './article.component.css'
 })
