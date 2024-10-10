@@ -100,6 +100,11 @@ export class AuthService {
     return throwError(() => new Error(error.error?.message || 'Server error'));
   }
 
+  isAdmin(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser?.role === 'admin';
+  }
+
   isEtudiant(): boolean {
     const currentUser = this.currentUserSubject.value;
     return currentUser?.role === 'etudiant';
