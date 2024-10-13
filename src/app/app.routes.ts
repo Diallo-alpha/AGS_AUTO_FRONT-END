@@ -40,6 +40,7 @@ import { CategorieAjouterComponent } from './e-commerce/categorie-ajouter/catego
 import { CategorieModifierComponent } from './e-commerce/categorie-modifier/categorie-modifier.component';
 import { CommandeComponent } from './e-commerce/commande/commande.component';
 import { PaiementComponent } from './e-commerce/paiement/paiement.component';
+import { ProfilComponent } from './profil/profil.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -96,5 +97,7 @@ export const routes: Routes = [
   //
   {path: 'boutique/commande', component:CommandeComponent},
   //
-  {path: 'boutique/paiement', component:PaiementComponent}
+  {path: 'boutique/paiement', component:PaiementComponent},
+  //profil
+  {path: 'profil', component:ProfilComponent}
 ];

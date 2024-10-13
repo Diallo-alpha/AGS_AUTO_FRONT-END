@@ -29,6 +29,7 @@ export class NavConnectComponent implements OnInit, OnDestroy {
   isCoursDropdownOpen = false;
   private cartSubscription!: Subscription;
   private userSubscription!: Subscription;
+  profilePictureUrl: string = 'assets/images/default-profile-pic.jpg';
 
   constructor(
     public cartService: CartService,
@@ -42,6 +43,11 @@ export class NavConnectComponent implements OnInit, OnDestroy {
     this.userSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
       this.loadFormationsAchetees();
+      if (user && user.photo) {
+        this.profilePictureUrl = user.photo;
+      } else {
+        this.profilePictureUrl = 'assets/images/default-profile-pic.jpg';
+      }
     });
 
     this.cartSubscription = this.cartService.getCart().subscribe(
