@@ -4,7 +4,7 @@
 <ng-template #clientNavbar>
   <app-navbar></app-navbar>
 </ng-template>
-<header class="course-header" *ngIf="formation">
+<header class="container-fluid" *ngIf="formation">
   <div class="container">
     <h1 class="display-5 text-header">{{ formation.nom_formation }}</h1>
   </div>
@@ -35,7 +35,7 @@
         </ng-template>
       </section>
     </div>
-    <div class="col-md-4">
+    <div class="container col-md-4">
       <div class="card mb-4 buy-cart">
         <img [src]="formation.image" class="card-img-top" [alt]="'Aperçu du cours ' + formation.nom_formation">
         <div class="card-body">

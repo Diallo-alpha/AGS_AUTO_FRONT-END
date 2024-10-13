@@ -13,19 +13,31 @@
         <form (ngSubmit)="onSubmit()" #inscriptionForm="ngForm">
           <div class="mb-3">
             <label class="form-label" for="nomComplet">Nom complet</label>
-            <input class="form-control" id="nomComplet" type="text" [(ngModel)]="user.nom_complet" name="nom_complet" required placeholder="Nom complet" />
+            <input class="form-control" id="nomComplet" type="text" [(ngModel)]="user.nom_complet" name="nom_complet" required placeholder="Nom complet" #nomComplet="ngModel" />
+            <div *ngIf="nomComplet.invalid && (nomComplet.dirty || nomComplet.touched)" class="text-danger">
+              Le nom complet est requis.
+            </div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="email">Email</label>
-            <input class="form-control" id="email" type="email" [(ngModel)]="user.email" name="email" required placeholder="demba@example.com" />
+            <input class="form-control" id="email" type="email" [(ngModel)]="user.email" name="email" required placeholder="demba@example.com" #email="ngModel" />
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              Veuillez entrer une adresse email valide.
+            </div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="telephone">Téléphone</label>
-            <input class="form-control" id="telephone" type="tel" [(ngModel)]="user.telephone" name="telephone" required placeholder="781442525" />
+            <input class="form-control" id="telephone" type="tel" [(ngModel)]="user.telephone" name="telephone" required placeholder="781442525" #telephone="ngModel" />
+            <div *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="text-danger">
+              Veuillez entrer un numéro de téléphone valide.
+            </div>
           </div>
           <div class="mb-4">
             <label class="form-label" for="motDePasse">Mot de passe</label>
-            <input class="form-control" id="motDePasse" type="password" [(ngModel)]="user.password" name="password" required placeholder="••••••" />
+            <input class="form-control" id="motDePasse" type="password" [(ngModel)]="user.password" name="password" required placeholder="••••••" #password="ngModel" />
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+              Le mot de passe doit contenir au moins 6 caractères.
+            </div>
           </div>
           <button class="btn btn-inscription w-100 py-2" type="submit" [disabled]="!inscriptionForm.form.valid">Inscription</button>
         </form>

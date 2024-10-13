@@ -33,9 +33,6 @@
   font-weight: bold;
 }
 
-.nav-item:last-child .nav-link {
-  color: #FFA500 !important;
-}
 
 .cart-icon {
   position: relative;

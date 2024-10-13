@@ -40,6 +40,8 @@ import { CategorieAjouterComponent } from './e-commerce/categorie-ajouter/catego
 import { CategorieModifierComponent } from './e-commerce/categorie-modifier/categorie-modifier.component';
 import { CommandeComponent } from './e-commerce/commande/commande.component';
 import { PaiementComponent } from './e-commerce/paiement/paiement.component';
+import { EtudiantGuard } from './Guardes/etudiant.guard';
+import { AdminGuard } from './Guardes/admin.guard';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -53,48 +55,49 @@ export const routes: Routes = [
   {path: 'contact', component:ContactComponent},
   {path: 'detail-service/:id', component:DetailServiceComponent},
   {path: 'boutique', component:AchatComponent},
-  {path: 'dashboard/statique', component:StatiqueComponent},
+  //
+  {path: 'dashboard/statique', component:StatiqueComponent, canActivate: [AdminGuard]},
   //route pour les formations
-  {path: 'dashboard/formation/modifier/:id', component:ModifierFormationComponent},
-  {path: 'dashboard/formation', component:ListFormationComponent},
-  {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent},
+  {path: 'dashboard/formation/modifier/:id', component:ModifierFormationComponent, canActivate: [AdminGuard] },
+  {path: 'dashboard/formation', component:ListFormationComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/ajouter/formation', component:AjoutFormationComponent, canActivate: [AdminGuard]},
   //Routes pour les photos de formation
-  {path: 'dashboard/photos/formation', component:PhotoFormationComponent},
-  {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent},
-  {path: 'dashboard/modifier/photo/:id', component: ModifierPhotoComponent },
+  {path: 'dashboard/photos/formation', component:PhotoFormationComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/ajouter/photo', component:AjoutPhotoComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/modifier/photo/:id', component: ModifierPhotoComponent, canActivate: [AdminGuard] },
   //video
-  {path: 'dashboard/video', component:ListVideoComponent},
-  {path: 'ajouter/video', component:AjouterComponent},
-  {path: 'modifier/video/:id', component:ModifierComponent},
+  {path: 'dashboard/video', component:ListVideoComponent, canActivate: [AdminGuard]},
+  {path: 'ajouter/video', component:AjouterComponent, canActivate: [AdminGuard]},
+  {path: 'modifier/video/:id', component:ModifierComponent, canActivate: [AdminGuard]},
   //article dashboard
-  {path: 'dashboard/article', component:ListArticleComponent},
-  {path: 'dashboard/article/ajouter', component:AjouterArticleComponent},
-  { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent },
+  {path: 'dashboard/article', component:ListArticleComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/article/ajouter', component:AjouterArticleComponent, canActivate: [AdminGuard]},
+  { path: 'dashboard/article/modifier/:id', component: ModifierArticleComponent, canActivate: [AdminGuard] },
   //courrs
-  {path: 'cours/:id', component:CoursComponent},
+  {path: 'cours/:id', component:CoursComponent, canActivate: [EtudiantGuard]},
   //partenaire
-  {path: 'dashboard/partenaire', component:ListPartenaireComponent},
-  {path: 'dashboard/partenaire/ajouter', component:AjouterPartenaireComponent},
-  {path: 'dashboard/partenaire/modifier/:id', component:ModifierPartenaireComponent},
+  {path: 'dashboard/partenaire', component:ListPartenaireComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/partenaire/ajouter', component:AjouterPartenaireComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/partenaire/modifier/:id', component:ModifierPartenaireComponent, canActivate: [AdminGuard]},
   //service
-  {path: 'dashboard/service', component:ListServiceComponent},
-  {path: 'dashboard/service/ajouter', component:AjouterServiceComponent},
-  {path: 'dashboard/service/modifier/:id', component:ModifierServiceComponent},
+  {path: 'dashboard/service', component:ListServiceComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/service/ajouter', component:AjouterServiceComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/service/modifier/:id', component:ModifierServiceComponent, canActivate: [AdminGuard]},
   //ressource
-  {path: 'dashboard/ressource', component:RessourceComponent},
-  {path: 'dashboard/ressource/ajouter', component:AjouterRessourceComponent},
-  {path: 'dashboard/ressource/modifier/:id', component:ModifierRessourceComponent},
+  {path: 'dashboard/ressource', component:RessourceComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/ressource/ajouter', component:AjouterRessourceComponent, canActivate: [AdminGuard]},
+  {path: 'dashboard/ressource/modifier/:id', component:ModifierRessourceComponent, canActivate: [AdminGuard]},
   //e-commerce produit
-  {path: 'e-commerce/produits', component:ProduitComponent},
-  {path: 'e-commerce/produits/ajouter', component:ProduitAjouterComponent},
-  {path: 'e-commerce/produits/modifier/:id', component:ProduitModifierComponent},
+  {path: 'e-commerce/produits', component:ProduitComponent, canActivate: [AdminGuard]},
+  {path: 'e-commerce/produits/ajouter', component:ProduitAjouterComponent, canActivate: [AdminGuard]},
+  {path: 'e-commerce/produits/modifier/:id', component:ProduitModifierComponent, canActivate: [AdminGuard]},
 
   //e-commerce categorie
   {path: 'boutique/categorie', component:CategorieComponent},
   {path: 'boutique/ajouter/categorie', component:CategorieAjouterComponent},
   {path: 'boutique/categorie/modifier/:id', component:CategorieModifierComponent},
   //
-  {path: 'boutique/commande', component:CommandeComponent},
+  {path: 'boutique/commande', component:CommandeComponent, canActivate: [AdminGuard]},
   //
-  {path: 'boutique/paiement', component:PaiementComponent}
+  {path: 'boutique/paiement', component:PaiementComponent, canActivate: [AdminGuard]}
 ];
