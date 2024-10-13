@@ -80,9 +80,16 @@ export class PaymentService {
     );
   }
 
-  handlePaymentSuccess(formationId: number): Observable<any> {
-    const params = new HttpParams().set('formation_id', formationId.toString());
+  handlePaymentSuccess(formationId: number, refPayment: string): Observable<any> {
+    const params = new HttpParams()
+      .set('formation_id', formationId.toString())
+      .set('ref_payment', refPayment);
     return this.http.get(`${this.apiUrl}/paytech/success`, { params }).pipe(
+      tap((response: any) => {
+        if (response.redirect_url) {
+          window.location.href = response.redirect_url;
+        }
+      }),
       catchError(this.handleError)
     );
   }
