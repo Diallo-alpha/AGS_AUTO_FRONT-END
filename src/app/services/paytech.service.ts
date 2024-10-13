@@ -9,6 +9,7 @@ export interface PaymentResponse {
   success: boolean;
   redirect_url?: string;
   errors?: string[];
+  transaction_id: string;
 }
 
 export interface PaymentVerificationResponse {

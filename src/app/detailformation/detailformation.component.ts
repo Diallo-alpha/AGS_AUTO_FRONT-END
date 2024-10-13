@@ -13,7 +13,6 @@ import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { NavConnectComponent } from '../nav-connect/nav-connect.component';
 
-
 @Component({
   selector: 'app-detailformation',
   standalone: true,
@@ -26,6 +25,7 @@ export class DetailformationComponent implements OnInit {
   videos: Video[] = [];
   errorMessage = '';
   isLoading = false;
+  transactionId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -102,18 +102,21 @@ export class DetailformationComponent implements OnInit {
         if (paymentResponse && paymentResponse.success && paymentResponse.redirect_url) {
           console.log('Attempting to open payment window');
           try {
+            this.transactionId = paymentResponse.transaction_id; // Stockez l'ID de transaction
             await this.openPaymentWindow(paymentResponse.redirect_url);
             console.log('Payment window opened, checking status');
             const paymentStatus = await this.checkPaymentStatus(this.formation!.id);
             console.log('Payment status:', paymentStatus);
-            // ...
+            if (paymentStatus === 'payé') {
+              await this.finalizePayment(this.formation!.id, this.transactionId);
+            }
           } catch (error) {
             console.error('Error in payment process:', error);
-            // ...
+            this.errorMessage = 'Une erreur est survenue lors du processus de paiement.';
           }
         } else {
           console.error('Invalid payment response:', paymentResponse);
-          // ...
+          this.errorMessage = 'Réponse de paiement invalide.';
         }
       });
   }
@@ -167,9 +170,9 @@ export class DetailformationComponent implements OnInit {
     throw new Error('Timeout lors de la vérification du statut du paiement.');
   }
 
-  private async finalizePayment(formationId: number): Promise<void> {
+  private async finalizePayment(formationId: number, refPayment: string): Promise<void> {
     try {
-      await this.paymentService.handlePaymentSuccess(formationId).toPromise();
+      await this.paymentService.handlePaymentSuccess(formationId, refPayment).toPromise();
       console.log('Paiement finalisé avec succès');
     } catch (error) {
       console.error('Erreur lors de la finalisation du paiement', error);
