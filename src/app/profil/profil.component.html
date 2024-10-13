@@ -1,0 +1,41 @@
+<div class="header">
+  <img
+    [src]="user?.photo || 'https://replicate.delivery/yhqm/JeTWNo9w4gyPcCmUv4vVyf71ds7PYnknqpMvUukUGypydeMnA/out-0.png'"
+    [alt]="'Profile picture of ' + user?.nom_complet"
+    height="150"
+    width="150"
+  />
+  <h1>{{ user?.nom_complet }}</h1>
+  <input #fileInput type="file" (change)="updateProfilePicture($event)" accept="image/*" style="display: none;">
+  <button (click)="triggerFileInput()">Modifier la photo</button>
+</div>
+<div class="container">
+  <h2>Information profile</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <div class="form-group">
+      <label for="name">Nom &amp; prénom</label>
+      <input id="name" type="text" formControlName="nom_complet" [readonly]="!isEditing" />
+    </div>
+    <div class="form-group">
+      <label for="email">Adresse email</label>
+      <input id="email" type="email" formControlName="email" [readonly]="!isEditing" />
+    </div>
+    <div class="form-group">
+      <label for="phone1">Téléphone</label>
+      <input id="phone1" type="text" formControlName="telephone" [readonly]="!isEditing" />
+    </div>
+    <ng-container *ngIf="isEditing">
+      <div class="form-group">
+        <label for="password">Nouveau Mot de passe</label>
+        <input id="password" type="password" formControlName="newPassword" />
+      </div>
+    </ng-container>
+    <div class="buttons">
+      <button *ngIf="!isEditing" type="button" class="modify" (click)="startEditing()">Modifier</button>
+      <ng-container *ngIf="isEditing">
+        <button type="submit" class="save">Enregistrer</button>
+        <button type="button" class="cancel" (click)="cancelEditing()">Annuler</button>
+      </ng-container>
+    </div>
+  </form>
+</div>

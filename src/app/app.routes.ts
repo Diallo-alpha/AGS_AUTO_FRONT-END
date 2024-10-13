@@ -42,6 +42,7 @@ import { CommandeComponent } from './e-commerce/commande/commande.component';
 import { PaiementComponent } from './e-commerce/paiement/paiement.component';
 import { EtudiantGuard } from './Guardes/etudiant.guard';
 import { AdminGuard } from './Guardes/admin.guard';
+import { ProfilComponent } from './profil/profil.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -99,5 +100,7 @@ export const routes: Routes = [
   //
   {path: 'boutique/commande', component:CommandeComponent, canActivate: [AdminGuard]},
   //
-  {path: 'boutique/paiement', component:PaiementComponent, canActivate: [AdminGuard]}
+  {path: 'boutique/paiement', component:PaiementComponent},
+  //profil
+  {path: 'profil', component:ProfilComponent}
 ];

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { UserModel, LoginResponse } from './../models/userModel';
 import { apiUrl } from './apiUrl';
 
@@ -34,8 +34,13 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  register(user: UserModel): Observable<any> {
-    return this.http.post(`${apiUrl}/register`, user).pipe(
+  register(user: Partial<UserModel>): Observable<any> {
+    const formData = new FormData();
+    Object.keys(user).forEach(key => {
+      formData.append(key, user[key as keyof UserModel] as string | Blob);
+    });
+
+    return this.http.post(`${apiUrl}/register`, formData).pipe(
       tap(response => this.setUserData(response as LoginResponse)),
       catchError(this.handleError)
     );
@@ -74,7 +79,7 @@ export class AuthService {
         const currentUser = this.currentUserValue;
         if (currentUser) {
           const newUser = { ...currentUser, ...updatedUser };
-          this.currentUserSubject.next(newUser);
+          this.currentUserSubject.next(newUser as UserModel);
           localStorage.setItem('currentUser', JSON.stringify(newUser));
         }
       }),
@@ -89,6 +94,34 @@ export class AuthService {
     );
   }
 
+  updateProfilePicture(photo: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    return this.http.post(`${apiUrl}/update-profile-picture`, formData).pipe(
+      tap(response => {
+        const currentUser = this.currentUserValue;
+        if (currentUser && 'photo_url' in response) {
+          const newUser = { ...currentUser, profile_picture: response.photo_url };
+          this.currentUserSubject.next(newUser);
+          localStorage.setItem('currentUser', JSON.stringify(newUser));
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getUserInfo(): Observable<UserModel> {
+    return this.http.get<UserModel>(`${apiUrl}/user-info`).pipe(
+      tap(user => {
+        this.currentUserSubject.next(user);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+
   private setUserData(response: LoginResponse): void {
     localStorage.setItem('access_token', response.access_token);
     localStorage.setItem('currentUser', JSON.stringify(response.user));
@@ -101,10 +134,14 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    const currentUser = this.currentUserSubject.value;
+    const currentUser = this.currentUserValue;
     return currentUser?.role === 'admin';
   }
 
+  isClient(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser?.role === 'client';
+  }
   isEtudiant(): boolean {
     const currentUser = this.currentUserSubject.value;
     return currentUser?.role === 'etudiant';

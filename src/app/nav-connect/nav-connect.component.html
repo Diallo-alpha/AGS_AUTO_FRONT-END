@@ -43,7 +43,7 @@
       <!-- Profile Dropdown -->
       <div class="dropdown ms-3" ngbDropdown>
         <button class="btn btn-link" id="profileDropdown" ngbDropdownToggle>
-          <img src="..." alt="Profile picture" class="profile-pic rounded-circle" width="40" height="40">
+          <img [src]="profilePictureUrl" alt="Photo de profil" class="profile-pic rounded-circle" width="40" height="40" routerLink="/profil">
         </button>
         <ul ngbDropdownMenu aria-labelledby="profileDropdown">
           <li>
