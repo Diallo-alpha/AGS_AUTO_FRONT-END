@@ -95,7 +95,7 @@
         <div class="card-body px-0">
           <h5 class="card-title">{{ article.titre }}</h5>
           <p class="card-text">{{ article.description | reduire:100}}</p>
-          <a class="btn btn-link" [routerLink]="['/detail-article', article.id]">Voir plus</a>
+          <a class="btn btn-voir-plus btn btn-link" [routerLink]="['/detail-article', article.id]">Voir plus</a>
         </div>
       </div>
     </div>

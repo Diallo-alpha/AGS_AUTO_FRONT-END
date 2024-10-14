@@ -118,13 +118,22 @@ h1 {
 }
 .btn-voir-plus {
   background-color: #9C490C;
-  color: white;
-  font-size: 12px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14PX;
-  font-weight: bold;
+  padding: 10px 5px !important;
   margin-left: 0.8vh;
+  width: 75px;
+  height: 35px;
+  border-radius: 5px;
+  background: var(--secondary, #9C490C);
+  color: var(--primay, #FFF);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.btn-voir-plus:hover{
+  background-color: #020202;
 }
 .services-title {
   margin-top: 30px;
@@ -289,7 +298,7 @@ h2 {
   color: #020202;
 }
 .btn-link {
-  font-size: 16px;
+  font-size: 13px;
   color: #fff;
   padding: 0;
   text-decoration: none;
