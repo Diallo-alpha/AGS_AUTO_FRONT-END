@@ -111,7 +111,9 @@
   color: red;
   cursor: pointer;
 }
-
+.active-link {
+  color: #020202 !important;
+}
 .payment-methods {
   background-color: #a0522d;
   padding: 15px;
