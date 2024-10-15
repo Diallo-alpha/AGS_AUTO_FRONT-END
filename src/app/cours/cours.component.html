@@ -1,53 +1,53 @@
-<app-nav-connect></app-nav-connect>
+<!-- <app-nav-connect></app-nav-connect> -->
 
-<div class="main-container">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex align-items-center mb-3">
-          <h5 class="mb-0">{{ formation?.nom_formation }}</h5>
-        </div>
-      </div>
+<div class="page-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a routerLink="/"><i class="fas fa-home"></i></a>
     </div>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="video-container mb-3">
-          <video *ngIf="safeVideoUrl" [src]="safeVideoUrl" controls width="100%"></video>
-          <i *ngIf="!safeVideoUrl" class="fas fa-play-circle play-button"></i>
-        </div>
-        <p>{{ currentVideo?.titre }}</p>
-      </div>
-      <div class="col-md-4">
-        <h6 class="resource-title">RESSOURCES DE LA VIDÉO</h6>
-        <div *ngFor="let resource of currentResources" class="mb-2">
-          <a class="download-link" [href]="resource.documents" target="_blank">
-            {{ resource.titre }} <i class="fas fa-download download-icon"></i>
-          </a>
-        </div>
-        <div *ngIf="currentResources.length === 0">
-          Aucune ressource disponible pour cette vidéo.
+    <div class="sidebar-content">
+      <h5 class="mb-3">{{ formation?.nom_formation }}</h5>
+
+      <div class="mb-4">
+        <p class="mb-1 small">0% TERMINÉ</p>
+        <div class="progress">
+          <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
+
+      <h6 class="mb-2">Contenu du cours</h6>
+      <ul class="list-group mb-4">
+        <li *ngFor="let video of videos"
+            class="list-group-item"
+            [class.active-item]="video === currentVideo"
+            (click)="selectVideo(video)">
+          <i [class]="video === currentVideo ? 'far fa-play-circle text-info' : 'far fa-circle'"></i>
+          <span>{{ video.titre || 'Titre non disponible' }}</span>
+        </li>
+      </ul>
     </div>
-    <div class="container">
-      <div class="section-title">CONTENU DU COURS</div>
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="card-header">Aperçu du cours</div>
-        </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="video-section">
+      <div class="video-container mb-3">
+        <video *ngIf="safeVideoUrl" [src]="safeVideoUrl" controls width="100%"></video>
+        <i *ngIf="!safeVideoUrl" class="fas fa-play-circle play-button"></i>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="card-header">{{ formation?.nom_formation }}</div>
-          <ul class="list-group list-group-flush">
-            <li *ngFor="let video of videos" class="list-group-item"
-                [class.active]="video === currentVideo"
-                (click)="selectVideo(video)">
-              <i class="fas fa-play-circle" [style.color]="video === currentVideo ? '' : '#b5651d'"></i>
-              {{ video.titre || 'Titre non disponible' }}
-            </li>
-          </ul>
-        </div>
+      <h3>{{ currentVideo?.titre }}</h3>
+    </div>
+
+    <div class="resources-section">
+      <h6 class="resource-title">RESSOURCES DE LA VIDÉO</h6>
+      <div *ngFor="let resource of currentResources" class="mb-2">
+        <a class="download-link" [href]="resource.documents" target="_blank">
+          {{ resource.titre }} <i class="fas fa-download download-icon"></i>
+        </a>
+      </div>
+      <div *ngIf="currentResources.length === 0">
+        Aucune ressource disponible pour cette vidéo.
       </div>
     </div>
   </div>

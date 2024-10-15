@@ -6,6 +6,7 @@ import { AuthService } from '../services/authservice.service';
 import { FormationService } from '../services/formation.service';
 import { VideoService } from '../services/video-service.service';
 import { RessourceService } from '../services/ressource.service';
+import { ProgressionService } from '../services/progression.service';
 import { Formation } from '../models/FormationModel';
 import { Video } from '../models/VideoModel';
 import { Ressource } from '../models/ressourceModel';
@@ -38,6 +39,7 @@ export class CoursComponent implements OnInit {
   currentVideo: Video | null = null;
   currentResources: Ressource[] = [];
   safeVideoUrl: SafeResourceUrl | null = null;
+  progression: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +47,8 @@ export class CoursComponent implements OnInit {
     private formationService: FormationService,
     private videoService: VideoService,
     private ressourceService: RessourceService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private progressionService: ProgressionService
   ) {}
 
   ngOnInit() {
@@ -71,8 +74,13 @@ export class CoursComponent implements OnInit {
           this.selectVideo(this.videos[0]);
         }
       }),
+      switchMap(() => this.progressionService.getProgression(id)), // Charger la progression
+      tap(progression => {
+        this.progression = progression.pourcentage;
+        console.log('Progression chargée:', this.progression);
+      }),
       catchError(error => {
-        console.error('Erreur lors du chargement de la formation ou des vidéos', error);
+        console.error('Erreur lors du chargement de la formation, des vidéos ou de la progression', error);
         throw error;
       })
     ).subscribe();
@@ -82,6 +90,7 @@ export class CoursComponent implements OnInit {
     this.currentVideo = video;
     this.safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(video.video);
     this.loadResourcesForVideo(video.id);
+    this.updateProgression(video);
     console.log('Vidéo sélectionnée:', video.titre);
   }
 
@@ -95,6 +104,23 @@ export class CoursComponent implements OnInit {
         console.error('Erreur lors du chargement des ressources', error);
       }
     );
+  }
+
+  updateProgression(video: Video) {
+    if (this.formation) {
+      const videoIndex = this.videos.findIndex(v => v.id === video.id);
+      const newProgression = ((videoIndex + 1) / this.videos.length) * 100;
+
+      this.progressionService.updateProgression(this.formation.id, newProgression).subscribe(
+        response => {
+          this.progression = response.data.pourcentage;
+          console.log('Progression mise à jour:', this.progression);
+        },
+        error => {
+          console.error('Erreur lors de la mise à jour de la progression', error);
+        }
+      );
+    }
   }
 
   isEtudiant(): boolean {
