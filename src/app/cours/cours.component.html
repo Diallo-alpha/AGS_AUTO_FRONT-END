@@ -28,11 +28,17 @@
             class="list-group-item"
             [class.active-item]="video === currentVideo"
             (click)="selectVideo(video)">
+            <i *ngIf="isVideoWatched(video.id)" class="fas fa-check text-success ml-2"></i>
           <i [class]="video === currentVideo ? 'far fa-play-circle text-info' : 'far fa-circle'"></i>
           <span>{{ video.titre }}</span>
-          <i *ngIf="isVideoWatched(video.id)" class="fas fa-check text-success ml-2"></i>
+          <!-- <i *ngIf="isVideoWatched(video.id)" class="fas fa-check text-success ml-2"></i> -->
         </li>
       </ul>
+      <button *ngIf="progression === 100"
+      (click)="generateCertificate()"
+      class="btn btn-primary mb-3 certificat">
+       Télecharger le certificat
+    </button>
     </div>
   </div>
 

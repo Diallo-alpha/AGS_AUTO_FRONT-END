@@ -153,4 +153,23 @@ export class CoursComponent implements OnInit {
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
   }
+
+  //Generer le certificates
+  generateCertificate() {
+    if (this.formation && this.progression === 100) {
+      this.progressionService.generateCertificate(this.formation.id).subscribe(
+        (data: Blob) => {
+          const downloadURL = window.URL.createObjectURL(data);
+          const link = document.createElement('a');
+          link.href = downloadURL;
+          link.download = `certificat_${this.formation?.nom_formation}.pdf`;
+          link.click();
+        },
+        error => {
+          console.error('Erreur lors de la génération du certificat', error);
+          // Gérer l'erreur (par exemple, afficher un message à l'utilisateur)
+        }
+      );
+    }
+  }
 }
