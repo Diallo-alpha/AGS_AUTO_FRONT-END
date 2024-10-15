@@ -26,8 +26,8 @@ body, html {
 }
 
 .sidebar-header a {
-  color: #333;
-  font-size: 18px;
+  color: #020202;
+  font-size: 20px;
 }
 
 .sidebar h5 {
@@ -38,17 +38,27 @@ body, html {
 .progress {
   height: 10px;
 }
+.fa-circle{
+  color: #9c490c !important;
+}
 
 .list-group-item {
   border: none;
   padding: 10px 15px;
   cursor: pointer;
   transition: background-color 0.3s;
+  color: #020202;
+  font-weight: 500;
+
+}
+.bg-success{
+  color: #9c490c !important;
 }
 
 .list-group-item:hover,
 .list-group-item.active-item {
-  background-color: #f8f9fa;
+  background-color: #9c490c;
+  color: #fff;
 }
 
 .list-group-item i {

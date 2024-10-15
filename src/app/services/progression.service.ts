@@ -7,15 +7,15 @@ import { apiUrl } from './apiUrl';
   providedIn: 'root'
 })
 export class ProgressionService {
-  private apiUrl = apiUrl
+  private apiUrl = apiUrl;
 
   constructor(private http: HttpClient) { }
 
   getProgression(formationId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${formationId}`);
+    return this.http.get(`${this.apiUrl}/progression/${formationId}`);
   }
 
-  updateProgression(formationId: number, pourcentage: number): Observable<any> {
-    return this.http.post(this.apiUrl, { formation_id: formationId, pourcentage });
+  updateProgression(formationId: number, videoId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/progression/update`, { formation_id: formationId, video_id: videoId });
   }
 }

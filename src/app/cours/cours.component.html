@@ -4,26 +4,33 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-header">
-      <a routerLink="/"><i class="fas fa-home"></i></a>
+      <a href="#"><i class="fas fa-home"></i></a>
     </div>
     <div class="sidebar-content">
       <h5 class="mb-3">{{ formation?.nom_formation }}</h5>
 
+      <!-- Progression display -->
       <div class="mb-4">
-        <p class="mb-1 small">0% TERMINÉ</p>
+        <p class="mb-1 small">{{ progression | number:'1.0-0' }}% TERMINÉ</p>
         <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success" role="progressbar"
+               [style.width.%]="progression"
+               [attr.aria-valuenow]="progression"
+               aria-valuemin="0"
+               aria-valuemax="100">
+          </div>
         </div>
       </div>
 
       <h6 class="mb-2">Contenu du cours</h6>
       <ul class="list-group mb-4">
-        <li *ngFor="let video of videos"
+        <li *ngFor="let video of videos; let i = index"
             class="list-group-item"
             [class.active-item]="video === currentVideo"
             (click)="selectVideo(video)">
           <i [class]="video === currentVideo ? 'far fa-play-circle text-info' : 'far fa-circle'"></i>
-          <span>{{ video.titre || 'Titre non disponible' }}</span>
+          <span>{{ video.titre }}</span>
+          <i *ngIf="isVideoWatched(video.id)" class="fas fa-check text-success ml-2"></i>
         </li>
       </ul>
     </div>
@@ -33,7 +40,7 @@
   <div class="main-content">
     <div class="video-section">
       <div class="video-container mb-3">
-        <video *ngIf="safeVideoUrl" [src]="safeVideoUrl" controls width="100%"></video>
+        <video *ngIf="safeVideoUrl" [src]="safeVideoUrl" controls width="100%" (ended)="onVideoEnded()"></video>
         <i *ngIf="!safeVideoUrl" class="fas fa-play-circle play-button"></i>
       </div>
       <h3>{{ currentVideo?.titre }}</h3>
@@ -53,4 +60,4 @@
   </div>
 </div>
 
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->
