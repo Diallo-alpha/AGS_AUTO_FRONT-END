@@ -51,7 +51,7 @@
       </div>
       <h3>{{ currentVideo?.titre }}</h3>
     </div>
-
+ 
     <div class="resources-section">
       <h6 class="resource-title">RESSOURCES DE LA VIDÉO</h6>
       <div *ngFor="let resource of currentResources" class="mb-2">
@@ -61,6 +61,37 @@
       </div>
       <div *ngIf="currentResources.length === 0">
         Aucune ressource disponible pour cette vidéo.
+      </div>
+    </div>
+    <button *ngIf="progression === 100" (click)="openRatingModal()" class="btn btn-primary mb-3">
+      Noter la formation
+    </button>
+  </div>
+</div>
+
+<!-- Rating Modal -->
+<div class="modal" [class.show]="showRatingModal">
+  <div class="modal-content">
+    <div class="cont">
+      <div class="stars">
+        <form [formGroup]="ratingForm" (ngSubmit)="submitRating()">
+          <input class="star star-5" id="star-5" type="radio" formControlName="rating" value="5"/>
+          <label class="star star-5" for="star-5" (click)="setRating(5)"></label>
+          <input class="star star-4" id="star-4" type="radio" formControlName="rating" value="4"/>
+          <label class="star star-4" for="star-4" (click)="setRating(4)"></label>
+          <input class="star star-3" id="star-3" type="radio" formControlName="rating" value="3"/>
+          <label class="star star-3" for="star-3" (click)="setRating(3)"></label>
+          <input class="star star-2" id="star-2" type="radio" formControlName="rating" value="2"/>
+          <label class="star star-2" for="star-2" (click)="setRating(2)"></label>
+          <input class="star star-1" id="star-1" type="radio" formControlName="rating" value="1"/>
+          <label class="star star-1" for="star-1" (click)="setRating(1)"></label>
+          <div class="rev-box"> <br>
+            <label class="review" for="review">Donner votre avis sur la formation</label>
+            <textarea class="review" col="30" formControlName="review"></textarea>
+          </div>
+          <button type="submit" [disabled]="ratingForm.invalid">Soumettre</button>
+          <button type="button" (click)="closeRatingModal()">Fermer</button>
+        </form>
       </div>
     </div>
   </div>
