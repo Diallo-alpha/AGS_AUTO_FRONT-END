@@ -25,6 +25,15 @@
       <div class="card">
         <img [src]="formation.image" class="card-img-top" alt="formation image" height="200" width="300" />
         <div class="card-body">
+          <div *ngIf="formationAvis[formation.id]">
+            <!-- <p>Note moyenne: {{ formationAvis[formation.id].average_rating | number:'1.1-1' }} / 5</p> -->
+            <div class="stars">
+              <span *ngFor="let star of [1,2,3,4,5]"
+                    [class.filled]="star <= formationAvis[formation.id].average_rating">
+                ★
+              </span>
+            </div>
+          </div>
           <h5 class="card-title">{{ formation.nom_formation }}</h5>
           <p class="card-text">{{ formation.description | reduire:100}}</p>
           <a class="btn btn-voir-plus" [routerLink]="['/detail-formation', formation.id]">Voir plus</a>
@@ -42,7 +51,7 @@
   <h2 class="formations-title">SERVICES</h2>
   <div class="row">
     <div class="col-md-3" *ngFor="let service of services">
-      <div class="card h-100 service-card">
+      <div class="card h-100 service-card card-service">
         <img [src]="service.photo" class="card-img-top" alt="service image" />
         <div class="card-body">
           <h5 class="card-title">{{ service.titre }}<i class="fas fa-wrench mr-2"></i></h5>

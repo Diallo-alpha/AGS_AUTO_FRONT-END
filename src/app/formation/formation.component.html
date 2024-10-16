@@ -14,16 +14,25 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div *ngFor="let formation of formations" class="col">
-            <div class="card h-100">
-                <img [src]="formation.image" class="card-img-top" [alt]="formation.title" height="300" />
-                <div class="card-body">
-                    <h5 class="card-title">{{ formation.title }}</h5>
-                    <p class="card-text">{{ formation.description | reduire:150}}</p>
-                    <a class="btn btn-primary"[routerLink]="['/detail-formation', formation.id]">VOIR PLUS</a>
-                </div>
+      <div *ngFor="let formation of formations" class="col">
+        <div class="card h-100">
+          <img [src]="formation.image" class="card-img-top" [alt]="formation.title" height="300" />
+          <div class="card-body">
+            <div *ngIf="formationAvis[formation.id]">
+              <!-- <p>Note moyenne: {{ formationAvis[formation.id].average_rating | number:'1.1-1' }} / 5</p> -->
+              <div class="stars">
+                <span *ngFor="let star of [1,2,3,4,5]"
+                      [class.filled]="star <= formationAvis[formation.id].average_rating">
+                  ★
+                </span>
+              </div>
             </div>
+            <h5 class="card-title">{{ formation.title }}</h5>
+            <p class="card-text">{{ formation.description | reduire:150 }}</p>
+            <a class="btn btn-primary text-start" [routerLink]="['/detail-formation', formation.id]">VOIR PLUS</a>
+          </div>
         </div>
+      </div>
     </div>
 </div>
 
