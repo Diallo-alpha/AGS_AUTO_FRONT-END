@@ -26,6 +26,7 @@ export class DetailformationComponent implements OnInit {
   errorMessage = '';
   isLoading = false;
   transactionId: string = '';
+  avis: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +40,7 @@ export class DetailformationComponent implements OnInit {
     const formationId = Number(this.route.snapshot.paramMap.get('id'));
     if (formationId) {
       this.loadFormationDetails(formationId);
+      this.loadFormationAvis(formationId);
     }
   }
 
@@ -187,5 +189,17 @@ export class DetailformationComponent implements OnInit {
 
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
+  }
+  //
+  loadFormationAvis(id: number): void {
+    this.formationService.getFormationAvis(id).subscribe({
+      next: (data: any) => {
+        this.avis = data.avis;
+      },
+      error: (error) => {
+        console.error('Error fetching avis', error);
+        this.errorMessage = 'Erreur lors du chargement des avis.';
+      }
+    });
   }
 }
