@@ -53,4 +53,8 @@ export class FormationService {
   updateRating(noteId: number, note: number, avis: string): Observable<any> {
     return this.http.put(`${this.API_URL}/note-formations/${noteId}`, { note, avis }, { headers: this.getAuthHeaders() });
   }
+  //
+  getFormationAvis(formationId: number): Observable<any> {
+    return this.http.get(`${this.API_URL}/avis/${formationId}`);
+  }
 }
