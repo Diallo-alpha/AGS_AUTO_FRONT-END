@@ -6,11 +6,16 @@ import { FooterComponent } from '../footer/footer.component';
 import { ProduitService } from '../services/produit.service';
 import { Produit } from '../models/produitModel';
 import { CommonModule } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProduitModalComponent } from '../produit-modal/produit-modal.component';
+import { CartService } from '../services/cart-item.service';
+import { CartItem } from '../models/CartItemModel';
+import { supprimerZeroPipe } from '../pipe/supprimerZero';
 
 @Component({
   selector: 'app-detail-categorie',
   standalone: true,
-  imports: [NavbarComponent, NavConnectComponent, FooterComponent, CommonModule],
+  imports: [NavbarComponent, NavConnectComponent, FooterComponent, CommonModule, supprimerZeroPipe],
   templateUrl: './detail-categorie.component.html',
   styleUrl: './detail-categorie.component.css'
 })
@@ -22,7 +27,9 @@ export class DetailCategorieComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private produitService: ProduitService
+    private produitService: ProduitService,
+    private modalService: NgbModal,
+    private cartService: CartService,
   ) {
     this.categoryId = 0;
   }
@@ -46,7 +53,26 @@ export class DetailCategorieComponent implements OnInit {
       }
     });
   }
-
+  addToCart(product: Produit) {
+    const cartItem: Omit<CartItem, 'quantite'> = {
+      id: product.id,
+      type: 'produit',
+      nom: product.nom_produit,
+      prix: product.prix
+    };
+    this.cartService.addToCart(cartItem, 1).subscribe(
+      () => {
+        console.log('Product added to cart:', product.nom_produit);
+      },
+      error => {
+        console.error('Error adding product to cart:', error);
+      }
+    );
+  }
+  openProductModal(product: Produit) {
+    const modalRef = this.modalService.open(ProduitModalComponent);
+    modalRef.componentInstance.product = product;
+  }
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;

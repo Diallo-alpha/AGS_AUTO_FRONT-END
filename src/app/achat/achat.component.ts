@@ -12,7 +12,9 @@ import { RouterModule } from '@angular/router';
 import { ReduirePipe } from '../pipe/reduire';
 import { CartService } from '../services/cart-item.service';
 import { CartItem } from '../models/CartItemModel';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProduitModalComponent } from '../produit-modal/produit-modal.component';
+import { supprimerZeroPipe } from '../pipe/supprimerZero';
 interface PaginatedResponse<T> {
   current_page: number;
   data: T[];
@@ -32,7 +34,7 @@ interface PaginatedResponse<T> {
 @Component({
   selector: 'app-achat',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe],
+  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe, supprimerZeroPipe],
   templateUrl: './achat.component.html',
   styleUrl: './achat.component.css'
 })
@@ -46,7 +48,8 @@ export class AchatComponent implements OnInit {
     private authService: AuthService,
     private produitService: ProduitService,
     private categorieService: CategorieService,
-    private cartService: CartService
+    private cartService: CartService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -105,7 +108,10 @@ export class AchatComponent implements OnInit {
       }
     );
   }
-
+  openProductModal(product: Produit) {
+    const modalRef = this.modalService.open(ProduitModalComponent);
+    modalRef.componentInstance.product = product;
+  }
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
   }
