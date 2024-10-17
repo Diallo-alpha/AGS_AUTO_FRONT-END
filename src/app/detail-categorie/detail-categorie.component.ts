@@ -11,6 +11,8 @@ import { ProduitModalComponent } from '../produit-modal/produit-modal.component'
 import { CartService } from '../services/cart-item.service';
 import { CartItem } from '../models/CartItemModel';
 import { supprimerZeroPipe } from '../pipe/supprimerZero';
+import Swal from 'sweetalert2';
+import { AuthService } from '../services/authservice.service';
 
 @Component({
   selector: 'app-detail-categorie',
@@ -30,13 +32,14 @@ export class DetailCategorieComponent implements OnInit {
     private produitService: ProduitService,
     private modalService: NgbModal,
     private cartService: CartService,
+    private authService: AuthService,
   ) {
     this.categoryId = 0;
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.categoryId = +params['id']; // Le '+' convertit la chaîne en nombre
+      this.categoryId = +params['id']; 
       this.loadProducts();
     });
   }
@@ -54,6 +57,16 @@ export class DetailCategorieComponent implements OnInit {
     });
   }
   addToCart(product: Produit) {
+    if (!this.authService.isAuthenticated()) {
+      Swal.fire({
+        title: 'Authentification requise',
+        text: 'Vous devez vous connecter pour ajouter des articles au panier.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
     const cartItem: Omit<CartItem, 'quantite'> = {
       id: product.id,
       type: 'produit',
@@ -62,10 +75,21 @@ export class DetailCategorieComponent implements OnInit {
     };
     this.cartService.addToCart(cartItem, 1).subscribe(
       () => {
-        console.log('Product added to cart:', product.nom_produit);
+        Swal.fire({
+          title: 'Ajouté au panier',
+          text: `${product.nom_produit} a été ajouté à votre panier.`,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
       },
       error => {
         console.error('Error adding product to cart:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'ajout au panier.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
   }

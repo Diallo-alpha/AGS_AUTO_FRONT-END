@@ -146,4 +146,10 @@ export class AuthService {
     const currentUser = this.currentUserSubject.value;
     return currentUser?.role === 'etudiant';
   }
+  isAuthenticated(): boolean {
+    const currentUser = this.currentUserValue;
+    const token = localStorage.getItem('access_token');
+    return !!currentUser && !!token;
+  }
+  //
 }
