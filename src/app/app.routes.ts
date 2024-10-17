@@ -43,6 +43,7 @@ import { PaiementComponent } from './e-commerce/paiement/paiement.component';
 import { EtudiantGuard } from './Guardes/etudiant.guard';
 import { AdminGuard } from './Guardes/admin.guard';
 import { ProfilComponent } from './profil/profil.component';
+import { DetailCategorieComponent } from './detail-categorie/detail-categorie.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -56,6 +57,7 @@ export const routes: Routes = [
   {path: 'contact', component:ContactComponent},
   {path: 'detail-service/:id', component:DetailServiceComponent},
   {path: 'boutique', component:AchatComponent},
+  {path: 'detail/categorie/:id', component:DetailCategorieComponent},
   //
   {path: 'dashboard/statique', component:StatiqueComponent, canActivate: [AdminGuard]},
   //route pour les formations

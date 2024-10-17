@@ -12,7 +12,10 @@ import { RouterModule } from '@angular/router';
 import { ReduirePipe } from '../pipe/reduire';
 import { CartService } from '../services/cart-item.service';
 import { CartItem } from '../models/CartItemModel';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProduitModalComponent } from '../produit-modal/produit-modal.component';
+import { supprimerZeroPipe } from '../pipe/supprimerZero';
+import Swal from 'sweetalert2';
 interface PaginatedResponse<T> {
   current_page: number;
   data: T[];
@@ -32,7 +35,7 @@ interface PaginatedResponse<T> {
 @Component({
   selector: 'app-achat',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe],
+  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe, supprimerZeroPipe],
   templateUrl: './achat.component.html',
   styleUrl: './achat.component.css'
 })
@@ -46,7 +49,8 @@ export class AchatComponent implements OnInit {
     private authService: AuthService,
     private produitService: ProduitService,
     private categorieService: CategorieService,
-    private cartService: CartService
+    private cartService: CartService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -90,6 +94,16 @@ export class AchatComponent implements OnInit {
   }
 
   addToCart(product: Produit) {
+    if (!this.authService.isAuthenticated()) {
+      Swal.fire({
+        title: 'Authentification requise',
+        text: 'Vous devez vous connecter pour ajouter des articles au panier.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
     const cartItem: Omit<CartItem, 'quantite'> = {
       id: product.id,
       type: 'produit',
@@ -98,14 +112,28 @@ export class AchatComponent implements OnInit {
     };
     this.cartService.addToCart(cartItem, 1).subscribe(
       () => {
-        console.log('Product added to cart:', product.nom_produit);
+        Swal.fire({
+          title: 'Ajouté au panier',
+          text: `${product.nom_produit} a été ajouté à votre panier.`,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
       },
       error => {
         console.error('Error adding product to cart:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'ajout au panier.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
   }
-
+  openProductModal(product: Produit) {
+    const modalRef = this.modalService.open(ProduitModalComponent);
+    modalRef.componentInstance.product = product;
+  }
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
   }

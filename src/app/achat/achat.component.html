@@ -24,18 +24,20 @@
 <div class="container mt-4" *ngIf="categories[0]">
   <div class="row">
     <div class="col-md-3 category">
-      <strong>{{ categories[0].nom_categorie }}</strong>
+      <a [routerLink]="['/detail/categorie', categories[0].id]">
+        <strong>{{ categories[0].nom_categorie }}</strong>
+      </a>
     </div>
     <div class="col-md-9">
       <div class="row">
         <div *ngFor="let product of category1Products" class="col-md-3 col-sm-6">
-          <div class="product-card">
+          <div class="product-card" (click)="openProductModal(product)">
             <img [src]="product.image" [alt]="product.nom_produit" />
             <h5>{{ product.nom_produit }}</h5>
             <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
-              <p class="price">{{ product.prix }}</p>
-              <i class="fas fa-shopping-cart cart-icon" (click)="addToCart(product)"></i>
+              <p class="price">{{ product.prix | supprimer}} FCFA</p>
+              <i class="fas fa-shopping-cart cart-icon" (click)="addToCart(product); $event.stopPropagation()"></i>
             </div>
           </div>
         </div>
@@ -54,17 +56,19 @@
 <div class="container mt-4" *ngIf="categories[1]">
   <div class="row">
     <div class="col-md-3 category">
+      <a [routerLink]="['/detail/categorie', categories[1].id]">
       <strong>{{ categories[1].nom_categorie }}</strong>
+    </a>
     </div>
     <div class="col-md-9">
       <div class="row">
         <div *ngFor="let product of category2Products" class="col-md-3 col-sm-6">
-          <div class="product-card">
+          <div class="product-card" (click)="openProductModal(product)">
             <img [src]="product.image" [alt]="product.nom_produit" />
             <h5>{{ product.nom_produit }}</h5>
             <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
-              <p class="price">{{ product.prix }}</p>
+              <p class="price">{{ product.prix | supprimer }} FCFA</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
             </div>
           </div>
@@ -84,17 +88,19 @@
 <div class="container mt-4" *ngIf="categories[2]">
   <div class="row">
     <div class="col-md-3 category">
+      <a [routerLink]="['/detail/categorie', categories[2].id]">
       <strong>{{ categories[2].nom_categorie }}</strong>
+    </a>
     </div>
     <div class="col-md-9">
       <div class="row">
         <div *ngFor="let product of category3Products" class="col-md-3 col-sm-6">
-          <div class="product-card">
+          <div class="product-card" (click)="openProductModal(product)">
             <img [src]="product.image" [alt]="product.nom_produit" />
             <h5>{{ product.nom_produit }}</h5>
             <p>{{ product.description | reduire:80 }}</p>
             <div class="price-cart">
-              <p class="price">{{ product.prix }}</p>
+              <p class="price">{{ product.prix | supprimer}} FCFA</p>
               <i class="fas fa-shopping-cart cart-icon"></i>
             </div>
           </div>
