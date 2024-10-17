@@ -23,6 +23,7 @@
   height: 150px;
   object-fit: contain;
   padding: 15px;
+  width: 100%;
 }
 .product-title {
   font-size: 14px;
@@ -50,4 +51,7 @@
 }
 .product-cart:hover {
   color: #c9302c;
+}
+.pagination{
+float: right;
 }

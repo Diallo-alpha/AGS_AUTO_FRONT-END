@@ -13,6 +13,7 @@ import { CartItem } from '../models/CartItemModel';
 import { supprimerZeroPipe } from '../pipe/supprimerZero';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/authservice.service';
+import { CategorieService } from '../services/categorie.service';
 
 @Component({
   selector: 'app-detail-categorie',
@@ -23,6 +24,7 @@ import { AuthService } from '../services/authservice.service';
 })
 export class DetailCategorieComponent implements OnInit {
   categoryId: number;
+  categoryName: string = '';
   products: Produit[] = [];
   currentPage = 1;
   totalPages = 1;
@@ -30,6 +32,7 @@ export class DetailCategorieComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private produitService: ProduitService,
+    private categorieService: CategorieService,
     private modalService: NgbModal,
     private cartService: CartService,
     private authService: AuthService,
@@ -39,8 +42,20 @@ export class DetailCategorieComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.categoryId = +params['id']; 
+      this.categoryId = +params['id'];
+      this.loadCategoryName();
       this.loadProducts();
+    });
+  }
+
+  loadCategoryName() {
+    this.categorieService.getCategorie(this.categoryId).subscribe({
+      next: (category) => {
+        this.categoryName = category.nom_categorie;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement du nom de la catégorie:', error);
+      }
     });
   }
 
