@@ -8,14 +8,15 @@ import { PaiementProduitService, PaymentResponse } from '../services/paiement-pr
 import { AuthService } from '../services/authservice.service';
 import { UserModel } from '../models/userModel';
 import { Subscription, Observable, throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, finalize, tap, switchMap } from 'rxjs/operators';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { EtudiantService } from '../services/etudiant.service';
+import { ProfilComponent } from '../profil/profil.component';
 
 @Component({
   selector: 'app-nav-connect',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, FormsModule, NgbDropdownModule ],
+  imports: [RouterLink, RouterLinkActive, CommonModule, FormsModule, NgbDropdownModule, ProfilComponent],
   templateUrl: './nav-connect.component.html',
   styleUrls: ['./nav-connect.component.css']
 })
@@ -41,14 +42,15 @@ export class NavConnectComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.currentUser.subscribe(user => {
+    this.userSubscription = this.authService.currentUser.pipe(
+      tap(user => {
+        if (user) {
+          this.loadUserProfile(user);
+        }
+      })
+    ).subscribe(user => {
       this.currentUser = user;
       this.loadFormationsAchetees();
-      if (user && user.photo) {
-        this.profilePictureUrl = user.photo;
-      } else {
-        this.profilePictureUrl = 'assets/images/default-profile-pic.jpg';
-      }
     });
 
     this.cartSubscription = this.cartService.getCart().subscribe(
@@ -72,6 +74,34 @@ export class NavConnectComponent implements OnInit, OnDestroy {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+  }
+
+  private loadUserProfile(user: UserModel) {
+    if (user.photo) {
+      this.profilePictureUrl = user.photo;
+    } else {
+      this.profilePictureUrl = 'assets/images/default-profile-pic.jpg';
+    }
+  }
+  login(email: string, password: string) {
+    this.authService.login(email, password).pipe(
+      switchMap(user => {
+        this.loadUserProfile(user);
+        return this.etudiantService.getFormationsAchetees();
+      }),
+      catchError(error => {
+        console.error('Erreur de connexion', error);
+        this.errorMessage = 'Échec de la connexion. Veuillez réessayer.';
+        return throwError(() => new Error(this.errorMessage));
+      })
+    ).subscribe(
+      formations => {
+        this.formationsAchetees = formations;
+      },
+      error => {
+        console.error('Erreur lors du chargement des formations', error);
+      }
+    );
   }
 
   openCartModal() {
