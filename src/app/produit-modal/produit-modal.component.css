@@ -1,15 +1,12 @@
-:host {
-  font-family: Arial, sans-serif;
-}
 .modal-title {
   font-weight: bold;
 }
 .price {
-  color: #e4002b;
-  font-weight: bold;
+  color: #9C490C;
+  font-weight: bolder;
 }
 .btn-add-to-cart {
-  background-color: #2a5934;
+  background-color: #9C490C;
   color: white;
 }
 .close {
@@ -20,4 +17,8 @@
 .modal-body img {
   max-width: 100%;
   height: auto;
+}
+.btn-secondary{
+  background-color: #222;
+  border: none;
 }

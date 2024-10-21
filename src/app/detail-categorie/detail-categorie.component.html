@@ -1,6 +1,11 @@
-
+<div *ngIf="isEtudiant(); else clientNavbar">
+  <app-nav-connect></app-nav-connect>
+</div>
+<ng-template #clientNavbar>
+  <app-navbar></app-navbar>
+</ng-template>
 <div class="container-fluid p-0">
-  <img alt="Phares LED de voiture bleus brillants" class="hero-image" height="300" src="https://replicate.delivery/yhqm/zKltyUl670rsMhJjiyrsGNIXOzBmqRy4Y3HgqlzjbnANF55E/out-0.png" width="1920"/>
+  <img alt="Phares LED de voiture bleus brillants" class="hero-image" height="300" src="assets/images/detail.jpg" width="1920"/>
   <div class="container mt-4">
     <h2 class="category-title">Produits de la catégorie {{ categoryName }}</h2>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
@@ -24,4 +29,7 @@
       <button class="btn btn-outline-primary ms-2" (click)="nextPage()" [disabled]="currentPage === totalPages">Suivant</button>
     </div>
   </div>
+  <br>
+  <br>
 </div>
+<app-footer/>

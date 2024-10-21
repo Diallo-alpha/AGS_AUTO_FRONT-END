@@ -125,4 +125,8 @@ export class DetailCategorieComponent implements OnInit {
       this.loadProducts();
     }
   }
+  //
+  isEtudiant(): boolean {
+    return this.authService.isEtudiant();
+  }
 }
