@@ -44,6 +44,8 @@ import { EtudiantGuard } from './Guardes/etudiant.guard';
 import { AdminGuard } from './Guardes/admin.guard';
 import { ProfilComponent } from './profil/profil.component';
 import { DetailCategorieComponent } from './detail-categorie/detail-categorie.component';
+import { ListcoursComponent } from './listcours/listcours.component';
+import { ListCoursTermineComponent } from './list-cours-termine/list-cours-termine.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -104,5 +106,9 @@ export const routes: Routes = [
   //
   {path: 'boutique/paiement', component:PaiementComponent},
   //profil
-  {path: 'profil', component:ProfilComponent}
+  {path: 'profil', component:ProfilComponent},
+  //liste cours
+  {path: 'list-cours', component:ListcoursComponent},
+  //
+  {path: 'list-cours/terminer', component:ListCoursTermineComponent}
 ];
