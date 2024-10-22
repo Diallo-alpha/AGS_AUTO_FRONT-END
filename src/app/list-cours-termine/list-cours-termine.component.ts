@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Formation } from '../models/FormationModel';
 import { ProgressionService } from '../services/progression.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface FormationAvecProgression {
   formation: Formation;
@@ -24,7 +24,7 @@ interface ProgressionResponse {
 export interface ApiResponse {
   status: string;
   message: string;
-  data: any; 
+  data: any;
 }
 
 
@@ -33,14 +33,14 @@ export interface ApiResponse {
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './list-cours-termine.component.html',
-  styleUrl: './list-cours-termine.component.css'
+  styleUrl: './list-cours-termine.component.css',
 })
 export class ListCoursTermineComponent implements OnInit {
   formationsTerminees: FormationAvecProgression[] = [];
   isLoading = false;
   error: string | null = null;
 
-  constructor(private progressionService: ProgressionService) {}
+  constructor(private progressionService: ProgressionService, private router: Router) {}
 
   ngOnInit(): void {
     this.chargerFormationsTerminees();
@@ -87,5 +87,9 @@ export class ListCoursTermineComponent implements OnInit {
     const title = encodeURIComponent(`J'ai terminé la formation "${formationAvecProgression.formation.nom_formation}"`);
     const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`;
     window.open(linkedinUrl, '_blank');
+  }
+  //cours
+  navigateToCours(coursId: number) {
+    this.router.navigate(['/cours', coursId]);
   }
 }

@@ -47,7 +47,8 @@
         </button>
         <ul ngbDropdownMenu aria-labelledby="profileDropdown">
           <li>
-            <a ngbDropdownItem (click)="toggleCoursDropdown()">Mes cours</a>
+            <!-- <a ngbDropdownItem (click)="toggleCoursDropdown()"  >Mes cours</a> -->
+            <a routerLink="/list-cours" >Mes cours</a>
             <ul *ngIf="isCoursDropdownOpen" class="dropdown-submenu">
               <li *ngFor="let formation of formationsAchetees">
                 <a routerLink="/cours" class="dropdown-item" (click)="navigateToCours(formation.id)">{{ formation.nom_formation }}</a>

@@ -41,8 +41,8 @@
                  width="400"
                  height="300"/>
           </div>
-          <div class="col-md-8">
-            <div class="course-info">
+          <div class="col-md-8" (click)="navigateToCours(item.formation.id)">
+              <div class="course-info">
               <h3 class="course-title">
                 {{ item.formation.nom_formation }}
               </h3>

@@ -2,27 +2,15 @@
   background-color: #f8f9fa;
   height: 100vh;
   padding: 20px;
-  border-right: 1px solid #e9ecef;
 }
-.sidebar h5 {
-  color: #212529;
-  font-weight: bold;
-  margin-top: 20px;
+.sidebar .nav-link {
+  color: #333;
+  padding: 10px 0;
 }
-.sidebar ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-.sidebar li {
-  margin-bottom: 10px;
-}
-.sidebar a {
-  color: #495057;
-  text-decoration: none;
-}
-.sidebar a.active {
-  color: #0d6efd;
-  font-weight: bold;
+.sidebar .nav-link.active {
+  color: #6610f2;
+  border-left: 3px solid #6610f2;
+  padding-left: 10px;
 }
 .course-card {
   background-color: #fff;

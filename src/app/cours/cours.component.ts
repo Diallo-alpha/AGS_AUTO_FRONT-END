@@ -28,7 +28,7 @@ interface ResourceResponse {
   resources: Ressource[];
 }
 
-interface ProgressionResponse {
+export interface ProgressionResponse {
   message: string;
   data: {
     pourcentage: number;
