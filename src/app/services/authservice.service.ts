@@ -33,7 +33,9 @@ export class AuthService {
   public get currentUserValue(): UserModel | null {
     return this.currentUserSubject.value;
   }
-
+  getUserStats() {
+    return this.http.get<any>('/statistique/utilisateurs');
+  }
   register(user: Partial<UserModel>): Observable<any> {
     const formData = new FormData();
     Object.keys(user).forEach(key => {
