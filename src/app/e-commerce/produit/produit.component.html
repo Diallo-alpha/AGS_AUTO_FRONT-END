@@ -22,7 +22,7 @@
       <tbody>
         <tr *ngFor="let produit of produits">
           <td>{{ produit.nom_produit }}</td>
-          <td>{{ produit.description }}</td>
+          <td>{{ produit.description | reduire:20 }}</td>
           <td>{{ produit.prix }} francs</td>
           <td>{{ produit.quantite }}</td>
           <td>{{ produit.categorie_id }}</td>

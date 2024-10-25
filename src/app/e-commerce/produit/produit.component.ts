@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { ProduitService } from '../../services/produit.service';
 import { Produit } from '../../models/produitModel';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
+import { ReduirePipe } from '../../pipe/reduire';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-produit',
   standalone: true,
-  imports: [SidbarComponent, CommonModule, RouterModule],
+  imports: [SidbarComponent, CommonModule, RouterModule, ReduirePipe],
   templateUrl: './produit.component.html',
   styleUrl: './produit.component.css'
 })
@@ -64,20 +65,42 @@ export class ProduitComponent implements OnInit {
   }
 
   deleteProduit(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-      this.produitService.deleteProduit(id).subscribe(
-        () => {
-          this.loadProduits(this.currentPage);
-        },
-        (error) => {
-          console.error('Erreur lors de la suppression du produit', error);
-        }
-      );
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: "Cette action ne peut pas être annulée !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.produitService.deleteProduit(id).subscribe(
+          () => {
+            Swal.fire({
+              title: 'Supprimé !',
+              text: 'Le produit a été supprimé avec succès.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
+            this.loadProduits(this.currentPage);
+          },
+          (error) => {
+            Swal.fire({
+              title: 'Erreur !',
+              text: 'Une erreur est survenue lors de la suppression.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+            console.error('Erreur lors de la suppression du produit', error);
+          }
+        );
+      }
+    });
   }
 
   handleImageError(event: any) {
     console.error('Erreur de chargement de l\'image:', event);
-    event.target.src = 'assets/images/default-product-image.png'; 
+    event.target.src = 'assets/images/default-product-image.png';
   }
 }
