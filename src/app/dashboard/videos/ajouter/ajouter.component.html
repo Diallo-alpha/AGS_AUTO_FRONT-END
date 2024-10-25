@@ -1,42 +1,83 @@
 <app-sidbar></app-sidbar>
 <div class="container-fluid">
   <div class="row">
-    <!-- Sidebar -->
     <div class="col-md-2"></div>
-    <!-- Formulaire -->
     <div class="col-md-10">
       <form class="form-container" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-md-6 form-group">
             <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="nom" [(ngModel)]="videoTitle" name="videoTitle" required>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{'is-invalid': formSubmitted && errors.videoTitle}"
+              id="nom"
+              [(ngModel)]="videoTitle"
+              name="videoTitle"
+              required>
+            <div class="invalid-feedback" *ngIf="formSubmitted && errors.videoTitle">
+              {{ errors.videoTitle }}
+            </div>
           </div>
+
           <div class="col-md-6 form-group">
             <label for="formation">Formation</label>
-            <select class="form-control" id="formation" [(ngModel)]="selectedFormation" name="selectedFormation" required>
+            <select
+              class="form-control"
+              [ngClass]="{'is-invalid': formSubmitted && errors.selectedFormation}"
+              id="formation"
+              [(ngModel)]="selectedFormation"
+              name="selectedFormation"
+              required>
               <option value="">Sélectionner</option>
               <option *ngFor="let formation of formations" [value]="formation.id">
                 {{ formation.nom_formation }}
               </option>
             </select>
+            <div class="invalid-feedback" *ngIf="formSubmitted && errors.selectedFormation">
+              {{ errors.selectedFormation }}
+            </div>
           </div>
         </div>
+
         <div class="form-group">
           <label for="video">Vidéo</label>
-          <input type="file" class="form-control" id="video" (change)="onFileSelected($event)" accept="video/*" required>
+          <input
+            type="file"
+            class="form-control"
+            [ngClass]="{'is-invalid': formSubmitted && errors.selectedFile}"
+            id="video"
+            (change)="onFileSelected($event)"
+            accept="video/*"
+            required>
+          <div class="invalid-feedback" *ngIf="formSubmitted && errors.selectedFile">
+            {{ errors.selectedFile }}
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="!videoTitle || !selectedFormation || !selectedFile">Ajouter</button>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Ajouter
+        </button>
       </form>
 
       <!-- Barre de progression -->
       <div class="progress mt-3" *ngIf="uploadProgress > 0">
-        <div class="progress-bar" role="progressbar" [style.width.%]="uploadProgress" [attr.aria-valuenow]="uploadProgress" aria-valuemin="0" aria-valuemax="100">
+        <div
+          class="progress-bar"
+          role="progressbar"
+          [style.width.%]="uploadProgress"
+          [attr.aria-valuenow]="uploadProgress"
+          aria-valuemin="0"
+          aria-valuemax="100">
           {{uploadProgress}}%
         </div>
       </div>
 
       <!-- Message d'upload -->
-      <div class="alert" [ngClass]="{'alert-success': !uploadMessage.includes('Erreur'), 'alert-danger': uploadMessage.includes('Erreur')}" *ngIf="uploadMessage">
+      <div
+        class="alert"
+        [ngClass]="{'alert-success': !uploadMessage.includes('Erreur'), 'alert-danger': uploadMessage.includes('Erreur')}"
+        *ngIf="uploadMessage">
         {{uploadMessage}}
       </div>
     </div>
