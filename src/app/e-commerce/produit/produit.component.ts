@@ -78,6 +78,6 @@ export class ProduitComponent implements OnInit {
 
   handleImageError(event: any) {
     console.error('Erreur de chargement de l\'image:', event);
-    event.target.src = 'assets/images/default-product-image.png'; // Assurez-vous d'avoir une image par défaut
+    event.target.src = 'assets/images/default-product-image.png'; 
   }
 }

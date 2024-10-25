@@ -3,8 +3,8 @@
   <div class="col-md-9 content">
     <section class="d-flex justify-content-between align-items-center mb-3">
       <h3>Catégories</h3>
-      <button class="add-btn">
-        <i class="fas fa-plus" routerLink="/boutique/ajouter/categorie"></i>
+      <button class="add-btn" routerLink="/boutique/ajouter/categorie">
+        <i class="fas fa-plus"></i>
       </button>
     </section>
 
@@ -17,42 +17,24 @@
       </thead>
       <tbody>
         <tr *ngFor="let categorie of categories">
-          <td>
-            {{ categorie.nom_categorie }}
-          </td>
+          <td>{{ categorie.nom_categorie }}</td>
           <td>
             <button class="action-btn view-btn">
               <i class="fas fa-eye"></i>
             </button>
-            <button class="action-btn edit-btn" [routerLink]="['/boutique/categorie/modifier', categorie.id]">
+            <button
+              class="action-btn edit-btn"
+              [routerLink]="['/boutique/categorie/modifier', categorie.id]">
               <i class="fas fa-edit"></i>
             </button>
-            <button class="action-btn delete-btn" (click)="deleteCategorie(categorie.id); $event.stopPropagation()">
+            <button
+              class="action-btn delete-btn"
+              (click)="deleteCategorie(categorie.id)">
               <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-
-    <nav>
-      <ul class="pagination justify-content-end">
-        <li class="page-item">
-          <a class="page-link" href="#">Précédent</a>
-        </li>
-        <li class="page-item active">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#">Suivant</a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </div>
