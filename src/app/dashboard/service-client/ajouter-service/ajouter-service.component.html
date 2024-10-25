@@ -15,12 +15,36 @@
           <div class="row mb-3">
             <div class="col-md-6 form-group">
               <label for="titre">Titre</label>
-              <input class="form-control" id="titre" type="text" formControlName="titre" required />
+              <input
+                class="form-control"
+                id="titre"
+                type="text"
+                formControlName="titre"
+                [ngClass]="{ 'is-invalid': submitted && f['titre'].errors }"
+                required
+              />
+              <div class="invalid-feedback" *ngIf="submitted && f['titre'].errors">
+                {{ getErrorMessage('titre') }}
+              </div>
             </div>
 
             <div class="col-md-6 form-group">
               <label for="photo">Photos</label>
-              <input class="form-control" id="photo" type="file" (change)="onFileSelected($event)" required />
+              <input
+                class="form-control"
+                id="photo"
+                type="file"
+                (change)="onFileSelected($event)"
+                [ngClass]="{ 'is-invalid': submitted && f['photo'].errors }"
+                accept="image/jpeg,image/png,image/jpg"
+                required
+              />
+              <div class="invalid-feedback" *ngIf="submitted && f['photo'].errors">
+                {{ getErrorMessage('photo') }}
+              </div>
+              <small class="form-text text-muted">
+                Formats acceptés: JPG, JPEG, PNG. Taille maximale: 5MB
+              </small>
             </div>
           </div>
 
@@ -28,22 +52,48 @@
           <div class="row mb-3">
             <div class="col-md-6 form-group">
               <label for="partenaire">Partenaire</label>
-              <select class="form-control" id="partenaire" formControlName="partenaire_id" required>
+              <select
+                class="form-control"
+                id="partenaire"
+                formControlName="partenaire_id"
+                [ngClass]="{ 'is-invalid': submitted && f['partenaire_id'].errors }"
+                required
+              >
                 <option value="" disabled selected>Sélectionner un partenaire</option>
-                <option *ngFor="let partenaire of partenaires" [value]="partenaire.id">{{ partenaire.nom_partenaire }}</option>
+                <option *ngFor="let partenaire of partenaires" [value]="partenaire.id">
+                  {{ partenaire.nom_partenaire }}
+                </option>
               </select>
+              <div class="invalid-feedback" *ngIf="submitted && f['partenaire_id'].errors">
+                Veuillez sélectionner un partenaire
+              </div>
             </div>
           </div>
 
           <!-- Ligne 3 : Description -->
           <div class="form-group mb-4">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="5" formControlName="description" required></textarea>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="5"
+              formControlName="description"
+              [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"
+              required
+            ></textarea>
+            <div class="invalid-feedback" *ngIf="submitted && f['description'].errors">
+              {{ getErrorMessage('description') }}
+            </div>
           </div>
 
           <!-- Bouton Ajouter -->
           <div class="text-right">
-            <button class="btn btn-primary" type="submit" [disabled]="!serviceForm.valid">Ajouter</button>
+            <button
+              class="btn btn-primary"
+              type="submit"
+            >
+              Ajouter
+            </button>
           </div>
         </form>
       </div>
