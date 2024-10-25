@@ -36,3 +36,16 @@ h2{
   border: none;
   border-radius: 5px;
 }
+/*
+* messages erreur
+ */
+ .invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 80%;
+  margin-top: 0.25rem;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
