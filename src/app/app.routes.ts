@@ -46,6 +46,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { DetailCategorieComponent } from './detail-categorie/detail-categorie.component';
 import { ListcoursComponent } from './listcours/listcours.component';
 import { ListCoursTermineComponent } from './list-cours-termine/list-cours-termine.component';
+import { AProposComponent } from './a-propos/a-propos.component';
 
 export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: ''},
@@ -110,5 +111,7 @@ export const routes: Routes = [
   //liste cours
   {path: 'list-cours', component:ListcoursComponent},
   //
-  {path: 'list-cours/terminer', component:ListCoursTermineComponent}
+  {path: 'list-cours/terminer', component:ListCoursTermineComponent},
+  //a-propos
+  {path: 'a-propos', component:AProposComponent},
 ];
