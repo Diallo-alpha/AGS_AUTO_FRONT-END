@@ -46,6 +46,7 @@ h1 {
 }
 
 .card img {
+  
   height: 200px;
   object-fit: cover;
 }
