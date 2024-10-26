@@ -31,28 +31,62 @@ h1 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 1.5rem;
 }
-/*content*/
+
+/* Styles pour les cartes */
 .card {
   margin-bottom: 20px;
+  height: 100%;  /* Hauteur à 100% pour uniformiser */
+  display: flex;
+  flex-direction: column;
 }
+
+.col-md-4 {
+  margin-bottom: 30px;
+  display: flex;
+}
+
 .card img {
   height: 200px;
   object-fit: cover;
 }
+
 .card-body {
-  background-color: #ffff;
+  background-color: #fff;
+  flex: 1;  /* Prend tout l'espace disponible */
+  display: flex;
+  flex-direction: column;
 }
+
+.card-text {
+  flex: 1;  /* Prend l'espace disponible, poussant le bouton vers le bas */
+  margin-bottom: 15px;
+}
+
 .btn-primary {
-  background-color: #C9490C;
+  background-color: #9c490c;
   border: none;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.95rem 0.75rem;
+  height: 48px;
+  margin-left: -75% !important;
+  text-align: center;
+  align-self: center;
+}
+
+.btn-primary:hover {
+  background-color: #020202;
 }
 .pagination {
   justify-content: center;
   margin-top: 30px;
 }
+
 .page-item.active .page-link {
   background-color: #C9490C;
 }
+
 .page-link {
   color: #020202;
 }
