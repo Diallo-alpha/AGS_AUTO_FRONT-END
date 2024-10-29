@@ -67,10 +67,6 @@ export class DetailServiceComponent implements OnInit {
     );
   }
 
-  // handleImageError(event: any) {
-  //   console.error('Erreur de chargement de l\'image:', event);
-  //   event.target.src = 'assets/images/default-logo.png'; // Assurez-vous d'avoir une image par défaut
-  // }
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
   }
