@@ -159,7 +159,7 @@ export class NavConnectComponent implements OnInit, OnDestroy {
   navigateToMesCours() {
     this.router.navigate(['/mes-cours']);
   }
-
+ 
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
   }
