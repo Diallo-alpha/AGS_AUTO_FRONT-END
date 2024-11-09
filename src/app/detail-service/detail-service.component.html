@@ -23,10 +23,10 @@
         <strong>{{ partenaire.nom_partenaire }}</strong>
         <p><i class="fas fa-envelope"></i> {{ partenaire.email }}</p>
         <p><i class="fas fa-phone"></i> {{ partenaire.telephone }}</p>
-        <button class="btn">Contacter</button>
+        <button class="btn" (click)="showReservationForm()">Envoyer une demande de reservation</button>
       </div>
     </div>
   </div>
 </div>
-
+<app-reservation-form [service]="service"></app-reservation-form>
 <app-footer></app-footer>
