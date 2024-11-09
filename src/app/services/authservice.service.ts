@@ -11,6 +11,7 @@ import { apiUrl } from './apiUrl';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<UserModel | null>;
   public currentUser: Observable<UserModel | null>;
+  private redirectUrl: string = '/';
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<UserModel | null>(this.getUserFromLocalStorage());
@@ -33,7 +34,7 @@ export class AuthService {
   public get currentUserValue(): UserModel | null {
     return this.currentUserSubject.value;
   }
-  
+
   register(user: Partial<UserModel>): Observable<any> {
     const formData = new FormData();
     Object.keys(user).forEach(key => {
@@ -152,4 +153,7 @@ export class AuthService {
     return !!currentUser && !!token;
   }
   //
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
+  }
 }
