@@ -1,46 +1,79 @@
+<app-sidbar></app-sidbar>
 <div class="container-fluid">
   <div class="row">
-    <!-- Sidebar -->
-    <app-sidbar></app-sidbar>
-
-    <!-- Formulaire -->
     <div class="col-md-9">
       <div class="content">
         <h2 class="text-brown">Ajouter un partenaire</h2>
         <div class="form-container col-md-8">
-          <form (ngSubmit)="ajouterPartenaire()">
-            <!-- Nom du partenaire -->
+          <form [formGroup]="partenaireForm" (ngSubmit)="ajouterPartenaire()">
             <div class="row mb-3">
+              <!-- Nom du partenaire -->
               <div class="col-md-6">
                 <label class="form-label" for="nom_partenaire">Nom du partenaire</label>
-                <input class="form-control" id="nom_partenaire" name="nom_partenaire" type="text" [(ngModel)]="partenaire.nom_partenaire" required />
+                <input
+                  class="form-control"
+                  id="nom_partenaire"
+                  type="text"
+                  formControlName="nom_partenaire"
+                  [ngClass]="{ 'is-invalid': submitted && f['nom_partenaire'].errors }"
+                />
+                <div *ngIf="submitted && f['nom_partenaire'].errors" class="invalid-feedback">
+                  <div *ngIf="f['nom_partenaire'].errors['required']">Le nom du partenaire est requis</div>
+                  <div *ngIf="f['nom_partenaire'].errors['minlength']">Le nom doit contenir au moins 2 caractères</div>
+                </div>
               </div>
 
               <!-- Logo -->
               <div class="col-md-6">
                 <label class="form-label" for="logo">Logo</label>
-                <div class="input-group">
-                  <input class="form-control" id="logo" name="logo" type="file" (change)="onFileSelected($event)" required />
-                  <!-- <span class="input-group-text"><i class="far fa-file"></i></span> -->
+                <input
+                  class="form-control"
+                  id="logo"
+                  type="file"
+                  (change)="onFileSelected($event)"
+                  [ngClass]="{ 'is-invalid': submitted && (f['logo'].errors || !selectedFile) }"
+                />
+                <div *ngIf="submitted && (f['logo'].errors || !selectedFile)" class="invalid-feedback">
+                  <div *ngIf="f['logo'].errors?.['required']">Le logo est requis</div>
+                  <div *ngIf="f['logo'].errors?.['invalidType']">Le fichier doit être une image</div>
                 </div>
               </div>
             </div>
 
-            <!-- Email -->
             <div class="row mb-3">
+              <!-- Email -->
               <div class="col-md-6">
                 <label class="form-label" for="email">Email</label>
-                <input class="form-control" id="email" name="email" type="email" [(ngModel)]="partenaire.email" required />
+                <input
+                  class="form-control"
+                  id="email"
+                  type="email"
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                />
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                  <div *ngIf="f['email'].errors['required']">L'email est requis</div>
+                  <div *ngIf="f['email'].errors['email']">Veuillez entrer une adresse email valide</div>
+                </div>
               </div>
 
               <!-- Téléphone -->
               <div class="col-md-6">
                 <label class="form-label" for="telephone">Téléphone</label>
-                <input class="form-control" id="telephone" name="telephone" type="tel" [(ngModel)]="partenaire.telephone" required />
+                <input
+                  class="form-control"
+                  id="telephone"
+                  type="tel"
+                  formControlName="telephone"
+                  [ngClass]="{ 'is-invalid': submitted && f['telephone'].errors }"
+                />
+                <div *ngIf="submitted && f['telephone'].errors" class="invalid-feedback">
+                  <div *ngIf="f['telephone'].errors['required']">Le numéro de téléphone est requis</div>
+                  <div *ngIf="f['telephone'].errors['pattern']">Le numéro doit contenir au moins 8 chiffres</div>
+                </div>
               </div>
             </div>
 
-            <!-- Bouton Ajouter -->
             <button class="btn btn-primary" type="submit">Ajouter</button>
           </form>
         </div>

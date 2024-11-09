@@ -11,6 +11,7 @@ import { apiUrl } from './apiUrl';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<UserModel | null>;
   public currentUser: Observable<UserModel | null>;
+  private redirectUrl: string = '/';
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<UserModel | null>(this.getUserFromLocalStorage());
@@ -145,5 +146,14 @@ export class AuthService {
   isEtudiant(): boolean {
     const currentUser = this.currentUserSubject.value;
     return currentUser?.role === 'etudiant';
+  }
+  isAuthenticated(): boolean {
+    const currentUser = this.currentUserValue;
+    const token = localStorage.getItem('access_token');
+    return !!currentUser && !!token;
+  }
+  //
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
   }
 }

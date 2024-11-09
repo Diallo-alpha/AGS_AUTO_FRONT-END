@@ -20,7 +20,7 @@ export class CategorieModifierComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private categorieService: CategorieService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, 
     private router: Router
   ) {
     this.categorieForm = this.fb.group({

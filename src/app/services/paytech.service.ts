@@ -42,23 +42,6 @@ export class PaymentService {
     );
   }
 
-  initiatePaymentForCart(cartItems: CartItem[], totalPrice: number): Observable<PaymentResponse> {
-    const firstItem = cartItems[0];
-    const paymentData = {
-      item_name: `Cart Purchase - ${firstItem.nom}`,
-      item_price: totalPrice,
-      currency: 'XOF',
-      formation_id: firstItem.id
-    };
-
-    console.log('Sending payment request for cart:', paymentData);
-
-    return this.http.post<PaymentResponse>(`${this.apiUrl}/payment/initiate`, paymentData).pipe(
-      map(this.handleResponse),
-      catchError(this.handleError)
-    );
-  }
-
   handlePaytechNotification(notificationData: any): Observable<any> {
     console.log('Sending notification data to server:', notificationData);
     return this.http.post(`${this.apiUrl}/paytech/notification`, notificationData).pipe(

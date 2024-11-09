@@ -1,24 +1,56 @@
+<app-sidbar></app-sidbar>
 <div class="container-fluid">
   <div class="row">
-    <app-sidbar></app-sidbar>
     <div class="col-md-9 form-container mt-4">
       <h2>Ajouter un article</h2>
       <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-md-6 form-group">
             <label for="titre">Titre</label>
-            <input class="form-control" id="titre" type="text" formControlName="titre"/>
+            <input
+              class="form-control"
+              id="titre"
+              type="text"
+              formControlName="titre"
+              [ngClass]="{ 'is-invalid': submitted && f['titre'].errors }"
+            />
+            <div *ngIf="submitted && f['titre'].errors" class="invalid-feedback">
+              <div *ngIf="f['titre'].errors['required']">Le titre est requis</div>
+              <div *ngIf="f['titre'].errors['minlength']">Le titre doit contenir au moins 2 caractères</div>
+            </div>
           </div>
+
           <div class="col-md-6 form-group">
             <label for="photo">Image</label>
-            <input class="form-control" id="photo" type="file" (change)="onFileSelected($event)"/>
+            <input
+              class="form-control"
+              id="photo"
+              type="file"
+              (change)="onFileSelected($event)"
+              [ngClass]="{ 'is-invalid': submitted && (f['photo'].errors || !selectedFile) }"
+            />
+            <div *ngIf="submitted && (f['photo'].errors || !selectedFile)" class="invalid-feedback">
+              <div *ngIf="f['photo'].errors?.['required']">Une image est requise</div>
+              <div *ngIf="f['photo'].errors?.['invalidType']">Le fichier doit être une image</div>
+            </div>
           </div>
         </div>
+
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea class="form-control" id="description" formControlName="description"></textarea>
+          <textarea
+            class="form-control"
+            id="description"
+            formControlName="description"
+            [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"
+          ></textarea>
+          <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+            <div *ngIf="f['description'].errors['required']">La description est requise</div>
+            <div *ngIf="f['description'].errors['minlength']">La description doit contenir au moins 2 caractères</div>
+          </div>
         </div>
-        <button class="btn btn-primary" type="submit" [disabled]="articleForm.invalid">Ajouter</button>
+
+        <button class="btn btn-primary mt-3" type="submit">Ajouter</button>
       </form>
     </div>
   </div>

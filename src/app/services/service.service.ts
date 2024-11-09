@@ -36,4 +36,11 @@ export class ServiceService {
   deleteService(id: number): Observable<any> {
     return this.http.delete(`${this.apiEndpoint}/${id}`);
   }
+  //reserver un service
+  reserverService(serviceId: number, reservationData: {
+    date_reservation: string;
+    message: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiEndpoint}/${serviceId}/reserver`, reservationData);
+  }
 }

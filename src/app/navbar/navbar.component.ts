@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartItem } from '../models/CartItemModel';
@@ -11,7 +11,7 @@ import { AuthService } from '../services/authservice.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -92,8 +92,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   addDefaultItems() {
     const defaultItems: CartItem[] = [
-      { id: 1, type: 'formation', nom: 'modifier', prix: 100000, quantite: 1 },
-      { id: 2, type: 'formation', nom: 'modifier', prix: 200000, quantite: 1 },
+      { id: 1, type: 'produit', nom: 'modifier', prix: 100000, quantite: 1 },
+      { id: 2, type: 'produit', nom: 'modifier', prix: 200000, quantite: 1 },
     ];
 
     console.log('Adding default items:', defaultItems);
@@ -146,24 +146,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.errorMessage = 'Erreur lors de la mise à jour de la quantité. Veuillez réessayer.';
       }
     );
-  }
-  initiatePayment() {
-    this.errorMessage = '';
-    this.paymentService.initiatePaymentForCart(this.cartItems, this.totalPrice).subscribe({
-      next: (response: PaymentResponse) => {
-        console.log('Payment initiation response:', response);
-        if (response.success && response.redirect_url) {
-          console.log('Redirecting to:', response.redirect_url);
-          window.location.href = response.redirect_url;
-        } else {
-          this.errorMessage = 'Une erreur est survenue lors de l\'initiation du paiement. Veuillez réessayer.';
-          console.error('Réponse de paiement invalide', response);
-        }
-      },
-      error: (error: Error) => {
-        this.errorMessage = 'Une erreur est survenue lors de la requête de paiement. Veuillez réessayer plus tard.';
-        console.error('Erreur lors de la requête de paiement', error);
-      }
-    });
   }
 }

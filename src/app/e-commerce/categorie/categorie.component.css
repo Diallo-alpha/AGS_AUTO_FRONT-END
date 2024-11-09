@@ -3,15 +3,18 @@
   margin-left: 35vh;
   margin-top: -90vh;
 }
+
 .logo {
   font-size: 24px;
   font-weight: bold;
   padding: 10px 20px;
   margin-bottom: 20px;
 }
+
 .logo span {
   color: #c65102;
 }
+
 .category-header {
   color: #c65102;
   font-size: 14px;
@@ -19,34 +22,183 @@
   margin-bottom: 10px;
   padding-left: 20px;
 }
-.action{
+
+.action {
   float: right;
   margin-right: 40px;
 }
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 .table th {
   font-weight: bold;
+  background-color: #f8f9fa;
+  padding: 15px;
+  text-align: left;
 }
+
 .action-btn {
-  padding: 5px 10px;
-  margin: 2px;
+  padding: 8px 12px;
+  margin: 0 4px;
   border: none;
   border-radius: 4px;
-  float: right;
+  cursor: pointer !important;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.view-btn { background-color: #222; color: white; }
-.edit-btn { background-color: #c65102; color: white; }
-.delete-btn { background-color: #6c757d; color: white; }
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.view-btn {
+  background-color: #222;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #333;
+}
+
+.edit-btn {
+  background-color: #c65102;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #d65f0f;
+}
+
+.delete-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #7c858d;
+}
+
 .pagination .page-link {
   color: #222;
+  transition: all 0.3s ease;
 }
+
 .pagination .page-item.active .page-link {
   background-color: #c65102;
   border-color: #c65102;
 }
+
 .add-btn {
   background-color: #c65102;
   color: white;
   border: none;
-  padding: 5px 15px;
+  padding: 8px 16px;
   border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-btn:hover {
+  background-color: #d65f0f;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Styles pour les icônes */
+.fa-plus, .fa-eye, .fa-edit, .fa-trash {
+  font-size: 14px;
+}
+
+/* Style pour le tableau */
+.table td {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Style pour les boutons d'action groupés */
+td .action-btn {
+  opacity: 0.9;
+  float: right;
+}
+
+td .action-btn:hover {
+  opacity: 1;
+}
+
+/* Animation pour les boutons */
+@keyframes buttonPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.action-btn:active {
+  animation: buttonPop 0.3s ease;
+}
+/*
+* swat allert style
+ */
+ /* Styles personnalisés pour SweetAlert */
+.swal2-popup {
+  font-family: inherit;
+  border-radius: 8px;
+}
+
+.swal2-title {
+  color: #333;
+  font-size: 1.5em;
+}
+
+.swal2-html-container {
+  color: #666;
+}
+
+.swal2-confirm {
+  background-color: #c65102 !important;
+  border-radius: 4px !important;
+}
+
+.swal2-confirm:focus {
+  box-shadow: 0 0 0 3px rgba(198, 81, 2, 0.3) !important;
+}
+
+.swal2-cancel {
+  background-color: #6c757d !important;
+  border-radius: 4px !important;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #c65102 !important;
+  color: #c65102 !important;
+}
+
+.swal2-icon.swal2-success {
+  border-color: #28a745 !important;
+  color: #28a745 !important;
+}
+
+.swal2-icon.swal2-error {
+  border-color: #dc3545 !important;
+  color: #dc3545 !important;
 }

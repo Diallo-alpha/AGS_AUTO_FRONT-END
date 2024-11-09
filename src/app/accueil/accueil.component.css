@@ -99,6 +99,10 @@ h1 {
   border: none;
   background-color: transparent;
 }
+.card:hover{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
 .card-img-top {
   border-radius: 10px;
 }
@@ -147,18 +151,22 @@ h1 {
 .voir-plus-link a {
   color: #8B4513;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 24px;
+  font-weight: bold;
 }
 /*services-section
 */
-.card {
+.card-service{
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 100%; /* Prend toute la hauteur disponible pour uniformiser les cartes */
   display: flex;
   flex-direction: column; /* Permet de bien aligner les éléments à l'intérieur */
 }
+.card-service:hover{
+  box-shadow: 0 4px 8px rgba(48, 65, 2, 0.199);
 
+}
 .card-img-top {
   height: 200px; /* Fixe une hauteur pour toutes les images */
   object-fit: cover; /* Permet de garder le ratio d'aspect des images tout en remplissant la zone */
@@ -229,6 +237,7 @@ h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 25vh;
 }
 .testimonial-text {
   font-size: 14px;
@@ -339,4 +348,18 @@ h2 {
   font-size: 12px;
   margin-top: -15vh !important;
   font-weight: bold;
+}
+/*
+* notation css
+*/
+.stars {
+  font-size: 24px;
+}
+
+.stars span {
+  color: #ddd;
+}
+
+.stars span.filled {
+  color: #ffd700;
 }

@@ -111,7 +111,9 @@
   color: red;
   cursor: pointer;
 }
-
+.active-link {
+  color: #020202 !important;
+}
 .payment-methods {
   background-color: #a0522d;
   padding: 15px;
@@ -137,7 +139,19 @@
   width: 150px;
   height: 150px;
 }
-
+a{
+  text-decoration: none;
+  color: #020202;
+  text-align: left;
+}
+a:hover{
+  background-color: #9c490c;
+  font-weight: bolder;
+  color: #ffff;
+}
+.mes-cours{
+  margin-left: 1.5vh !important;
+}
 .payment-methods .total-price {
   background-color: #020202;
   color: white;

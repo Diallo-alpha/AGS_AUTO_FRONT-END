@@ -20,10 +20,18 @@ export class AjouterComponent implements OnInit {
   videoTitle: string = '';
   selectedFormation: number | null = null;
   selectedFile: File | null = null;
-  maxFileSize: number = 100 * 1024 * 1024; // 100 MB en octets
-  minFileSize: number = 5 * 1024 * 1024; // 5 MB en octets
+  maxFileSize: number = 100 * 1024 * 1024; // 100 MB
+  minFileSize: number = 5 * 1024 * 1024; // 5 MB
   uploadProgress: number = 0;
   uploadMessage: string = '';
+
+  // Nouveaux champs pour la gestion des erreurs
+  errors = {
+    videoTitle: '',
+    selectedFormation: '',
+    selectedFile: '',
+  };
+  formSubmitted = false;
 
   constructor(private videoService: VideoService, private formationService: FormationService) {}
 
@@ -31,29 +39,80 @@ export class AjouterComponent implements OnInit {
     this.loadFormations();
   }
 
+  validateForm(): boolean {
+    this.formSubmitted = true;
+    let isValid = true;
+    this.resetErrors();
+
+    // Validation du titre
+    if (!this.videoTitle || this.videoTitle.trim() === '') {
+      this.errors.videoTitle = 'Le titre de la vidéo est requis';
+      isValid = false;
+    } else if (this.videoTitle.length < 3) {
+      this.errors.videoTitle = 'Le titre doit contenir au moins 3 caractères';
+      isValid = false;
+    }
+
+    // Validation de la formation
+    if (!this.selectedFormation) {
+      this.errors.selectedFormation = 'Veuillez sélectionner une formation';
+      isValid = false;
+    }
+
+    // Validation du fichier
+    if (!this.selectedFile) {
+      this.errors.selectedFile = 'Veuillez sélectionner une vidéo';
+      isValid = false;
+    } else {
+      if (this.selectedFile.size > this.maxFileSize) {
+        this.errors.selectedFile = `La taille du fichier ne doit pas dépasser ${this.maxFileSize / (1024 * 1024)} MB`;
+        isValid = false;
+      } else if (this.selectedFile.size < this.minFileSize) {
+        this.errors.selectedFile = `La taille du fichier doit être d'au moins ${this.minFileSize / (1024 * 1024)} MB`;
+        isValid = false;
+      }
+    }
+
+    return isValid;
+  }
+
+  resetErrors() {
+    this.errors = {
+      videoTitle: '',
+      selectedFormation: '',
+      selectedFile: '',
+    };
+    this.uploadMessage = '';
+  }
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
+      this.selectedFile = file;
+      this.errors.selectedFile = '';
+
       if (file.size > this.maxFileSize) {
-        this.uploadMessage = `Le fichier est trop volumineux. La taille maximale autorisée est de ${this.maxFileSize / (1024 * 1024)} MB.`;
-        event.target.value = ''; // Réinitialise l'input file
-      } else {
-        this.selectedFile = file;
-        this.uploadMessage = '';
+        this.errors.selectedFile = `Le fichier est trop volumineux. La taille maximale autorisée est de ${this.maxFileSize / (1024 * 1024)} MB.`;
+        event.target.value = '';
+        this.selectedFile = null;
+      } else if (file.size < this.minFileSize) {
+        this.errors.selectedFile = `Le fichier est trop petit. La taille minimale requise est de ${this.minFileSize / (1024 * 1024)} MB.`;
+        event.target.value = '';
+        this.selectedFile = null;
       }
     }
   }
 
   async onSubmit() {
-    if (!this.videoTitle || !this.selectedFormation || !this.selectedFile) {
-      this.uploadMessage = 'Veuillez remplir tous les champs';
+    if (!this.validateForm()) {
+      this.uploadMessage = 'Veuillez corriger les erreurs dans le formulaire';
       return;
     }
 
     const formData = new FormData();
     formData.append('titre', this.videoTitle);
-    formData.append('formation_id', this.selectedFormation.toString());
-    formData.append('video', this.selectedFile, this.selectedFile.name);
+    formData.append('formation_id', this.selectedFormation!.toString());
+    formData.append('video', this.selectedFile!, this.selectedFile!.name);
 
     this.videoService.createVideo(formData).subscribe(
       event => {
@@ -61,7 +120,6 @@ export class AjouterComponent implements OnInit {
           this.uploadProgress = event.total ? Math.round(100 * event.loaded / event.total) : 0;
         } else if (event instanceof HttpResponse) {
           this.uploadMessage = 'Vidéo uploadée avec succès';
-          console.log('Video uploaded successfully', event.body);
           this.resetForm();
         }
       },
@@ -78,6 +136,8 @@ export class AjouterComponent implements OnInit {
     this.selectedFile = null;
     this.uploadProgress = 0;
     this.uploadMessage = '';
+    this.formSubmitted = false;
+    this.resetErrors();
   }
 
   loadFormations() {
@@ -90,10 +150,5 @@ export class AjouterComponent implements OnInit {
         this.uploadMessage = 'Erreur lors du chargement des formations. Veuillez rafraîchir la page.';
       }
     );
-  }
-
-  getFormationName(formationId: number): string {
-    const formation = this.formations.find(f => f.id === formationId);
-    return formation ? formation.nom_formation : 'Formation non trouvée';
   }
 }
