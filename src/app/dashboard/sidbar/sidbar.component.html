@@ -8,77 +8,85 @@
               </div>
               <ul class="nav flex-column">
                   <li class="nav-item">
-                      <a class="nav-link active" routerLink="/dashboard/statique">
-                          <i class="fas fa-th-large">
-                          </i>
+                      <a class="nav-link" routerLink="/dashboard/statique" routerLinkActive="active">
+                          <i class="fas fa-th-large"></i>
                           Dashboard
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <div class="section-title">MÉCANIQUE</div>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/dashboard/formation">
-                          <i class="fas fa-graduation-cap"></i>
-                          Formations
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/dashboard/article">
-                          <i class="fas fa-newspaper"></i>
-                          Articles
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/dashboard/service">
-                          <i class="fas fa-cogs"></i>
-                          Services
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/video">
-                      <i class="fas fa-video"></i>
-                      Vidéos
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/dashboard/partenaire">
-                          <i class="fas fa-handshake"></i>
-                          Partenaires
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <div class="section-title">E-COMMERCE</div>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/e-commerce/produits">
-                          <i class="fas fa-box"></i>
-                          Produits
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/boutique/categorie">
-                          <i class="fas fa-list"></i>
-                          Categories
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/boutique/commande">
-                          <i class="fas fa-shopping-cart"></i>
-                          Commandes
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" routerLink="/boutique/paiement">
-                          <i class="fas fa-credit-card"></i>
-                          Paiements
-                      </a>
-                  </li>
+
+                  <!-- Section MÉCANIQUE - Visible pour admin et etudiant -->
+                  <ng-container *ngIf="isAdmin || isEtudiant">
+                    <li class="nav-item">
+                        <div class="section-title">MÉCANIQUE</div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/formation" routerLinkActive="active">
+                            <i class="fas fa-graduation-cap"></i>
+                            Formations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/article" routerLinkActive="active">
+                            <i class="fas fa-newspaper"></i>
+                            Articles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/service" routerLinkActive="active">
+                            <i class="fas fa-cogs"></i>
+                            Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/video" routerLinkActive="active">
+                            <i class="fas fa-video"></i>
+                            Vidéos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/dashboard/partenaire" routerLinkActive="active">
+                            <i class="fas fa-handshake"></i>
+                            Partenaires
+                        </a>
+                    </li>
+                  </ng-container>
+
+                  <!-- Section E-COMMERCE - Visible pour admin et client -->
+                  <ng-container *ngIf="isAdmin || isClient">
+                    <li class="nav-item">
+                        <div class="section-title">E-COMMERCE</div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/e-commerce/produits" routerLinkActive="active">
+                            <i class="fas fa-box"></i>
+                            Produits
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/boutique/categorie" routerLinkActive="active">
+                            <i class="fas fa-list"></i>
+                            Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/boutique/commande" routerLinkActive="active">
+                            <i class="fas fa-shopping-cart"></i>
+                            Commandes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/boutique/paiement" routerLinkActive="active">
+                            <i class="fas fa-credit-card"></i>
+                            Paiements
+                        </a>
+                    </li>
+                  </ng-container>
+
                   <li class="nav-item">
                       <div class="section-title">UTILISATEURS</div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">
+                      <a class="nav-link" routerLink="/profile" routerLinkActive="active">
                           <i class="fas fa-user"></i>
                           Profile
                       </a>
@@ -86,11 +94,12 @@
               </ul>
           </div>
       </nav>
-      <!-- Contenu du main  -->
-       <main class="col-md-10 ms-sm-auto px-md-4">
+
+      <!-- Contenu du main -->
+      <main class="col-md-10 ms-sm-auto px-md-4">
         <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">nom admin</a>
+            <a class="navbar-brand">{{ currentUser?.nom_complet || 'Utilisateur' }}</a>
             <div class="d-flex nav-icone">
               <div class="position-relative me-3" (click)="openNotificationsModal()">
                 <i class="fas fa-bell"></i>
@@ -98,8 +107,14 @@
                   1
                 </span>
               </div>
-              <img alt="Admin profile picture" class="rounded-circle" height="40" src="https://replicate.delivery/yhqm/wRrBp9WdiV7hO5sKdXxE4LzeNmyZdCYNKxcGVdjwgCNTITwJA/out-0.png" width="40"/>
-              <a class="nav-link" href="#">
+              <img
+                [src]="currentUser?.photo || 'assets/images/default-profile.png'"
+                alt="Photo de profil"
+                class="rounded-circle"
+                height="40"
+                width="40"
+              />
+              <a class="nav-link" (click)="logout()" style="cursor: pointer;">
                 <i class="fas fa-sign-out-alt"></i>
               </a>
             </div>
@@ -109,8 +124,8 @@
   </div>
 </div>
 
-<!-- Modal  -->
- <ng-template #notificationsModal let-modal>
+<!-- Modal Notifications -->
+<ng-template #notificationsModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Notifications</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>

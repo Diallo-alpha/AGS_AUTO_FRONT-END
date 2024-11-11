@@ -4,9 +4,10 @@
 <ng-template #clientNavbar>
   <app-navbar></app-navbar>
 </ng-template>
-<header class="container-fluid" *ngIf="formation">
+
+<header class="course-header" *ngIf="formation" [ngStyle]="{'background-image': 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(' + formation.image + ')'}">
   <div class="container">
-    <h1 class="display-5 text-header">{{ formation.nom_formation }}</h1>
+    <h1 class="display-5">{{ formation.nom_formation }}</h1>
   </div>
 </header>
 
@@ -17,44 +18,38 @@
         <h2>Description</h2>
         <p>{{ formation.description }}</p>
       </section>
-      <!-- <section class="objectives mb-4">
-        <h2>Objectifs du cours :</h2>
-        <ul>
-          <li *ngFor="let objective of formation.objectives">{{ objective }}</li>
-        </ul>
-      </section> -->
-      <h2 id="cours-title">Contenu du cours</h2>
+
       <section class="course-content">
+        <h2>Contenu du cours</h2>
         <div class="content-item" *ngFor="let video of videos">
           <span>{{ video.titre }}</span>
-          <a href="#" class="preview-link">voir</a>
+          <a href="#" class="preview-link" *ngIf="video"></a>
         </div>
-        <ng-template #noVideos>
-          <p>Aucune vidéo n'est disponible pour ce cours pour le moment.</p>
-          <p>Débug info: {{ videos | json }}</p>
-        </ng-template>
       </section>
     </div>
-    <div class="container col-md-4">
-      <div class="card mb-4 buy-cart">
+
+    <div class="col-md-4">
+      <div class="card mb-4">
         <img [src]="formation.image" class="card-img-top" [alt]="'Aperçu du cours ' + formation.nom_formation">
         <div class="card-body">
           <h5 class="card-title">{{ formation.prix }} francs</h5>
-            <button (click)="initiatePayment()" class="btn btn-buy btn-block">Acheter</button>
+          <button (click)="initiatePayment()" class="btn btn-buy btn-block">Acheter</button>
         </div>
       </div>
-      <!-- <div class="reviews">
-        <div class="review" *ngFor="let review of formation.reviews">
-          <img [src]="review.userImageUrl" [alt]="'Photo de profil de ' + review.userName">
+
+      <div class="reviews">
+        <h3>Avis</h3>
+        <div class="review" *ngFor="let review of avis">
+          <img [src]="review.user.photo || 'assets/default-avatar.png'" [alt]="'Photo de profil de ' + review.user.nom_complet">
           <div>
-            <strong>{{ review.userName }}</strong>
+            <strong>{{ review.user.nom_complet }}</strong>
             <div>
-              <i class="fas fa-star text-warning" *ngFor="let star of [].constructor(review.rating)"></i>
+              <i class="fas fa-star text-warning" *ngFor="let star of [].constructor(review.note)"></i>
             </div>
-            <p>{{ review.comment }}</p>
+            <p>{{ review.avis }}</p>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </main>

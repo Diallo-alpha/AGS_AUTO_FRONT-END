@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar - Navigation des cours -->
+    <div class="col-md-3 col-lg-2 sidebar">
+      <h5 class="mb-3" routerLink="/">Cours</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/list-cours">Mes cours</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/list-cours/terminer">Cours terminés</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Contenu principal des cours -->
+    <main class="col-md-9 col-lg-10 py-4">
+      @if (loading) {
+        <div class="text-center">
+          <p>Chargement des formations...</p>
+        </div>
+      }
+
+      @if (error) {
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+      }
+
+      @if (!loading && !error && formationsEnCours.length === 0) {
+        <div class="alert alert-info text-center p-5">
+          <h4 class="alert-heading">Aucune formation en cours</h4>
+          <p class="mb-0">Vous n'avez pas encore de formation en cours.</p>
+        </div>
+      }
+
+      @if (!loading && !error && formationsEnCours.length > 0) {
+        @for (formation of formationsEnCours; track formation.id) {
+          <section class="course-card mb-4">
+            <div class="row g-0">
+              <div class="col-md-3">
+                <img class="course-image w-100"
+                     [src]="formation.image"
+                     [alt]="formation.titre"
+                     width="300" height="120">
+              </div>
+              <div class="col-md-9" (click)="navigateToCours(formation.id)">
+                <div class="course-info p-3">
+                  <h2 class="course-title">{{ formation.titre }}</h2>
+                  <div class="d-flex align-items-center mb-2">
+                    <div class="progress flex-grow-1 me-3">
+                      <div class="progress-bar" role="progressbar"
+                           [style.width.%]="formation.progression"
+                           [attr.aria-valuenow]="formation.progression"
+                           aria-valuemin="0"
+                           aria-valuemax="100">
+                      </div>
+                    </div>
+                    <span class="text-muted">{{ formation.progression }}% de progression</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        }
+      }
+    </main>
+  </div>
+</div>

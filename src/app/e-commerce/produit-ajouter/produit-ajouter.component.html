@@ -1,5 +1,5 @@
+<app-sidbar></app-sidbar>
 <div class="container-fluid">
-  <app-sidbar></app-sidbar>
   <div class="content col-md-10">
     <h2 class="section-title">Ajouter produit</h2>
     <div class="card">
@@ -8,35 +8,90 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label" for="nom">Nom</label>
-              <input class="form-control" id="nom" type="text" formControlName="nom_produit" required/>
+              <input
+                class="form-control"
+                [ngClass]="{'is-invalid': nom_produit?.invalid && (nom_produit?.dirty || nom_produit?.touched || formSubmitted)}"
+                id="nom"
+                type="text"
+                formControlName="nom_produit"/>
+              <div class="invalid-feedback" *ngIf="nom_produit?.invalid && (nom_produit?.dirty || nom_produit?.touched || formSubmitted)">
+                <div *ngIf="nom_produit?.errors?.['required']">Le nom est requis</div>
+                <div *ngIf="nom_produit?.errors?.['minlength']">Le nom doit contenir au moins 3 caractères</div>
+              </div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="description">Description</label>
-              <input class="form-control" id="description" type="text" formControlName="description"/>
+              <input
+                class="form-control"
+                [ngClass]="{'is-invalid': description?.invalid && (description?.dirty || description?.touched || formSubmitted)}"
+                id="description"
+                type="text"
+                formControlName="description"/>
+              <div class="invalid-feedback" *ngIf="description?.invalid && (description?.dirty || description?.touched || formSubmitted)">
+                La description est requise
+              </div>
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label" for="quantite">Quantité</label>
-              <input class="form-control" id="quantite" type="number" formControlName="quantite" required/>
+              <input
+                class="form-control"
+                [ngClass]="{'is-invalid': quantite?.invalid && (quantite?.dirty || quantite?.touched || formSubmitted)}"
+                id="quantite"
+                type="number"
+                formControlName="quantite"/>
+              <div class="invalid-feedback" *ngIf="quantite?.invalid && (quantite?.dirty || quantite?.touched || formSubmitted)">
+                <div *ngIf="quantite?.errors?.['required']">La quantité est requise</div>
+                <div *ngIf="quantite?.errors?.['min']">La quantité doit être positive</div>
+              </div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="prix">Prix</label>
-              <input class="form-control" id="prix" type="number" formControlName="prix" required/>
+              <input
+                class="form-control"
+                [ngClass]="{'is-invalid': prix?.invalid && (prix?.dirty || prix?.touched || formSubmitted)}"
+                id="prix"
+                type="number"
+                formControlName="prix"/>
+              <div class="invalid-feedback" *ngIf="prix?.invalid && (prix?.dirty || prix?.touched || formSubmitted)">
+                <div *ngIf="prix?.errors?.['required']">Le prix est requis</div>
+                <div *ngIf="prix?.errors?.['min']">Le prix doit être supérieur à 0</div>
+              </div>
             </div>
           </div>
           <div class="col">
             <label for="image" class="form-label">Photos</label>
-            <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" required>
+            <input
+              type="file"
+              class="form-control"
+              [ngClass]="{'is-invalid': !selectedFile && formSubmitted}"
+              id="image"
+              (change)="onFileSelected($event)">
+            <div class="invalid-feedback" *ngIf="!selectedFile && formSubmitted">
+              Une image est requise
+            </div>
+            <div class="text-danger" *ngIf="uploadMessage">
+              {{ uploadMessage }}
+            </div>
           </div>
           <div class="mb-3">
             <label class="form-label" for="categories">Catégories</label>
-            <select class="form-select" id="categories" formControlName="categorie_id" required>
+            <select
+              class="form-select"
+              [ngClass]="{'is-invalid': categorie_id?.invalid && (categorie_id?.dirty || categorie_id?.touched || formSubmitted)}"
+              id="categories"
+              formControlName="categorie_id">
               <option value="">Sélectionner une catégorie</option>
-              <option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.nom_categorie }}</option>
+              <option *ngFor="let categorie of categories" [value]="categorie.id">
+                {{ categorie.nom_categorie }}
+              </option>
             </select>
+            <div class="invalid-feedback" *ngIf="categorie_id?.invalid && (categorie_id?.dirty || categorie_id?.touched || formSubmitted)">
+              Veuillez sélectionner une catégorie
+            </div>
           </div>
-          <button class="btn btn-primary" type="submit" [disabled]="!produitForm.valid">Ajouter</button>
+          <button class="btn btn-primary" type="submit">Ajouter</button>
         </form>
       </div>
     </div>

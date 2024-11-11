@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ArticleService } from '../services/articleservice.service';
@@ -15,21 +15,59 @@ import { ReduirePipe } from '../pipe/reduire';
   templateUrl: './article.component.html',
   styleUrl: './article.component.css'
 })
-export class ArticleComponent {
+export class ArticleComponent implements OnInit {
   articles: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 6; // Nombre d'articles par page
+  totalItems: number = 0;
+  pages: number[] = [];
 
-  constructor(private articleService: ArticleService,
+  constructor(
+    private articleService: ArticleService,
     private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
+    this.loadArticles();
+  }
+
+  loadArticles(): void {
     this.articleService.getArticles().subscribe((data) => {
       this.articles = data;
+      this.totalItems = data.length;
+      this.calculatePages();
     });
   }
+
+  calculatePages(): void {
+    const pageCount = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.pages = Array.from({length: pageCount}, (_, i) => i + 1);
+  }
+
+  get paginatedArticles(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.articles.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  onPageChange(page: number): void {
+    if (page >= 1 && page <= this.pages.length) {
+      this.currentPage = page;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.pages.length) {
+      this.currentPage++;
+    }
+  }
+
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
   }
-
-
 }

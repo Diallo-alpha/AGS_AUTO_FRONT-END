@@ -20,6 +20,9 @@ export class CommentaireService {
     return this.http.get<Commentaire>(`${this.apiUrl}/commentaires/${id}`);
   }
 
+  // getCommentaireArticle(id: number): Observable<Commentaire> {
+  //   return this.http.get<Commentaire>(`${this.apiUrl}/commentaires/article/${id}`);
+  // }
   createCommentaire(commentaire: Commentaire): Observable<Commentaire> {
     const formData = new FormData();
     formData.append('nom_complet', commentaire.nom_complet);
@@ -34,6 +37,6 @@ export class CommentaireService {
   }
 
   getCommentairesByArticle(articleId: number): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>(`${this.apiUrl}/articles/${articleId}/commentaires`);
+    return this.http.get<Commentaire[]>(`${this.apiUrl}/commentaires/artiicle/${articleId}`);
   }
 }

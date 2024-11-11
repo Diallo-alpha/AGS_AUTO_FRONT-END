@@ -63,5 +63,8 @@ export class ProduitService {
   deleteProduit(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete${id}`, { headers: this.getAuthHeaders() });
   }
-
+//
+// getProductsByCategory(categoryId: number, page: number = 1): Observable<PaginatedResponse<Produit>> {
+//   return this.http.get<PaginatedResponse<Produit>>(`${this.apiUrl}/produits/categorie/${categoryId}?page=${page}`);
+// }
 }

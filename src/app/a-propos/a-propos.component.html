@@ -1,0 +1,136 @@
+<!-- a-propos.component.html -->
+<app-navbar/>
+
+<!-- Section Hero -->
+<section class="hero-section">
+  <div class="container">
+    <h1>A PROPOS DE NOUS</h1>
+    <p>La plateforme des mécaniciens et<br/>mécaniciennes du Sénégal</p>
+  </div>
+</section>
+
+<!-- Section Mission, Vision et Engagements -->
+<div class="container content-section">
+  <div class="row">
+    <!-- Mission -->
+    <div class="col-md-6 mb-4">
+      <div class="d-flex">
+        <div class="icon-circle">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <div>
+          <h4>Notre Mission</h4>
+          <p style="text-align: justify;">
+            Notre mission est de créer un écosystème dynamique pour les réparateurs de véhicules du Sénégal en proposant la formation nécessaire pour s'adapter aux évolutions technologiques de l'industrie automobile. En collaboration avec des experts du secteur, des outils modernes et à des formations spécialisées, nous allons les aider à exercer en compétence et à offrir des services de qualité aux clients tout en respectant les normes et standards du métier.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision -->
+    <div class="col-md-6 mb-4">
+      <div class="d-flex">
+        <div class="icon-circle">
+          <i class="fas fa-eye"></i>
+        </div>
+        <div>
+          <h4>Notre Vision</h4>
+          <p style="text-align: justify;">
+            Créer un écosystème où les mécaniciens peuvent former leur technologie de pointe, offrir des services fiables, sécurisés et contribuer au développement et à la professionnalisation du secteur automobile.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engagements -->
+    <div class="col-md-6 mb-4">
+      <div class="d-flex">
+        <div class="icon-circle">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <div>
+          <h4>Nos Engagements</h4>
+          <p style="text-align: justify;">
+            AutoService Global (AG) s'engage à soutenir activement la modernisation du métier automobile au Sénégal. Nous accompagnons les mécaniciens dans leur développement professionnel, en nous assurant qu'ils répondent aux normes réglementaires. Nous nous engageons également à établir des partenariats stratégiques avec des acteurs clés du secteur pour donné mécanicien puisse évoluer avec les nouvelles technologies. En collaborant avec des garages certifiés et des experts qualifiés, nous contribuons au centre des services sûrs, fiables et professionnels.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- VIDEO SECTION -->
+<h3 class="section-title">Comment nous pratiquons</h3>
+<div
+  class="video-section"
+  (click)="openVideo()"
+  *ngIf="!showVideo"
+  [style.background-image]="'url(' + videoThumbnail + ')'">
+  <div class="play-button">
+    <i class="fas fa-play fa-2x"></i>
+  </div>
+</div>
+
+<!-- Overlay de la vidéo -->
+<div class="video-overlay" *ngIf="showVideo">
+  <div class="video-container">
+    <button class="close-button" (click)="closeVideo()">
+      <i class="fas fa-times"></i>
+    </button>
+    <iframe
+      [src]="videoUrl"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<!-- Section Experts -->
+<div class="container text-center py-5">
+  <h2 class="mb-4">Nos experts</h2>
+  <p class="mb-5 text-expert" style="text-align: justify;">
+    Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et
+  </p>
+  <div class="row justify-content-center mb-5">
+    @for (expert of experts; track expert.name) {
+      <div class="col-md-4">
+        <img [src]="expert.image" [alt]="expert.alt" class="expert-image mb-3">
+        <h5>{{ expert.name }}</h5>
+        <p>{{ expert.role }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- Section Témoignages -->
+  <h2 class="mb-5">Témoignage des clients</h2>
+  <div class="row justify-content-center">
+    @for (testimonial of testimonials; track testimonial.author) {
+      <div class="col-md-5 mb-4">
+        <div class="star-rating mb-3">
+          @for (star of [1,2,3,4,5]; track star) {
+            <i class="fas fa-star"></i>
+          }
+        </div>
+        <p class="testimonial-text mb-4" style="text-align: justify;">
+          "{{ testimonial.text }}"
+        </p>
+        <img [src]="testimonial.image" [alt]="testimonial.author" class="testimonial-image mb-2">
+        <h6>{{ testimonial.author }}</h6>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Section CEO -->
+<!-- <div class="container">
+  <img [src]="ceoInfo.image"
+       [alt]="ceoInfo.name"
+       class="profile-img">
+  <div class="name">{{ ceoInfo.name }}</div>
+  <div class="title">{{ ceoInfo.title }}</div>
+  <div class="quote" style="text-align: justify;">
+    "{{ ceoInfo.quote }}"
+  </div>
+</div> -->
+
+<app-footer/>

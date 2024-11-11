@@ -1,182 +1,198 @@
-<app-sidbar/>
+<app-sidbar />
 <main class="col-md-10 ms-sm-auto px-md-4">
-  <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Formations</h5>
-                  <p class="card-text">03</p>
+  <div class="container">
+    <!-- Section des statistiques détaillées -->
+    <div class="row mt-4 mb-4">
+      <!-- Card Formations -->
+      <div class="col-md-4">
+        <div class="card h-120">
+          <div class="card-body">
+            <h5 class="card-title">Formations</h5>
+            <div class="stats-content">
+              <div class="stat-item mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Total:</strong>
+                  <span>{{ contentStats.formations.total }}</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-primary"
+                       role="progressbar"
+                       [style.width]="(contentStats.formations.total / getMaxTotal()) * 100 + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.formations.total"
+                       aria-valuemax="100">
+                  </div>
+                </div>
               </div>
-          </div>
-      </div>
-  </div>
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Partenaires</h5>
-                  <p class="card-text">03</p>
+              <div class="stat-item mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Avec vidéos:</strong>
+                  <span>{{ contentStats.formations.withVideosPercentage }}%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-success"
+                       role="progressbar"
+                       [style.width]="contentStats.formations.withVideosPercentage + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.formations.withVideosPercentage"
+                       aria-valuemax="100">
+                  </div>
+                </div>
               </div>
-          </div>
-      </div>
-  </div>
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Services</h5>
-                  <p class="card-text">03</p>
+              <div class="stat-item">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Moyenne vidéos/formation:</strong>
+                  <span>{{ contentStats.formations.averageVideosPerFormation }}</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-info"
+                       role="progressbar"
+                       [style.width]="(contentStats.formations.averageVideosPerFormation / 10) * 100 + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.formations.averageVideosPerFormation"
+                       aria-valuemax="10">
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Vidéos</h5>
-                  <p class="card-text">03</p>
+
+      <!-- Card Vidéos -->
+      <div class="col-md-4">
+        <div class="card h-120">
+          <div class="card-body">
+            <h5 class="card-title">Vidéos</h5>
+            <div class="stats-content">
+              <div class="stat-item mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Total:</strong>
+                  <span>{{ contentStats.videos.total }}</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-primary"
+                       role="progressbar"
+                       [style.width]="(contentStats.videos.total / getMaxTotal()) * 100 + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.videos.total"
+                       aria-valuemax="100">
+                  </div>
+                </div>
               </div>
-          </div>
-      </div>
-  </div>
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Produis</h5>
-                  <p class="card-text">03</p>
+              <div class="stat-item mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Avec ressources:</strong>
+                  <span>{{ contentStats.videos.withResourcesPercentage }}%</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-success"
+                       role="progressbar"
+                       [style.width]="contentStats.videos.withResourcesPercentage + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.videos.withResourcesPercentage"
+                       aria-valuemax="100">
+                  </div>
+                </div>
               </div>
-          </div>
-      </div>
-  </div>
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Commandes</h5>
-                  <p class="card-text">03</p>
+              <div class="stat-item">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Moyenne ressources/vidéo:</strong>
+                  <span>{{ contentStats.videos.averageResourcesPerVideo }}</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-info"
+                       role="progressbar"
+                       [style.width]="(contentStats.videos.averageResourcesPerVideo / 10) * 100 + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.videos.averageResourcesPerVideo"
+                       aria-valuemax="10">
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-  <div class="col">
-      <div class="card">
-          <div class="card-body d-flex align-items-center">
-              <div class="card-icon rounded me-3"></div>
-              <div>
-                  <h5 class="card-title mb-0">Articles</h5>
-                  <p class="card-text">03</p>
+
+      <!-- Card Ressources -->
+      <div class="col-md-4">
+        <div class="card h-120">
+          <div class="card-body">
+            <h5 class="card-title">Ressources</h5>
+            <div class="stats-content">
+              <div class="stat-item mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Total:</strong>
+                  <span>{{ contentStats.resources.total }}</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-primary"
+                       role="progressbar"
+                       [style.width]="(contentStats.resources.total / getMaxTotal()) * 100 + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.resources.total"
+                       aria-valuemax="100">
+                  </div>
+                </div>
               </div>
+              <div class="stat-item">
+                <div class="d-flex justify-content-between mb-1">
+                  <strong>Moyenne par vidéo:</strong>
+                  <span>{{ contentStats.resources.averagePerVideo }}</span>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar bg-info"
+                       role="progressbar"
+                       [style.width]="(contentStats.resources.averagePerVideo / 10) * 100 + '%'"
+                       aria-valuemin="0"
+                       [attr.aria-valuenow]="contentStats.resources.averagePerVideo"
+                       aria-valuemax="10">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Dernière mise à jour -->
+    <div class="row mb-3">
+      <div class="col">
+        <small class="text-muted">
+          Dernière mise à jour: {{ contentStats.lastUpdate }}
+        </small>
+      </div>
+    </div>
+
+    <!-- Section des graphiques -->
+    <div class="row">
+      <!-- Graphique des utilisateurs -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <canvas baseChart
+              [data]="doughnutChartData"
+              [options]="doughnutChartOptions"
+              [type]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphique du contenu -->
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card">
+            <canvas baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<h4 class="mb-3">Listes des étudiants inscrit</h4>
-<div class="table-responsive">
-  <table class="table table-hover">
-      <thead>
-          <tr>
-              <th>Nom</th>
-              <th>email</th>
-              <th>formation</th>
-              <th>téléphone</th>
-              <th>Action</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td>
-                  <img alt="T-shirt icon" class="me-2" height="30" src="https://replicate.delivery/yhqm/gaKddA3CMC60EN86OsavFiZLIe4OX2jy1mHRbLWzAKZTITwJA/out-0.png" width="30"/>
-                  Nom complet
-              </td>
-              <td>185000 francs</td>
-              <td>Electronique</td>
-              <td>20</td>
-              <td>
-                  <button class="btn btn-dark action-btn"><i class="fas fa-eye"></i></button>
-                  <button class="btn btn-warning action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger action-btn"><i class="fas fa-trash"></i></button>
-              </td>
-          </tr>
-          <tr>
-              <td>
-                  <img alt="T-shirt icon" class="me-2" height="30" src="https://replicate.delivery/yhqm/gaKddA3CMC60EN86OsavFiZLIe4OX2jy1mHRbLWzAKZTITwJA/out-0.png" width="30"/>
-                  nom produits
-              </td>
-              <td>185000 francs</td>
-              <td>Electronique</td>
-              <td>20</td>
-              <td>
-                  <button class="btn btn-dark action-btn"><i class="fas fa-eye"></i></button>
-                  <button class="btn btn-warning action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger action-btn"><i class="fas fa-trash"></i></button>
-              </td>
-          </tr>
-          <tr>
-              <td>
-                  <img alt="T-shirt icon" class="me-2" height="30" src="https://replicate.delivery/yhqm/gaKddA3CMC60EN86OsavFiZLIe4OX2jy1mHRbLWzAKZTITwJA/out-0.png" width="30"/>
-                  nom produits
-              </td>
-              <td>185000 francs</td>
-              <td>Electronique</td>
-              <td>20</td>
-              <td>
-                  <button class="btn btn-dark action-btn"><i class="fas fa-eye"></i></button>
-                  <button class="btn btn-warning action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger action-btn"><i class="fas fa-trash"></i></button>
-              </td>
-          </tr>
-          <tr>
-              <td>
-                  <img alt="T-shirt icon" class="me-2" height="30" src="https://replicate.delivery/yhqm/gaKddA3CMC60EN86OsavFiZLIe4OX2jy1mHRbLWzAKZTITwJA/out-0.png" width="30"/>
-                  nom produits
-              </td>
-              <td>185000 francs</td>
-              <td>Electricité</td>
-              <td>20</td>
-              <td>
-                  <button class="btn btn-dark action-btn"><i class="fas fa-eye"></i></button>
-                  <button class="btn btn-warning action-btn"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-danger action-btn"><i class="fas fa-trash"></i></button>
-              </td>
-          </tr>
-          <tr>
-            <td>
-                <img alt="T-shirt icon" class="me-2" height="30" src="https://replicate.delivery/yhqm/gaKddA3CMC60EN86OsavFiZLIe4OX2jy1mHRbLWzAKZTITwJA/out-0.png" width="30"/>
-                nom produits
-            </td>
-            <td>185000 francs</td>
-            <td>Electricité</td>
-            <td>20</td>
-            <td>
-                <button class="btn btn-dark action-btn"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-warning action-btn"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger action-btn"><i class="fas fa-trash"></i></button>
-            </td>
-        </tr>
-        <tr>
-          <td>
-              <img alt="T-shirt icon" class="me-2" height="30" src="https://replicate.delivery/yhqm/gaKddA3CMC60EN86OsavFiZLIe4OX2jy1mHRbLWzAKZTITwJA/out-0.png" width="30"/>
-              nom produits
-          </td>
-          <td>185000 francs</td>
-          <td>Electricité</td>
-          <td>20</td>
-          <td>
-              <button class="btn btn-dark action-btn"><i class="fas fa-eye"></i></button>
-              <button class="btn btn-warning action-btn"><i class="fas fa-edit"></i></button>
-              <button class="btn btn-danger action-btn"><i class="fas fa-trash"></i></button>
-          </td>
-      </tr>
-      </tbody>
-  </table>
-</div>
 </main>

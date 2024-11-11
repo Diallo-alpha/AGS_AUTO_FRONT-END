@@ -1,0 +1,24 @@
+.modal-title {
+  font-weight: bold;
+}
+.price {
+  color: #9C490C;
+  font-weight: bolder;
+}
+.btn-add-to-cart {
+  background-color: #9C490C;
+  color: white;
+}
+.close {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+}
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+}
+.btn-secondary{
+  background-color: #222;
+  border: none;
+}

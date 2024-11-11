@@ -12,7 +12,10 @@ import { RouterModule } from '@angular/router';
 import { ReduirePipe } from '../pipe/reduire';
 import { CartService } from '../services/cart-item.service';
 import { CartItem } from '../models/CartItemModel';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProduitModalComponent } from '../produit-modal/produit-modal.component';
+import { supprimerZeroPipe } from '../pipe/supprimerZero';
+import Swal from 'sweetalert2';
 interface PaginatedResponse<T> {
   current_page: number;
   data: T[];
@@ -32,7 +35,7 @@ interface PaginatedResponse<T> {
 @Component({
   selector: 'app-achat',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe],
+  imports: [NavbarComponent, FooterComponent, NavConnectComponent, CommonModule, RouterModule, ReduirePipe, supprimerZeroPipe],
   templateUrl: './achat.component.html',
   styleUrl: './achat.component.css'
 })
@@ -42,11 +45,20 @@ export class AchatComponent implements OnInit {
   category2Products: Produit[] = [];
   category3Products: Produit[] = [];
 
+  currentIndex: Record<string, number> = {
+    category1Products: 0,
+    category2Products: 0,
+    category3Products: 0
+  };
+
+  itemsPerPage = 4;
+
   constructor(
     private authService: AuthService,
     private produitService: ProduitService,
     private categorieService: CategorieService,
-    private cartService: CartService
+    private cartService: CartService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -70,7 +82,7 @@ export class AchatComponent implements OnInit {
   loadProductsByCategory(categoryId: number, categoryIndex: number) {
     this.produitService.getProductsByCategory(categoryId).subscribe(
       (response: PaginatedResponse<Produit>) => {
-        const productsToDisplay = response.data.slice(0, 4);
+        const productsToDisplay = response.data;
         switch (categoryIndex) {
           case 1:
             this.category1Products = productsToDisplay;
@@ -90,6 +102,16 @@ export class AchatComponent implements OnInit {
   }
 
   addToCart(product: Produit) {
+    if (!this.authService.isAuthenticated()) {
+      Swal.fire({
+        title: 'Authentification requise',
+        text: 'Vous devez vous connecter pour ajouter des articles au panier.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
     const cartItem: Omit<CartItem, 'quantite'> = {
       id: product.id,
       type: 'produit',
@@ -98,15 +120,66 @@ export class AchatComponent implements OnInit {
     };
     this.cartService.addToCart(cartItem, 1).subscribe(
       () => {
-        console.log('Product added to cart:', product.nom_produit);
+        Swal.fire({
+          title: 'Ajouté au panier',
+          text: `${product.nom_produit} a été ajouté à votre panier.`,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
       },
-      error => {
+      (error) => {
         console.error('Error adding product to cart:', error);
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de l\'ajout au panier.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
     );
   }
 
+  openProductModal(product: Produit) {
+    const modalRef = this.modalService.open(ProduitModalComponent);
+    modalRef.componentInstance.product = product;
+  }
+
   isEtudiant(): boolean {
     return this.authService.isEtudiant();
+  }
+
+  prevProduct(category: string): void {
+    if (this.currentIndex[category] > 0) {
+      this.currentIndex[category] -= this.itemsPerPage;
+      if (this.currentIndex[category] < 0) {
+        this.currentIndex[category] = 0;
+      }
+    }
+  }
+
+  nextProduct(category: string): void {
+    const categoryProducts = this.getCategoryProducts(category);
+    if (this.currentIndex[category] + this.itemsPerPage < categoryProducts.length) {
+      this.currentIndex[category] += this.itemsPerPage;
+    }
+  }
+
+  getVisibleProducts(category: string): Produit[] {
+    const categoryProducts = this.getCategoryProducts(category);
+    const startIndex = this.currentIndex[category];
+    return categoryProducts.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  getCategoryProducts(category: string): Produit[] {
+    switch (category) {
+      case 'category1Products':
+        return this.category1Products;
+      case 'category2Products':
+        return this.category2Products;
+      case 'category3Products':
+        return this.category3Products;
+      default:
+        return [];
+    }
   }
 }
