@@ -105,10 +105,10 @@
               <div class="qr-code">
                 <img src="assets/images/qr-code.png" alt="QR code for payment">
               </div>
-              <div class="total-price">
+              <div class="total-price" (click)="initiatePayment()">
                 {{ totalPrice | currency:'XOF':'symbol':'1.0-0' }}
               </div>
-              <button (click)="initiatePayment()" class="btn btn-primary mt-3" [disabled]="isLoading || cartItems.length === 0">Payer maintenant</button>
+              <!-- <button  class="btn btn-primary mt-3" [disabled]="isLoading || cartItems.length === 0">Payer maintenant</button> -->
             </div>
           </div>
         </div>
