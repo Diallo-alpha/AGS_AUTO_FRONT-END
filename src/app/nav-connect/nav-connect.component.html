@@ -108,7 +108,7 @@
               <div class="total-price">
                 {{ totalPrice | currency:'XOF':'symbol':'1.0-0' }}
               </div>
-              <button class="btn btn-primary mt-3" [disabled]="isLoading || cartItems.length === 0">Payer maintenant</button>
+              <button (click)="initiatePayment()" class="btn btn-primary mt-3" [disabled]="isLoading || cartItems.length === 0">Payer maintenant</button>
             </div>
           </div>
         </div>
