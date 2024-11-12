@@ -19,8 +19,8 @@
           <tbody>
               @for (commande of commandes; track commande.id) {
                 <tr>
-                  <td>#{{ commande.id }}</td>
-                  <td>{{ commande.nom_complet }}</td>
+                  <td>+221{{ commande.user.telephone }}</td>
+                  <td>{{ commande.user.nom_complet }}</td>
                   <td>{{ commande.somme }} francs</td>
                   <td>{{ commande.created_at | date:'dd/MM/yyyy' }}</td>
                   <td>
