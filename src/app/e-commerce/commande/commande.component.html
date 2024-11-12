@@ -2,73 +2,66 @@
 <div class="container-fluid">
   <div class="col-md-10 content">
       <section class="d-flex justify-content-between align-items-center mb-3">
-          <h3>Produits</h3>
-          <button class="add-btn">
-              <i class="fas fa-plus" routerLink="/e-commerce/produits/ajouter"></i>
-          </button>
+          <h3>Listes des commandes</h3>
       </section>
 
       <table class="table">
           <thead>
               <tr>
-                  <th>Nom et image</th>
-                  <th>Prix</th>
-                  <th>Catégories</th>
-                  <th>Stock</th>
-                  <th>Action</th>
+                <th>ID Commande</th>
+                <th>Client</th>
+                <th>Montant</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Action</th>
               </tr>
           </thead>
           <tbody>
-              <!-- Repeatable Product Row Start -->
-              <tr>
+              @for (commande of commandes; track commande.id) {
+                <tr>
+                  <td>#{{ commande.id }}</td>
+                  <td>{{ commande.nom_complet }}</td>
+                  <td>{{ commande.somme }} francs</td>
+                  <td>{{ commande.created_at | date:'dd/MM/yyyy' }}</td>
                   <td>
-                      <img
-                          alt="T-shirt noir"
-                          class="me-2"
-                          height="30"
-                          src="https://replicate.delivery/yhqm/uf330KSgAL3QS646rfYecCfT3MtwwANeGOGoTlNUPhUk38kcC/out-0.png"
-                          width="30"
-                      />
-                      nom produit
+                    <span [class]="getStatusClass(commande.status)">
+                      {{ commande.status }}
+                    </span>
                   </td>
-                  <td>185,000 francs</td>
-                  <td>Électronique</td>
-                  <td>20</td>
                   <td>
-                      <button class="action-btn view-btn">
-                          <i class="fas fa-eye"></i>
-                      </button>
-                      <button class="action-btn edit-btn">
-                          <i class="fas fa-edit"></i>
-                      </button>
-                      <button class="action-btn delete-btn">
-                          <i class="fas fa-trash"></i>
-                      </button>
+                    <button class="action-btn view-btn" (click)="viewCommande(commande.id)">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn edit-btn" (click)="editCommande(commande.id)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn delete-btn" (click)="deleteCommande(commande.id)">
+                      <i class="fas fa-trash"></i>
+                    </button>
                   </td>
-              </tr>
-              <!-- Repeatable Product Row End -->
-              <!-- Add more product rows as needed -->
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="6" class="text-center">Aucune commande trouvée</td>
+                </tr>
+              }
           </tbody>
       </table>
 
       <nav>
-          <ul class="pagination justify-content-end">
-              <li class="page-item">
-                  <a class="page-link" href="#">Précédent</a>
-              </li>
-              <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link" href="#">Suivant</a>
-              </li>
-          </ul>
+        <ul class="pagination justify-content-end">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(currentPage - 1)">Précédent</a>
+          </li>
+          @for (page of getPages(); track page) {
+            <li class="page-item" [class.active]="currentPage === page">
+              <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+            </li>
+          }
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" (click)="changePage(currentPage + 1)">Suivant</a>
+          </li>
+        </ul>
       </nav>
   </div>
 </div>

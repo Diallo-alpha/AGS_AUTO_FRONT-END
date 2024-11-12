@@ -8,7 +8,7 @@ import { apiUrl } from './apiUrl';
   providedIn: 'root'
 })
 export class CommentaireService {
-  private apiUrl = apiUrl;
+  private apiUrl = apiUrl; 
 
   constructor(private http: HttpClient) { }
 
