@@ -39,6 +39,21 @@
               Le mot de passe doit contenir au moins 6 caractères.
             </div>
           </div>
+          <div class="mb-4">
+            <label class="form-label" for="confirmationMotDePasse">Confirmer le mot de passe</label>
+            <input
+              class="form-control"
+              id="confirmationMotDePasse"
+              type="password"
+              [(ngModel)]="user.password_confirmation"
+              name="password_confirmation"
+              required
+              placeholder="••••••"
+              #passwordConfirm="ngModel" />
+            <div *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)" class="text-danger">
+              La confirmation du mot de passe est requise.
+            </div>
+          </div>
           <button class="btn btn-inscription w-100 py-2" type="submit" [disabled]="!inscriptionForm.form.valid">Inscription</button>
         </form>
         <div *ngIf="errorMessage" class="alert alert-danger mt-3">

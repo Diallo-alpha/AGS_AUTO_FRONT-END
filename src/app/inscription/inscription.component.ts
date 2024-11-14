@@ -17,7 +17,8 @@ export class InscriptionComponent {
     nom_complet: '',
     email: '',
     telephone: '',
-    password: ''
+    password: '',
+    password_confirmation: '' 
   };
   errorMessage: string = '';
 
@@ -32,7 +33,13 @@ export class InscriptionComponent {
         },
         error: (error) => {
           console.error('Erreur d\'inscription', error);
-          this.errorMessage = error.message || 'Une erreur est survenue lors de l\'inscription.';
+          if (error.error && typeof error.error === 'object') {
+            // Gestion des erreurs de validation du backend
+            const errorMessages = Object.values(error.error).flat();
+            this.errorMessage = errorMessages.join('\n');
+          } else {
+            this.errorMessage = error.message || 'Une erreur est survenue lors de l\'inscription.';
+          }
         }
       });
     }
@@ -53,6 +60,14 @@ export class InscriptionComponent {
     }
     if (!this.user.password || this.user.password.length < 6) {
       this.errorMessage = 'Le mot de passe doit contenir au moins 6 caractères.';
+      return false;
+    }
+    if (!this.user.password_confirmation) {
+      this.errorMessage = 'La confirmation du mot de passe est requise.';
+      return false;
+    }
+    if (this.user.password !== this.user.password_confirmation) {
+      this.errorMessage = 'Les mots de passe ne correspondent pas.';
       return false;
     }
     this.errorMessage = '';
