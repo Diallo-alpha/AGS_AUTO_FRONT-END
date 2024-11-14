@@ -18,9 +18,11 @@ export class InscriptionComponent {
     email: '',
     telephone: '',
     password: '',
-    password_confirmation: '' 
+    password_confirmation: ''
   };
   errorMessage: string = '';
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -82,5 +84,12 @@ export class InscriptionComponent {
   isValidPhone(phone: string): boolean {
     const phoneRegex = /^[0-9]{9}$/;
     return phoneRegex.test(phone);
+  }
+  togglePasswordVisibility(field: 'password' | 'confirmation') {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
   }
 }
