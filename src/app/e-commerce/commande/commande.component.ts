@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { SidbarComponent } from '../../dashboard/sidbar/sidbar.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CommandesService } from '../../services/commandes.service';
 import { CommandeModel } from '../../models/commandeModel';
-
+import { supprimerZeroPipe } from '../../pipe/supprimerZero';
 @Component({
   selector: 'app-commande',
   standalone: true,
-  imports: [SidbarComponent, RouterModule, CommonModule],
+  imports: [SidbarComponent, RouterModule, CommonModule, FormsModule, supprimerZeroPipe],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.css'
 })
@@ -17,13 +18,14 @@ export class CommandeComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 10;
+  statusOptions: string[] = ['en attente', 'liverer'];
 
   constructor(private commandeService: CommandesService) {}
 
   ngOnInit() {
     this.loadCommandes();
   }
-  // Charger les commandes
+
   loadCommandes() {
     this.commandeService.getAllCommandes().subscribe({
       next: (data) => {
@@ -35,31 +37,44 @@ export class CommandeComponent {
       }
     });
   }
-  //
+
+  updateStatus(commande: CommandeModel, newStatus: string) {
+    const updateData = {
+      ...commande,
+      status: newStatus
+    };
+
+    this.commandeService.updateCommande(commande.id, updateData).subscribe({
+      next: () => {
+        commande.status = newStatus;
+        console.log('Statut mis à jour avec succès');
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour du statut', error);
+      }
+    });
+  }
+
+  // Reste du code existant...
   viewCommande(id: number) {
-    // Implémenter la logique pour voir les détails
     console.log('Voir commande:', id);
   }
-  //
+
   editCommande(id: number) {
-    // Implémenter la logique pour éditer
     console.log('Éditer commande:', id);
   }
-  //statut de la commandes
+
   getStatusClass(status: string): string {
     switch (status.toLowerCase()) {
       case 'en attente':
         return 'status-pending';
-      case 'complétée':
+      case 'liverer':
         return 'status-completed';
-      case 'annulée':
-        return 'status-cancelled';
       default:
         return '';
     }
   }
 
-  //supprimmer une commande
   deleteCommande(id: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette commande ?')) {
       this.commandeService.deleteCommande(id).subscribe({

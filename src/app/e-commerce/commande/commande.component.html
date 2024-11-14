@@ -1,67 +1,73 @@
 <app-sidbar></app-sidbar>
 <div class="container-fluid">
   <div class="col-md-10 content">
-      <section class="d-flex justify-content-between align-items-center mb-3">
-          <h3>Listes des commandes</h3>
-      </section>
+    <section class="d-flex justify-content-between align-items-center mb-3">
+      <h3>Listes des commandes</h3>
+    </section>
 
-      <table class="table">
-          <thead>
-              <tr>
-                <th>N° Téléphone</th>
-                <th>Client</th>
-                <th>Montant</th>
-                <th>Date</th>
-                <th>Statut</th>
-                <th>Action</th>
-              </tr>
-          </thead>
-          <tbody>
-              @for (commande of commandes; track commande.id) {
-                <tr>
-                  <td>+221{{ commande.user.telephone }}</td>
-                  <td>{{ commande.user.nom_complet }}</td>
-                  <td>{{ commande.somme }} francs</td>
-                  <td>{{ commande.created_at | date:'dd/MM/yyyy' }}</td>
-                  <td>
-                    <span [class]="getStatusClass(commande.status)">
-                      {{ commande.status }}
-                    </span>
-                  </td>
-                  <td>
-                    <button class="action-btn view-btn" (click)="viewCommande(commande.id)">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="action-btn edit-btn" (click)="editCommande(commande.id)">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn delete-btn" (click)="deleteCommande(commande.id)">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              } @empty {
-                <tr>
-                  <td colspan="6" class="text-center">Aucune commande trouvée</td>
-                </tr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>N° Téléphone</th>
+          <th>Client</th>
+          <th>Montant</th>
+          <th>Date</th>
+          <th>Statut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (commande of commandes; track commande.id) {
+        <tr>
+          <td>+221{{ commande.user.telephone }}</td>
+          <td>{{ commande.user.nom_complet }}</td>
+          <td>{{ commande.somme | supprimer }} francs</td>
+          <td>{{ commande.created_at | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <select
+              [(ngModel)]="commande.status"
+              (change)="updateStatus(commande, commande.status)"
+              class="form-select form-select-sm"
+              [class]="getStatusClass(commande.status)">
+              @for (status of statusOptions; track status) {
+                <option [value]="status">{{ status }}</option>
               }
-          </tbody>
-      </table>
+            </select>
+          </td>
+          <td>
+            <button class="action-btn view-btn" (click)="viewCommande(commande.id)">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="action-btn edit-btn" (click)="editCommande(commande.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="action-btn delete-btn" (click)="deleteCommande(commande.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="6" class="text-center">Aucune commande trouvée</td>
+        </tr>
+        }
+      </tbody>
+    </table>
 
-      <nav>
-        <ul class="pagination justify-content-end">
-          <li class="page-item" [class.disabled]="currentPage === 1">
-            <a class="page-link" (click)="changePage(currentPage - 1)">Précédent</a>
-          </li>
-          @for (page of getPages(); track page) {
-            <li class="page-item" [class.active]="currentPage === page">
-              <a class="page-link" (click)="changePage(page)">{{ page }}</a>
-            </li>
-          }
-          <li class="page-item" [class.disabled]="currentPage === totalPages">
-            <a class="page-link" (click)="changePage(currentPage + 1)">Suivant</a>
-          </li>
-        </ul>
-      </nav>
+    <nav>
+      <ul class="pagination justify-content-end">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="changePage(currentPage - 1)">Précédent</a>
+        </li>
+        @for (page of getPages(); track page) {
+        <li class="page-item" [class.active]="currentPage === page">
+          <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+        </li>
+        }
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="changePage(currentPage + 1)">Suivant</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
