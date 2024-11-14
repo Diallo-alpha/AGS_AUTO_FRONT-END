@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Formation } from '../models/FormationModel';
 import { FormationService } from '../services/formation.service';
 import { VideoService } from '../services/video-service.service';
@@ -12,7 +12,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { NavConnectComponent } from '../nav-connect/nav-connect.component';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detailformation',
   standalone: true,
@@ -30,6 +30,7 @@ export class DetailformationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private formationService: FormationService,
     private videoService: VideoService,
     private paymentService: PaymentService,
@@ -82,6 +83,27 @@ export class DetailformationComponent implements OnInit {
   }
 
   initiatePayment(): void {
+    if (!this.authService.isAuthenticated()) {
+      Swal.fire({
+        title: 'Authentification requise',
+        text: 'Vous devez vous connecter pour acheter cette formation',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9C4902',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Se connecter',
+        cancelButtonText: 'Annuler'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const returnUrl = this.router.url;
+          this.router.navigate(['/login'], {
+            queryParams: { returnUrl: returnUrl }
+          });
+        }
+      });
+      return;
+    }
+
     if (!this.formation) {
       this.errorMessage = 'Aucune formation sélectionnée pour le paiement.';
       return;
@@ -94,31 +116,54 @@ export class DetailformationComponent implements OnInit {
       .pipe(
         catchError((error) => {
           console.error('Erreur lors du processus de paiement', error);
-          this.errorMessage = 'Erreur lors du processus de paiement. Veuillez réessayer plus tard.';
+          Swal.fire({
+            title: 'Erreur',
+            text: 'Une erreur est survenue lors du processus de paiement. Veuillez réessayer plus tard.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
           return throwError(() => new Error(this.errorMessage));
         }),
         finalize(() => this.isLoading = false)
       )
-      .subscribe(async (paymentResponse) => {
-        console.log('Payment response received:', paymentResponse);
-        if (paymentResponse && paymentResponse.success && paymentResponse.redirect_url) {
-          console.log('Attempting to open payment window');
-          try {
-            this.transactionId = paymentResponse.transaction_id; // Stockez l'ID de transaction
-            await this.openPaymentWindow(paymentResponse.redirect_url);
-            console.log('Payment window opened, checking status');
-            const paymentStatus = await this.checkPaymentStatus(this.formation!.id);
-            console.log('Payment status:', paymentStatus);
-            if (paymentStatus === 'payé') {
-              await this.finalizePayment(this.formation!.id, this.transactionId);
+      .subscribe({
+        next: async (paymentResponse) => {
+          console.log('Payment response received:', paymentResponse);
+          if (paymentResponse && paymentResponse.success && paymentResponse.redirect_url) {
+            console.log('Attempting to open payment window');
+            try {
+              this.transactionId = paymentResponse.transaction_id;
+              await this.openPaymentWindow(paymentResponse.redirect_url);
+              console.log('Payment window opened, checking status');
+              const paymentStatus = await this.checkPaymentStatus(this.formation!.id);
+              console.log('Payment status:', paymentStatus);
+              if (paymentStatus === 'payé') {
+                await this.finalizePayment(this.formation!.id, this.transactionId);
+                Swal.fire({
+                  title: 'Succès',
+                  text: 'Paiement effectué avec succès !',
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+                });
+              }
+            } catch (error) {
+              console.error('Error in payment process:', error);
+              Swal.fire({
+                title: 'Erreur',
+                text: 'Une erreur est survenue lors du processus de paiement.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              });
             }
-          } catch (error) {
-            console.error('Error in payment process:', error);
-            this.errorMessage = 'Une erreur est survenue lors du processus de paiement.';
+          } else {
+            console.error('Invalid payment response:', paymentResponse);
+            Swal.fire({
+              title: 'Erreur',
+              text: 'Réponse de paiement invalide.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
           }
-        } else {
-          console.error('Invalid payment response:', paymentResponse);
-          this.errorMessage = 'Réponse de paiement invalide.';
         }
       });
   }
