@@ -5,6 +5,7 @@ export interface UserModel {
   telephone: string;
   photo?: string;
   password?: string;
+  password_confirmation?: string;
   role?: string;
 }
 

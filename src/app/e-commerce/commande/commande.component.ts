@@ -6,17 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { CommandesService } from '../../services/commandes.service';
 import { CommandeModel } from '../../models/commandeModel';
 import { supprimerZeroPipe } from '../../pipe/supprimerZero';
-
 @Component({
   selector: 'app-commande',
   standalone: true,
-  imports: [
-    SidbarComponent,
-    RouterModule,
-    CommonModule,
-    FormsModule,
-    supprimerZeroPipe
-  ],
+  imports: [SidbarComponent, RouterModule, CommonModule, FormsModule, supprimerZeroPipe],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.css'
 })
@@ -47,24 +40,22 @@ export class CommandeComponent {
 
   updateStatus(commande: CommandeModel, newStatus: string) {
     const updateData = {
+      ...commande,
       status: newStatus
     };
 
     this.commandeService.updateCommande(commande.id, updateData).subscribe({
-      next: (response) => {
+      next: () => {
         commande.status = newStatus;
         console.log('Statut mis à jour avec succès');
-        // Recharger les données pour s'assurer de la synchronisation
-        this.loadCommandes();
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour du statut', error);
-        // En cas d'erreur, on recharge les données pour revenir à l'état initial
-        this.loadCommandes();
       }
     });
   }
 
+  // Reste du code existant...
   viewCommande(id: number) {
     console.log('Voir commande:', id);
   }
