@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         console.log('Cart items loaded:', this.cartItems);
         this.updateTotal();
         if (this.cartItems.length === 0) {
-          this.addDefaultItems();
+          // this.addDefaultItems();
         }
         this.isLoading = false;
       },
@@ -90,26 +90,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
-  addDefaultItems() {
-    const defaultItems: CartItem[] = [
-      { id: 1, type: 'produit', nom: 'modifier', prix: 100000, quantite: 1 },
-      { id: 2, type: 'produit', nom: 'modifier', prix: 200000, quantite: 1 },
-    ];
+  // addDefaultItems() {
+  //   const defaultItems: CartItem[] = [
+  //     { id: 1, type: 'produit', nom: 'modifier', prix: 100000, quantite: 1 },
+  //     { id: 2, type: 'produit', nom: 'modifier', prix: 200000, quantite: 1 },
+  //   ];
 
-    console.log('Adding default items:', defaultItems);
+  //   console.log('Adding default items:', defaultItems);
 
-    defaultItems.forEach(item => {
-      this.cartService.addToCart(item, item.quantite).subscribe(
-        () => {
-          console.log(`Item ${item.nom} added successfully`);
-        },
-        error => {
-          console.error(`Error adding item ${item.nom}:`, error);
-          this.errorMessage = `Une erreur est survenue lors de l'ajout de ${item.nom}. Veuillez réessayer.`;
-        }
-      );
-    });
-  }
+  //   defaultItems.forEach(item => {
+  //     this.cartService.addToCart(item, item.quantite).subscribe(
+  //       () => {
+  //         console.log(`Item ${item.nom} added successfully`);
+  //       },
+  //       error => {
+  //         console.error(`Error adding item ${item.nom}:`, error);
+  //         this.errorMessage = `Une erreur est survenue lors de l'ajout de ${item.nom}. Veuillez réessayer.`;
+  //       }
+  //     );
+  //   });
+  // }
 
   openCartModal() {
     this.isCartModalOpen = true;
