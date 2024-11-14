@@ -17,9 +17,12 @@ export class InscriptionComponent {
     nom_complet: '',
     email: '',
     telephone: '',
-    password: ''
+    password: '',
+    password_confirmation: ''
   };
   errorMessage: string = '';
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -32,7 +35,13 @@ export class InscriptionComponent {
         },
         error: (error) => {
           console.error('Erreur d\'inscription', error);
-          this.errorMessage = error.message || 'Une erreur est survenue lors de l\'inscription.';
+          if (error.error && typeof error.error === 'object') {
+            // Gestion des erreurs de validation du backend
+            const errorMessages = Object.values(error.error).flat();
+            this.errorMessage = errorMessages.join('\n');
+          } else {
+            this.errorMessage = error.message || 'Une erreur est survenue lors de l\'inscription.';
+          }
         }
       });
     }
@@ -55,6 +64,14 @@ export class InscriptionComponent {
       this.errorMessage = 'Le mot de passe doit contenir au moins 6 caractères.';
       return false;
     }
+    if (!this.user.password_confirmation) {
+      this.errorMessage = 'La confirmation du mot de passe est requise.';
+      return false;
+    }
+    if (this.user.password !== this.user.password_confirmation) {
+      this.errorMessage = 'Les mots de passe ne correspondent pas.';
+      return false;
+    }
     this.errorMessage = '';
     return true;
   }
@@ -67,5 +84,12 @@ export class InscriptionComponent {
   isValidPhone(phone: string): boolean {
     const phoneRegex = /^[0-9]{9}$/;
     return phoneRegex.test(phone);
+  }
+  togglePasswordVisibility(field: 'password' | 'confirmation') {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
   }
 }
