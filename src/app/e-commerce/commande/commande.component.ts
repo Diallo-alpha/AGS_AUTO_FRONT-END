@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommandesService } from '../../services/commandes.service';
 import { CommandeModel } from '../../models/commandeModel';
 import { supprimerZeroPipe } from '../../pipe/supprimerZero';
+
 @Component({
   selector: 'app-commande',
   standalone: true,
@@ -19,6 +20,7 @@ export class CommandeComponent {
   totalPages: number = 1;
   itemsPerPage: number = 10;
   statusOptions: string[] = ['en attente', 'liverer'];
+  filteredCommandes: CommandeModel[] = [];
 
   constructor(private commandeService: CommandesService) {}
 
@@ -31,11 +33,42 @@ export class CommandeComponent {
       next: (data) => {
         this.commandes = data;
         this.totalPages = Math.ceil(this.commandes.length / this.itemsPerPage);
+        this.applyPagination();
       },
       error: (error) => {
         console.error('Erreur lors du chargement des commandes', error);
       }
     });
+  }
+
+  // Méthode pour appliquer la pagination
+  applyPagination() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.filteredCommandes = this.commandes.slice(startIndex, endIndex);
+  }
+
+  // Méthode pour changer de page
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.applyPagination();
+    }
+  }
+
+  // Méthode pour obtenir le tableau des numéros de pages
+  getPages(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  // Méthode pour aller à la première page
+  goToFirstPage() {
+    this.changePage(1);
+  }
+
+  // Méthode pour aller à la dernière page
+  goToLastPage() {
+    this.changePage(this.totalPages);
   }
 
   updateStatus(commande: CommandeModel, newStatus: string) {
@@ -55,7 +88,6 @@ export class CommandeComponent {
     });
   }
 
-  // Reste du code existant...
   viewCommande(id: number) {
     console.log('Voir commande:', id);
   }
@@ -86,15 +118,5 @@ export class CommandeComponent {
         }
       });
     }
-  }
-
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
-  }
-
-  getPages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 }

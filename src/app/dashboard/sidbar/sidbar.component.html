@@ -86,7 +86,7 @@
                       <div class="section-title">UTILISATEURS</div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+                      <a class="nav-link" routerLink="/profil" routerLinkActive="active">
                           <i class="fas fa-user"></i>
                           Profile
                       </a>
@@ -107,13 +107,7 @@
                   {{ unreadCount }}
                 </span>
               </div>
-              <img
-                [src]="currentUser?.photo || 'assets/images/default-profile.png'"
-                alt="Photo de profil"
-                class="rounded-circle"
-                height="40"
-                width="40"
-              />
+              <img [src]="profilePictureUrl" alt="Photo de profil" class="profile-pic rounded-circle" width="40" height="40" routerLink="/profil">
               <a class="nav-link" (click)="logout()" style="cursor: pointer;">
                 <i class="fas fa-sign-out-alt"></i>
               </a>
