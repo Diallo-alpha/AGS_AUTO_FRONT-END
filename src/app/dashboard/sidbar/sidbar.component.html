@@ -104,7 +104,7 @@
               <div class="position-relative me-3" (click)="openNotificationsModal()">
                 <i class="fas fa-bell"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  1
+                  {{ unreadCount }}
                 </span>
               </div>
               <img
@@ -124,20 +124,33 @@
   </div>
 </div>
 
-<!-- Modal Notifications -->
+<!-- notification du modal  -->
 <ng-template #notificationsModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Notifications</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <ul class="list-group">
-      <li class="list-group-item">Nouvelle commande reçue</li>
-      <li class="list-group-item">Mise à jour du système disponible</li>
-      <li class="list-group-item">Nouveau message de support</li>
+    <ul class="list-group" *ngIf="notifications.length > 0; else noNotifications">
+      <li class="list-group-item d-flex justify-content-between align-items-center"
+          *ngFor="let notification of notifications"
+          [class.bg-light]="!notification.read">
+        <div>
+          <p class="mb-1">{{ notification.message }}</p>
+          <small class="text-muted"> une nouveau commande{{ notification.created_at | date:'short' }}</small>
+        </div>
+        <button class="btn btn-sm btn-danger ms-2"
+                (click)="deleteNotification(notification.id)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </li>
     </ul>
+    <ng-template #noNotifications>
+      <p class="text-center py-3">Aucune notification</p>
+    </ng-template>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
   </div>
 </ng-template>
+
