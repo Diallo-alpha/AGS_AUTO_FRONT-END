@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (commande of commandes; track commande.id) {
+        @for (commande of filteredCommandes; track commande.id) {
         <tr>
           <td>+221{{ commande.user.telephone }}</td>
           <td>{{ commande.user.nom_complet }}</td>
@@ -54,18 +54,24 @@
       </tbody>
     </table>
 
-    <nav>
+    <nav aria-label="Navigation des pages">
       <ul class="pagination justify-content-end">
         <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="changePage(currentPage - 1)">Précédent</a>
+          <a class="page-link" (click)="goToFirstPage()" role="button">«</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="changePage(currentPage - 1)" role="button">Précédent</a>
         </li>
         @for (page of getPages(); track page) {
         <li class="page-item" [class.active]="currentPage === page">
-          <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+          <a class="page-link" (click)="changePage(page)" role="button">{{ page }}</a>
         </li>
         }
         <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="changePage(currentPage + 1)">Suivant</a>
+          <a class="page-link" (click)="changePage(currentPage + 1)" role="button">Suivant</a>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="goToLastPage()" role="button">»</a>
         </li>
       </ul>
     </nav>
