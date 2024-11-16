@@ -107,7 +107,7 @@
                   {{ unreadCount }}
                 </span>
               </div>
-              <img [src]="profilePictureUrl" alt="Photo de profil" class="profile-pic rounded-circle" width="40" height="40" routerLink="/profil">
+              <img [src]="getProfilePhotoUrl()" alt="Photo de profil">
               <a class="nav-link" (click)="logout()" style="cursor: pointer;">
                 <i class="fas fa-sign-out-alt"></i>
               </a>
@@ -131,7 +131,7 @@
           [class.bg-light]="!notification.read">
         <div>
           <p class="mb-1">{{ notification.message }}</p>
-          <small class="text-muted"> une nouveau commande{{ notification.created_at | date:'short' }}</small>
+          <small class="text-muted">une nouveau commande{{ notification.created_at | date:'short' }}</small>
         </div>
         <button class="btn btn-sm btn-danger ms-2"
                 (click)="deleteNotification(notification.id)">
@@ -147,4 +147,3 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
   </div>
 </ng-template>
-
