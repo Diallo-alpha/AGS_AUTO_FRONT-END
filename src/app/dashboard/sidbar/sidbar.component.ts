@@ -22,10 +22,10 @@ export class SidbarComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false;
   isEtudiant: boolean = false;
   isClient: boolean = false;
+  profilePictureUrl: string = 'assets/images/default-profile-pic.jpg';
   private subscriptions: Subscription[] = [];
 
   // Constante pour l'image par défaut
-  readonly DEFAULT_PROFILE_IMAGE: string = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNSIgcj0iMjUiIGZpbGw9IiNlMGUwZTAiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjEwMCIgcj0iNDUiIGZpbGw9IiNlMGUwZTAiLz4KPC9zdmc+';
 
   constructor(
     private modalService: NgbModal,
@@ -36,7 +36,7 @@ export class SidbarComponent implements OnInit, OnDestroy {
 
   // Méthode utilitaire pour obtenir l'URL de la photo de profil
   getProfilePhotoUrl(): string {
-    return this.currentUser?.photo || this.DEFAULT_PROFILE_IMAGE;
+    return this.currentUser?.photo || this.profilePictureUrl;
   }
 
   ngOnInit() {
